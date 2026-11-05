@@ -18,7 +18,17 @@ const PROJECTS=[
 ];
 /* Case study mockup images for the rotating cards (6 slots). */
 /* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Veritas, Top Brass, Approval Workflow Builder */
-const MOCKUPS=["assets/images/mockup-1.jpg", "assets/images/mockup-2.jpg", "assets/images/mockup-3.jpg", "assets/images/mockup-4.jpg", "assets/images/mockup-5.jpg", "assets/images/mockup-6.jpg"];
+/* About canvas: personal photos scattered around a draggable canvas.
+   img:"" shows an empty "Your photo" slot. x/y = position in % of the canvas, w = width in px (desktop), r = tilt. */
+const PHOTOS=[
+ {img:"assets/images/life-night-out.jpg",note:"hi, it's me",x:6,y:9,w:180,r:-6,pos:"50% 30%"},
+ {img:"assets/images/life-coffee-award.jpg",note:"officially can't function w/o coffee",x:13,y:55,w:170,r:5,pos:"45% 22%"},
+ {img:"assets/images/life-cafe-view.jpg",note:"coffee with a view",x:22,y:27,w:155,r:-4,pos:"62% 50%"},
+ {img:"assets/images/drawing-4.jpg",note:"pink skies only",x:40,y:7,w:150,r:-3},
+ {img:"assets/images/life-laughing.jpg",note:"laughing at my own jokes",x:74,y:8,w:175,r:6,pos:"50% 35%"},
+ {img:"assets/images/life-hills.jpg",note:"chasing clouds in the hills",x:79,y:52,w:175,r:-4,pos:"50% 62%"},
+ {img:"assets/images/life-my-people.jpg",note:"my people",x:55,y:60,w:170,r:4,pos:"50% 40%"}
+];
 const POSTS=[
  {slug:"job-hunt-tracking",t:"The Job Hunt Has a Tracking Problem",cat:"Concept",d:"A smarter job hunt space to track applications, recruiter outreach, and follow-ups in one place.",tint:"#e4ebe0",body:[
   ["h","The problem"],
@@ -79,7 +89,7 @@ const POSTS=[
 const POSTMAP=Object.fromEntries(POSTS.map(p=>[p.slug,p]));
 /* Testimonials: placeholders until the real quotes arrive. Edit name, role and quote. */
 const TESTIMONIALS=[
- {name:"Paras Rawat",role:"Group Principal, Product Design · managed Devanshi",quote:"I would hire her again onto any team I run. When a brief changed midway, she simply adjusted and kept going, and if she needed a new skill, she learned it and came back with the work done.",initials:"PR",tint:"#E4EAFF"},
+ {name:"Paras Rawat",role:"Group Principal, Product Design · managed Devanshi",quote:"I would hire her again onto any team I run. When a brief changed midway, she simply adjusted and kept going, and if she needed a new skill, she learned it and came back with the work done.",initials:"PR",tint:"#D5EBF7"},
  {name:"Neel Suman Raj",role:"Lead Product Designer · mentor",quote:"On a research product with multiple personas and portals, she was open to feedback, picked things up quickly and grew more confident every month. Thoughtful, detail-minded and easy to collaborate with.",initials:"NR",tint:"#ece8f6"},
  {name:"Ayush Jaiswal",role:"Product Owner · same team",quote:"What stood out was her curiosity and commitment. She asks the right questions, takes feedback well and works to get better every day. Any team would be fortunate to have her.",initials:"AJ",tint:"#e3eef2"},
  {name:"Navin Sah",role:"Senior Product Designer, Jasper Colin",quote:"Her research background gives her an analytical edge in UX. On a complex research platform, she kept turning intricate workflows into intuitive designs.",initials:"NS",tint:"#f3e9dc"},
@@ -97,13 +107,39 @@ const IMG_DRAW2="assets/images/drawing-2.jpg";
 const IMG_DRAW3="assets/images/drawing-3.jpg";
 const IMG_DRAW4="assets/images/drawing-4.jpg";
 const IMG_DRAW5="assets/images/drawing-5.jpg";
-const SKETCHES=[
- {img:IMG_DRAW1,r:"-5deg"},
- {img:IMG_DRAW2,r:"4deg"},
- {img:IMG_DRAW4,r:"-3deg"},
- {img:IMG_DRAW3,r:"6deg"},
- {img:IMG_DRAW5,r:"-4deg"}
+/* Sketchbook wall: a wire grid with paintings, polaroids, quotes and charms pinned to it.
+   t: d = painting, p = polaroid (img:"" shows an empty "Your photo" slot), q = quote card, c = charm, claw = hair clip.
+   x/y/w = desktop position and width in % of the wall, r = tilt. m = [x,y,w] on phones, or null to hide it there. */
+const WALL=[
+ {t:"claw",x:84,y:-6.5,w:10,r:-14,m:[68,-2.4,22]},
+ {t:"c",c:"star",x:3,y:2.5,w:6,r:5,m:[58,31,11]},
+ {t:"d",img:IMG_DRAW2,x:11,y:10,w:10,r:-9,m:[74,29,22]},
+ {t:"q",q:1,x:24,y:4,w:13,r:7,m:[10,25,40]},
+ {t:"p",img:"assets/images/portrait.jpg",note:"hi, it's me",x:41,y:14,w:11,r:-6,m:[54,5,38]},
+ {t:"d",img:IMG_DRAW1,x:54,y:3,w:13,r:10,m:[4,3,44]},
+ {t:"c",c:"heart",x:70,y:2.5,w:5.5,r:-4,m:null},
+ {t:"d",img:IMG_DRAW3,x:77,y:12,w:9.5,r:-8,m:[9,75,26]},
+ {t:"p",img:"assets/images/life-dinner-mirror.jpg",note:"dressed up for dinner",x:2,y:52,w:11,r:-10,m:null},
+ {t:"d",img:IMG_DRAW4,x:16,y:45,w:14,r:6,m:[50,49,42]},
+ {t:"q",q:2,x:33,y:56,w:12,r:-7,m:[5,50,40]},
+ {t:"p",img:"assets/images/life-tiny-mirror.jpg",note:"tiny mirror, big mood",x:48,y:44,w:11,r:9,m:null},
+ {t:"d",img:IMG_DRAW5,x:62,y:40,w:14,r:-5,m:[40,73,40]},
+ {t:"c",c:"tag",x:80,y:48,w:8,r:4,m:[84,72,13]},
+ {t:"c",c:"cloud",x:91,y:40,w:5.5,r:-3,m:null}
 ];
+const QUOTES={
+ 1:`<span class="gw-q-a">people<br>first,</span><span class="gw-q-b">pixels<br>next</span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L23 16 L36 20 L23 24 L20 37 L17 24 L4 20 L17 16Z"/></svg>`,
+ 2:`<span class="gw-q-a">make it</span><span class="gw-q-b">simple.</span><span class="gw-q-a">make it</span><span class="gw-q-b">kind.</span>`
+};
+const PINS=["#AFC5E4","#FBE6B0","#F3C9D3","#FFFDF8"];
+const PIN=c=>`<span class="gw-pin" aria-hidden="true"><svg viewBox="0 0 14 34"><rect x="1" y="1" width="12" height="32" rx="3" fill="${c}" stroke="#26334D" stroke-width="1.6"/><path d="M7 3v28" stroke="#26334D" stroke-width="1.1"/><circle cx="7" cy="13" r="2" fill="#fff" stroke="#26334D" stroke-width="1.1"/></svg></span>`;
+const CHARMS={
+ star:`<svg viewBox="0 0 60 170"><circle cx="30" cy="11" r="8" fill="none" stroke="#26334D" stroke-width="2.6"/><rect x="25" y="18" width="10" height="20" rx="5" fill="#E1EAF6" stroke="#26334D" stroke-width="1.8"/><path d="M30 38 V100" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="50" r="5" fill="#F3C9D3" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="63" r="6" fill="#fff" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="76" r="5" fill="#AFC5E4" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="89" r="4" fill="#fff" stroke="#26334D" stroke-width="1.6"/><path d="M30 99 L37.6 118 L58 119.5 L42.3 132.5 L47.6 152.5 L30 141.3 L12.4 152.5 L17.7 132.5 L2 119.5 L22.4 118Z" fill="#FBE6B0" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/><circle cx="25" cy="127" r="1.8" fill="#26334D"/><circle cx="35" cy="127" r="1.8" fill="#26334D"/><path d="M26 133 Q30 137 34 133" fill="none" stroke="#26334D" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+ heart:`<svg viewBox="0 0 60 170"><circle cx="30" cy="11" r="8" fill="none" stroke="#26334D" stroke-width="2.6"/><rect x="25" y="18" width="10" height="20" rx="5" fill="#E1EAF6" stroke="#26334D" stroke-width="1.8"/><path d="M30 38 V100" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="50" r="5" fill="#fff" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="62" r="5" fill="#fff" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="74" r="5" fill="#fff" stroke="#26334D" stroke-width="1.6"/><path d="M22 92 L30 98 L38 92 L38 104 L30 98 L22 104Z" fill="#F3C9D3" stroke="#26334D" stroke-width="1.6" stroke-linejoin="round"/><path d="M30 156 C8 140 4 126 10 117 C16 108 26 110 30 119 C34 110 44 108 50 117 C56 126 52 140 30 156Z" fill="#AFC5E4" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/><path d="M15 122 C16 118 19 116 22 117" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>`,
+ cloud:`<svg viewBox="0 0 60 150"><circle cx="30" cy="11" r="8" fill="none" stroke="#26334D" stroke-width="2.6"/><rect x="25" y="18" width="10" height="20" rx="5" fill="#E1EAF6" stroke="#26334D" stroke-width="1.8"/><path d="M30 38 V100" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="50" r="5" fill="#FBE6B0" stroke="#26334D" stroke-width="1.6"/><circle cx="30" cy="63" r="5" fill="#fff" stroke="#26334D" stroke-width="1.6"/><path d="M14 132 C5 132 4 119 13 117 C12 106 26 102 31 110 C36 101 51 105 49 117 C58 118 57 132 47 132Z" fill="#fff" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/><circle cx="25" cy="123" r="1.6" fill="#26334D"/><circle cx="35" cy="123" r="1.6" fill="#26334D"/><path d="M27 127 Q30 130 33 127" fill="none" stroke="#26334D" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+ tag:`<svg viewBox="0 0 80 190"><circle cx="40" cy="11" r="8" fill="none" stroke="#26334D" stroke-width="2.6"/><rect x="31" y="18" width="18" height="50" rx="4" fill="#4A6FA5" stroke="#26334D" stroke-width="1.8"/><path d="M35 24 V62 M45 24 V62" stroke="#AFC5E4" stroke-width="1.2" stroke-dasharray="3 3"/><rect x="6" y="62" width="68" height="122" rx="14" fill="#26334D" stroke="#26334D" stroke-width="2"/><rect x="14" y="72" width="52" height="42" rx="7" fill="#E1EAF6"/><text x="40" y="99" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="#26334D">devanshi</text><path d="M40 128 L43 142 L56 146 L43 150 L40 164 L37 150 L24 146 L37 142Z" fill="#FBE6B0"/></svg>`
+};
+const CLAW=`<svg viewBox="0 0 100 70" aria-hidden="true"><g fill="none" stroke-linecap="round">${[14,26,38,50,62,74,86].map((x,i)=>`<path d="M${x} 30 C${x-4} 42 ${x-2} 54 ${x+3} 64" stroke="#26334D" stroke-width="9"/><path d="M${x} 30 C${x-4} 42 ${x-2} 54 ${x+3} 64" stroke="#8FB0DE" stroke-width="5.4"/>`).join("")}</g><path d="M10 34 C14 8 86 8 90 34" fill="none" stroke="#26334D" stroke-width="12" stroke-linecap="round"/><path d="M10 34 C14 8 86 8 90 34" fill="none" stroke="#7FA3D8" stroke-width="8" stroke-linecap="round"/><rect x="6" y="26" width="88" height="12" rx="6" fill="#AFC5E4" stroke="#26334D" stroke-width="2"/><path d="M24 15 C34 10 46 9 56 10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></svg>`;
 
 function art(p){
   const a=p.ac, ink="#2b2c27"; let ui="";
@@ -122,15 +158,9 @@ function art(p){
   }
   return `<svg viewBox="0 0 640 400" role="img" aria-label="${p.name} interface preview">${ui}</svg>`;
 }
-const FD={heart:`<svg viewBox="0 0 40 40"><path d="M20 34 C6 24 4 16 8 11 C12 6 18 8 20 13 C22 8 28 6 32 11 C36 16 34 24 20 34Z" fill="#cdc4ea" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round"/></svg>`,spark:`<svg viewBox="0 0 40 40"><path d="M20 3 L23 16 L36 20 L23 24 L20 37 L17 24 L4 20 L17 16Z" fill="#f0de9b" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round"/></svg>`,leaf:`<svg viewBox="0 0 40 40"><path d="M8 32 C8 14 20 6 34 6 C34 22 26 32 8 32Z" fill="#b9d0b2" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 32 L26 14" stroke="#1f201c" stroke-width="1.8" stroke-linecap="round"/></svg>`,dot:`<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#f1c7ac" stroke="#1f201c" stroke-width="1.8"/></svg>`};
+const FD={heart:`<svg viewBox="0 0 40 40"><path d="M20 34 C6 24 4 16 8 11 C12 6 18 8 20 13 C22 8 28 6 32 11 C36 16 34 24 20 34Z" fill="#AFC5E4" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>`,spark:`<svg viewBox="0 0 40 40"><path d="M20 3 L23 16 L36 20 L23 24 L20 37 L17 24 L4 20 L17 16Z" fill="#FBE6B0" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>`,coffee:`<svg viewBox="0 0 40 40"><path d="M15 10 C13 8 17 6 15 3 M22 10 C20 8 24 6 22 3" fill="none" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M29 19 C35 19 35 28 29 28" fill="none" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M8 15 H30 V26 C30 32 26 36 20 36 H18 C12 36 8 32 8 26 Z" fill="#ebdcc9" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="19" cy="15" rx="11" ry="2.6" fill="#7a4e3a" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>`,pencil:`<svg viewBox="0 0 40 40"><g transform="rotate(-40 20 20)"><rect x="4" y="15.5" width="5" height="9" rx="1.5" fill="#d98e86" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><rect x="9" y="15.5" width="18" height="9" fill="#ebdcc9" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M27 15.5 L36 20 L27 24.5 Z" fill="#f3e6d6" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M32.5 18.25 L36 20 L32.5 21.75 Z" fill="#3b261c"/></g></svg>`};
 const PORTRAIT=`<svg viewBox="0 0 300 300" aria-hidden="true"><rect width="300" height="300" fill="#e4ebe0"/><circle cx="235" cy="70" r="46" fill="#cdc4ea" opacity=".55"/><g fill="none" stroke="#1f201c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M88 300 C88 248 112 228 150 228 C188 228 212 248 212 300"/><path d="M104 132 C96 82 128 60 154 62 C190 64 204 100 196 146 C192 168 186 188 176 200"/><path d="M104 132 C100 162 112 188 142 202 C156 208 168 206 176 200"/><path d="M104 132 C126 122 156 102 168 80"/><path d="M126 150 Q131 145 136 150"/><path d="M158 150 Q163 145 168 150"/><path d="M146 162 C144 168 147 172 152 170"/><path d="M138 184 Q148 191 158 184"/><path d="M138 204 L136 228 M162 204 L164 228"/></g><circle cx="124" cy="170" r="7" fill="#f1c7ac"/><circle cx="172" cy="170" r="7" fill="#f1c7ac"/></svg>`;
 const inlineSketch=s=>s.replace(/class="s"/g,'fill="none" stroke="#2b2a26" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"').replace(/class="t"/g,'opacity=".6"');
-const POLAROIDS=()=>`<button class="polaroids" type="button" aria-label="Shuffle the photo stack">
-  <span class="pol" data-i="0"><span class="img"><img src="${IMG_PORTRAIT}" alt="Devanshi Sharma"></span><span class="cap">that's me ✿</span></span>
-  <span class="pol" data-i="1"><span class="img"><img src="${IMG_DRAW1}" alt="A painting by Devanshi"></span><span class="cap">i draw too</span></span>
-  <span class="pol" data-i="2"><span class="img" style="background:#ece8f6;display:flex;flex-direction:column;gap:4px;justify-content:center;align-items:center"><span style="font-family:var(--f-display);font-weight:700;font-size:2.6rem;line-height:1;letter-spacing:-.05em">2026</span><span class="label" style="color:var(--muted)">portfolio</span></span><span class="cap">open to work!</span></span>
-</button>`;
-
 const slugOf=n=>n.toLowerCase().replace(/[^a-z]+/g,"-");
 const IMGICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>';
 const slot=(src,alt,hint="Cover image")=>src?`<img src="${src}" alt="${alt}" loading="lazy">`:`<div class="slot" role="img" aria-label="${alt}"><i>${IMGICON}${hint}</i></div>`;
@@ -138,7 +168,7 @@ const pcard=p=>`<a class="pcard reveal" href="#${slugOf(p.name)}"><div class="ar
 const jcard=p=>`<a class="jcard reveal" href="#${p.slug}"><span class="label">${p.cat}</span><h3>${p.t}</h3><p class="jd">${p.d}</p><span class="go">Read · ${readTime(p)} min ↗</span></a>`;
 const readTime=p=>Math.max(1,Math.round(p.body.map(b=>Array.isArray(b[1])?b[1].join(" "):b[1]).join(" ").split(/\s+/).length/200));
 const tcard=t=>`<article class="tcard reveal" style="--tint:${t.tint}"><blockquote>“${t.quote}”</blockquote><div class="who"><span class="avatar">${t.initials}</span><div><b>${t.name}</b><span>${t.role}</span></div></div></article>`;
-const head=(label,title,right)=>`<div class="sec-head"><div><span class="label">${label}</span><h2 class="h2">${title}</h2></div>${right||""}</div>`;
+const head=(label,title,right)=>`<div class="sec-head"><div><span class="label tape-label">${label}</span><h2 class="h2">${title}<svg class="squiggle" viewBox="0 0 200 14" aria-hidden="true"><path d="M3 9 C30 2 45 13 70 7 S115 2 140 8 S180 12 197 5"/></svg></h2></div>${right?`<div class="sec-aside">${right}</div>`:""}</div>`;
 
 
 /* ---------- case studies (copy taken from Devanshi's Figma case studies) ---------- */
@@ -322,71 +352,85 @@ c.learnings&&c.learnings.length?sec("Learnings","What I'd carry forward.",`<div 
 const PAGES={
 home:()=>{
   let k=0; const words=s=>s.split(" ").map(w=>`<span class="w" style="animation-delay:${(k++)*.05}s">${w}</span>`).join(" ");
-  const ring=MOCKUPS.map((src,i)=>`<div class="rc" style="transform:rotateY(${i*360/MOCKUPS.length}deg) translateZ(250px)">${slot(src,"Case study mockup "+(i+1),"Mockup")}</div>`).join("");
+  const NOTES=["#FFFDF8","#E1EAF6","#F6F1E6","#EAF0F8"];
   return `<div class="page">
-<section class="wrap hero"><div class="hero-card" id="heroCard">
-  <div class="hero-top"><span class="status"><i></i>Available for work</span><span class="muted">UI/UX Designer · Noida</span></div>
-  <h1 class="mega" id="mega" data-depth="-0.3"><span id="megaIn">${words("Hii, I'm Devanshi")}</span></h1>
-  <div class="hero-row">
-    <div class="hero-left">
-      <p>Research-driven designer making complex products feel calm and simple.</p>
-      <div class="row"><a class="btn dark" href="#work">See work →</a><a class="btn" href="${RESUME}" target="_blank" rel="noopener">Resume ↗</a></div>
+<section class="wrap hero"><div class="hero-card hx" id="heroCard">
+  <div class="hx-grid">
+    <div class="hx-copy">
+      <span class="hx-eyebrow">UI/UX designer · Noida, India</span>
+      <h1 class="hx-title">${words("Hii, I'm Devanshi. I make")} <em>${words("complex products")}</em> ${words("feel")} <em>${words("calm &amp; simple.")}</em></h1>
+      <p class="hx-sub">Research-driven designer with 4+ years across SaaS, dashboards and mobile. People first, pixels next.</p>
+      <div class="row hx-btns"><a class="btn hx-ghost" href="${RESUME}" target="_blank" rel="noopener">Resume ↗</a><a class="btn dark" href="#work">See my work →</a></div>
+      <span class="status tape-label"><i></i>available for work</span>
     </div>
-    <div class="stage" id="stage">
-      <div class="layer" data-depth="1" data-tilt="1">${POLAROIDS()}</div>
-      <span class="fd d1" data-depth="2.2" aria-hidden="true">${FD.heart}</span>
-      <span class="fd d2" data-depth="2.8" aria-hidden="true">${FD.spark}</span>
-      <span class="fd d3" data-depth="1.8" aria-hidden="true">${FD.leaf}</span>
-      <span class="fd d4" data-depth="3.2" aria-hidden="true">${FD.dot}</span>
+    <div class="hx-art" aria-hidden="true">
+      <div class="hx-env" data-depth="0.9"><svg viewBox="0 0 200 132"><rect x="3" y="3" width="194" height="126" rx="6" fill="#FFFDF8" stroke="#D9CFBE" stroke-width="2"/><path d="M5 8 L100 78 L195 8" fill="none" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><circle cx="100" cy="78" r="17" fill="#4A6FA5"/><circle cx="100" cy="78" r="12.5" fill="none" stroke="#AFC5E4" stroke-width="1.6"/><path d="M100 70 L102 76 L108 78 L102 80 L100 86 L98 80 L92 78 L98 76Z" fill="#E1EAF6"/></svg></div>
+      <figure class="hx-photo" data-depth="0.35"><img src="assets/images/hero-selfie.jpg" alt=""></figure>
+      <div class="hx-stamp" data-depth="1.3"><div class="stamp"><svg viewBox="0 0 40 40"><path d="M20 4 L23 16 L35 20 L23 24 L20 36 L17 24 L5 20 L17 16Z"/></svg><span>Devanshi</span></div><svg class="hx-cancel" viewBox="0 0 120 40"><path d="M2 8 C22 2 38 14 58 8 S98 2 118 8 M2 20 C22 14 38 26 58 20 S98 14 118 20 M2 32 C22 26 38 38 58 32 S98 26 118 32"/></svg></div>
+      <span class="fd hx-spark" data-depth="2">${FD.spark}</span>
     </div>
   </div>
 </div></section>
 
 <section class="wrap" id="sec-work">
-  ${head("Selected work","Projects",`<span class="muted" style="font-size:.93rem">${PROJECTS.length} case studies</span>`)}
-  <div class="grid3">${PROJECTS.map(pcard).join("")}</div>
+  ${head("Selected work","Projects",`<p class="hand-aside">${PROJECTS.length} case studies,<br>all made with ♡</p>`)}
+  <div class="collage">${PROJECTS.map(pcard).join("")}</div>
 </section>
 
-<section class="wrap" id="sec-about" style="padding-top:0">
-  <span class="label">About</span>
-  <p class="intro-line reveal">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></p>
-  <div class="about-row reveal">
-    <p>I'm Devanshi, a UX researcher and designer with 4+ years of experience turning user and market insights into simple, intuitive experiences across SaaS, dashboards and mobile. Off the screen, I fill sketchbooks.</p>
-    <div><div class="chips">${["UX Research","Information Architecture","Interaction Design","Design Systems","Prototyping","Usability Testing"].map(c=>`<span class="chip">${c}</span>`).join("")}</div><p class="muted" style="font-size:.88rem;margin-top:14px">Tools: Figma · FigJam · Framer · pen &amp; paper</p></div>
-  </div>
-  <div class="stats-card reveal">
-    <div class="stats">
-      <div class="stat"><b>4+</b><span>Years of experience</span></div>
-      <div class="stat"><b>6</b><span>Case studies</span></div>
-      <div class="stat"><b>4</b><span>Focus areas: SaaS, dashboards, mobile, research</span></div>
+<section class="wrap" id="sec-about">
+  ${head("About me","A little about me",`<p class="hand-aside">people first,<br>pixels next ✦</p>`)}
+  <div class="notebook reveal">
+    <div class="nb-page nb-left">
+      <p class="intro-line">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></p>
+      <p class="nb-text">I'm Devanshi, a UX researcher and designer with 4+ years of experience turning user and market insights into simple, intuitive experiences across SaaS, dashboards and mobile. Off the screen, I fill sketchbooks.</p>
     </div>
-    <div class="ring-stage" aria-hidden="true"><div class="ring">${ring}</div></div>
-  </div>
-</section>
-
-<section class="wrap" style="padding-top:0">
-  ${head("Off the screen","From my sketchbook",`<div class="row"><button class="car-btn" id="carPrev" aria-label="Previous drawing">←</button><button class="car-btn" id="carNext" aria-label="Next drawing">→</button></div>`)}
-  <div class="carousel reveal" id="car"><div class="track" id="track">${[...SKETCHES,...SKETCHES].map((s,i)=>`<figure class="sk" data-r="${parseFloat(s.r)}"${i>=SKETCHES.length?' aria-hidden="true"':' aria-label="Drawing"'}><span class="tape"></span><div class="paper">${s.img?`<img src="${s.img}" alt="">`:`<svg viewBox="0 0 120 120" aria-hidden="true">${s.svg}</svg>`}</div></figure>`).join("")}</div></div>
-</section>
-
-<section class="wrap" style="padding-top:0">
-  <div class="band reveal">
-    <div>
-      <span class="label">My approach</span>
-      <h2>Clients first, <span class="soft">then pixels.</span></h2>
-      <div class="steps">${STEPS.map((s,i)=>`<div class="step"><span class="n">0${i+1}</span><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("")}</div>
+    <div class="nb-page nb-right">
+      <span class="label">What I do</span>
+      <div class="chips">${["UX Research","Information Architecture","Interaction Design","Design Systems","Prototyping","Usability Testing"].map((c,i)=>`<span class="chip" style="--r:${[-3,2,-1,3,-2,1][i]}deg">${c}</span>`).join("")}</div>
+      <span class="label" style="margin-top:22px">My toolkit</span>
+      <ul class="checklist">${["Figma","FigJam","Framer","pen &amp; paper"].map(t=>`<li>${t}</li>`).join("")}</ul>
     </div>
-    <div class="sphere" id="sphere" aria-hidden="true">${WORDS.map(w=>`<span>${w}</span>`).join("")}</div>
+  </div>
+  <div class="cv reveal" id="cv" aria-label="Photos of Devanshi's life outside work">
+    <div class="cv-world" id="cvWorld">
+      <div class="cv-center"><span class="cv-hand">the bits that don't fit on a resume</span><h3>Off the clock</h3></div>
+      ${PHOTOS.map(p=>`<figure class="cv-ph" style="left:${p.x}%;top:${p.y}%;--w:${p.w}px;--r:${p.r}deg">${p.img?`<img src="${p.img}" alt="${p.note}" loading="lazy" style="object-position:${p.pos||"50% 50%"}">`:slot("",p.note,"Your photo")}<figcaption>${p.note}</figcaption></figure>`).join("")}
+    </div>
+    <span class="cv-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>drag to look around</span>
   </div>
 </section>
 
-<section class="wrap" id="sec-journal" style="padding-top:0">
-  ${head("Notes &amp; ideas","The journal",`<span class="muted" style="font-size:.93rem">${POSTS.length} entries</span>`)}
+<section class="wrap">
+  ${head("Off the screen","From my sketchbook",`<p class="rm-note">pick anything up<br>&amp; move it around<svg viewBox="0 0 60 50" aria-hidden="true"><path d="M6 4 C30 6 46 18 44 42 M36 34 L44 44 L52 34"/></svg></p>`)}
+  <div class="gw reveal"><div class="gw-grid" aria-hidden="true"></div>
+    ${WALL.map((w,i)=>{
+      const st=`--x:${w.x}%;--y:${w.y}%;--w:${w.w}%;--r:${w.r}deg;`+(w.m?`--mx:${w.m[0]}%;--my:${w.m[1]}%;--mw:${w.m[2]}%;`:"");
+      const cls=w.m?"":" no-m";
+      if(w.t==="claw") return `<span class="gw-it gw-claw${cls}" style="${st}">${CLAW}</span>`;
+      if(w.t==="c") return `<span class="gw-it gw-charm${cls}" style="${st}--d:${4+i%3}s" aria-hidden="true">${CHARMS[w.c]}</span>`;
+      const pin=PIN(PINS[i%PINS.length]);
+      if(w.t==="q") return `<figure class="gw-it gw-q gw-q${w.q}${cls}" style="${st}">${pin}<blockquote>${QUOTES[w.q]}</blockquote></figure>`;
+      if(w.t==="p") return `<figure class="gw-it gw-pol${cls}" style="${st}">${pin}${slot(w.img,w.note,"Your photo")}<figcaption>${w.note}</figcaption></figure>`;
+      return `<figure class="gw-it gw-print${cls}" style="${st}">${pin}<img src="${w.img}" alt="A painting by Devanshi" loading="lazy" draggable="false"></figure>`;
+    }).join("")}
+  </div>
+</section>
+
+<section class="wrap">
+  ${head("My approach","An eye for detail. <span class=\"grey\">A mind for people.</span>")}
+  <div class="process reveal">
+    <div class="wboard"><span class="wb-title">things i keep<br>coming back to</span><ul class="wcloud">${WORDS.map((w,i)=>`<li class="wd s${i%6}" style="--r:${[-4,3,-2,5,-3,2,4,-5,3,-2,6,-3,2,-4,3,-1][i]}deg">${w.toLowerCase()}</li>`).join("")}</ul><span class="wb-doodle a" aria-hidden="true">${FD.spark}</span><span class="wb-doodle b" aria-hidden="true">${FD.heart}</span></div>
+    <div class="stickies">${STEPS.map((s,i)=>`<div class="sticky" style="--bg:${NOTES[i]};--r:${[-2.5,2,1.5,-2][i]}deg"><span class="n">step 0${i+1}</span><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("")}</div>
+  </div>
+</section>
+
+<section class="wrap" id="sec-journal">
+  ${head("Notes &amp; ideas","The journal",`<p class="hand-aside">${POSTS.length} entries,<br>written over coffee</p>`)}
   <div class="grid4">${POSTS.map(jcard).join("")}</div>
 </section>
 
-<section class="wrap" style="padding-top:0;padding-bottom:24px">
-  ${head("Recommendations","What people say")}
+<section class="wrap" style="padding-bottom:24px">
+  ${head("Recommendations","What people say",`<p class="hand-aside">kind words from<br>people i've worked with</p>`)}
   <div class="tst-row" id="tRow">${TESTIMONIALS.map(tcard).join("")}</div>
 </section>
 </div>`}
@@ -444,13 +488,8 @@ function wire(){
     io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove("pre");io.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});
     document.querySelectorAll("#app .reveal").forEach((el,i)=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add("pre");el.style.transitionDelay=(i%3)*80+"ms";io.observe(el)}});
   }
-  document.querySelectorAll(".polaroids").forEach(st=>st.addEventListener("click",()=>{
-    const top=st.querySelector('.pol[data-i="0"]'); if(!top||top.classList.contains("out")) return;
-    top.classList.add("out");
-    setTimeout(()=>{st.querySelectorAll(".pol").forEach(p=>{p.dataset.i=(+p.dataset.i+2)%3});top.classList.remove("out")},360);
-  }));
   cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); cancelAnimationFrame(raf3);
-  parallax(); carousel(); sphere(); fitMega(); coverParallax();
+  parallax(); wallDrag(); canvasPan(); fitMega(); coverParallax();
   /* Recommendations: slow continuous auto-scroll (pauses on hover, focus or touch; arrows still step) */
   const tRow=document.getElementById("tRow"); cancelAnimationFrame(raf5);
   if(tRow){
@@ -512,53 +551,41 @@ function fitMega(){
   m.style.fontSize="100px"; const w=inner.getBoundingClientRect().width||1;
   m.style.fontSize=Math.min(170,Math.floor(100*m.clientWidth/w*.99))+"px";
 }
-/* sketchbook: endless auto-scroll; the card nearest the centre grows */
-function carousel(){
-  const car=document.getElementById("car"),track=document.getElementById("track"); if(!car) return;
-  const cards=[...track.children]; let pos=0,nudge=0,paused=false,last=performance.now(),ci=-1,geo=[],half=0,W=0;
-  const measure=()=>{geo=cards.map(c=>c.offsetLeft+c.offsetWidth/2);half=cards[cards.length/2].offsetLeft-cards[0].offsetLeft;W=car.clientWidth};
-  measure(); addEventListener("resize",measure);
-  cards.forEach(sk=>sk.querySelectorAll(".s").forEach(p=>{try{p.style.setProperty("--len",Math.ceil(p.getTotalLength()+2))}catch(e){}}));
-  car.addEventListener("mouseenter",()=>paused=true); car.addEventListener("mouseleave",()=>paused=false);
-  const gap=()=>cards[1].offsetLeft-cards[0].offsetLeft;
-  document.getElementById("carPrev").addEventListener("click",()=>nudge-=gap());
-  document.getElementById("carNext").addEventListener("click",()=>nudge+=gap());
-  const tick=t=>{
-    const dt=Math.min(.05,(t-last)/1000); last=t;
-    if(!paused&&!reduce) pos+=34*dt;
-    if(nudge){const st=nudge*.12; pos+=st; nudge-=st; if(Math.abs(nudge)<.5) nudge=0}
-    pos=((pos%half)+half)%half;
-    track.style.transform=`translate3d(${-pos}px,0,0)`;
-    let best=1e9,bi=0;
-    for(let i=0;i<cards.length;i++){
-      const dx=geo[i]-pos-W/2, f=Math.max(0,1-Math.abs(dx)/230), e=f*f*(3-2*f);
-      cards[i].style.transform=`scale(${(.82+.7*e).toFixed(3)}) rotate(${(+cards[i].dataset.r*(1-e)).toFixed(2)}deg)`;
-      cards[i].style.zIndex=Math.round(e*100);
-      if(Math.abs(dx)<best){best=Math.abs(dx);bi=i}
-    }
-    if(bi!==ci){if(ci>=0) cards[ci].classList.remove("center","draw"); const c=cards[bi]; c.classList.add("center"); c.classList.remove("draw"); void c.offsetWidth; c.classList.add("draw"); ci=bi}
-    raf2=requestAnimationFrame(tick)};
-  raf2=requestAnimationFrame(tick);
+/* about canvas: drag anywhere to pan around the photos */
+function canvasPan(){
+  const cv=document.getElementById("cv"), w=document.getElementById("cvWorld"); if(!cv||!w) return;
+  let x=0,y=0,sx=0,sy=0,drag=false,lim={x:0,y:0};
+  const fit=()=>{lim={x:Math.max(0,(w.offsetWidth-cv.clientWidth)/2),y:Math.max(0,(w.offsetHeight-cv.clientHeight)/2)}; set(x,y)};
+  const set=(nx,ny)=>{x=Math.max(-lim.x,Math.min(lim.x,nx)); y=Math.max(-lim.y,Math.min(lim.y,ny)); w.style.transform=`translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`};
+  fit(); addEventListener("resize",fit);
+  cv.addEventListener("pointerdown",e=>{drag=true; sx=e.clientX-x; sy=e.clientY-y; cv.setPointerCapture(e.pointerId); cv.classList.add("grabbing")});
+  cv.addEventListener("pointermove",e=>{if(drag) set(e.clientX-sx,e.clientY-sy)});
+  const end=()=>{drag=false; cv.classList.remove("grabbing")};
+  cv.addEventListener("pointerup",end); cv.addEventListener("pointercancel",end);
 }
-/* approach: words on a slowly turning sphere; the cursor steers it */
-function sphere(){
-  const el=document.getElementById("sphere"); if(!el) return;
-  const spans=[...el.children], n=spans.length;
-  const pts=spans.map((s,i)=>{const y=1-(i+.5)/n*2, r=Math.sqrt(1-y*y), th=i*2.39996; if(i%4===0) s.classList.add("hi"); return {s,x:Math.cos(th)*r,y,z:Math.sin(th)*r}});
-  let ax=.004,ay=.006,tx=.004,ty=.006;
-  el.addEventListener("pointermove",e=>{const r=el.getBoundingClientRect();ty=((e.clientX-r.left)/r.width-.5)*.03;tx=-((e.clientY-r.top)/r.height-.5)*.03});
-  el.addEventListener("pointerleave",()=>{tx=.004;ty=.006});
-  const tick=()=>{
-    ax+=(tx-ax)*.05; ay+=(ty-ay)*.05;
-    const R=Math.min(el.clientWidth,el.clientHeight)*.42, sx=Math.sin(ax),cxa=Math.cos(ax),sy=Math.sin(ay),cya=Math.cos(ay);
-    for(const p of pts){
-      if(!reduce){let y=p.y*cxa-p.z*sx, z=p.y*sx+p.z*cxa; p.y=y; p.z=z; let x=p.x*cya+p.z*sy; z=-p.x*sy+p.z*cya; p.x=x; p.z=z;}
-      const k=(p.z+2)/3;
-      p.s.style.transform=`translate(-50%,-50%) translate3d(${(p.x*R).toFixed(1)}px,${(p.y*R).toFixed(1)}px,0) scale(${(.55+k*.7).toFixed(3)})`;
-      p.s.style.opacity=(.18+k*.82).toFixed(2); p.s.style.fontSize="1.25rem"; p.s.style.zIndex=Math.round(k*100);
-    }
-    raf3=requestAnimationFrame(tick)};
-  raf3=requestAnimationFrame(tick);
+/* sketchbook wall: pick anything up and move it around the grid.
+   Mouse and pen drag straight away; on touch, press and hold first so the page still scrolls. */
+function wallDrag(){
+  const wall=document.querySelector(".gw"); if(!wall) return;
+  let top=20;
+  wall.querySelectorAll(".gw-it").forEach(el=>{
+    let dx=0,dy=0,sx=0,sy=0,tx=0,ty=0,box=null,on=false,timer=0;
+    const start=(x,y)=>{
+      const w=wall.getBoundingClientRect(), r=el.getBoundingClientRect();
+      box={l:w.left-r.left+dx-20,r:w.right-r.right+dx+20,t:Math.min(0,w.top-r.top)+dy-20,b:w.bottom-r.bottom+dy+20};
+      sx=x-dx; sy=y-dy; on=true; el.style.zIndex=++top; el.classList.add("lift");
+    };
+    const move=(x,y)=>{dx=Math.min(box.r,Math.max(box.l,x-sx)); dy=Math.min(box.b,Math.max(box.t,y-sy)); el.style.translate=`${dx}px ${dy}px`};
+    const end=()=>{clearTimeout(timer); on=false; el.classList.remove("lift")};
+    el.addEventListener("pointerdown",e=>{if(e.pointerType==="touch") return; e.preventDefault(); el.setPointerCapture(e.pointerId); start(e.clientX,e.clientY)});
+    el.addEventListener("pointermove",e=>{if(on&&e.pointerType!=="touch") move(e.clientX,e.clientY)});
+    el.addEventListener("pointerup",e=>{if(e.pointerType!=="touch") end()});
+    el.addEventListener("pointercancel",e=>{if(e.pointerType!=="touch") end()});
+    el.addEventListener("touchstart",e=>{const t=e.touches[0]; tx=t.clientX; ty=t.clientY; el.style.zIndex=++top; clearTimeout(timer); timer=setTimeout(()=>{start(tx,ty); if(navigator.vibrate) navigator.vibrate(8)},260)},{passive:true});
+    el.addEventListener("touchmove",e=>{const t=e.touches[0]; if(on){e.preventDefault(); move(t.clientX,t.clientY)} else if(Math.hypot(t.clientX-tx,t.clientY-ty)>8) clearTimeout(timer)},{passive:false});
+    el.addEventListener("touchend",end); el.addEventListener("touchcancel",end);
+    el.addEventListener("contextmenu",e=>e.preventDefault());
+  });
 }
 
 /* case study: cover layers drift with the cursor */
@@ -585,7 +612,8 @@ function copyText(t,btn){
   try{navigator.clipboard.writeText(t).then(ok).catch(fallback)}catch(e){fallback()}
 }
 /* footer: wordmark letters + live Noida time */
-document.querySelector(".ft-word").innerHTML="Devanshi".split("").map(c=>`<span>${c}</span>`).join("");
+/* handwritten wordmark, same as the nav logo: sparkle + letters that hop on hover */
+document.querySelector(".ft-word").innerHTML=`<svg class="ft-star" viewBox="0 0 24 24"><path d="M12 3c1 4 4 6 8 7-4 1-7 3-8 8-1-5-4-7-8-8 4-1 7-3 8-7z"/></svg>`+"Devanshi".split("").map((c,i)=>`<span style="--r:${[-3,2,-2,3,-1,2,-3,1][i]}deg">${c}</span>`).join("")+`<svg class="ft-squig" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 C40 4 70 22 110 12 S180 4 220 14 S280 20 296 8"/></svg>`;
 document.querySelectorAll(".ft [data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(b.dataset.copy,b)));
 const clock=()=>{try{document.getElementById("clock").textContent=new Intl.DateTimeFormat("en-IN",{hour:"numeric",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"}).format(new Date())}catch(e){}};
 clock(); setInterval(clock,15000);

@@ -1,22 +1,31 @@
 # Project notes for Claude
 
-This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HTML/CSS/JS with no framework and no build step.
+This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HTML/CSS/JS with no framework and no build step. It's live on GitHub Pages at https://devanshi9193-cloud.github.io/devanshi-portfolio/ (repo `devanshi9193-cloud/devanshi-portfolio`, `main` branch, root folder).
 
 ## Design rules (agreed with Devanshi)
-- Light, minimal, calm, with a royal blue accent (`--royal: #2747D9`) on a cool off-white sheet inside a royal blue frame.
-- Fonts: Bricolage Grotesque (display) and DM Sans (body). DM Mono for labels, Caveat for small handwritten notes.
-- Sections are horizontal and compact. Keep plenty of white space.
-- Single page: hero, projects, about with stats and rotating mockups, sketchbook carousel, approach band, journal, recommendations, footer.
+- Playful blue scrapbook look: a cream paper sheet (`--paper`) inside a soft blue frame (`--frame`), navy ink text (`--ink`), blue accent (`--royal`), butter yellow (`--sun`) and pale blue (`--royal-mist`, `--royal-soft`). Tokens live in `:root` in `styles.css`.
+- Scrapbook details everywhere: gingham tape labels, clothespins, polaroids, stickers, hand-drawn doodles (`FD` in `app.js`), squiggle underlines. Doodles must match her photos and the palette.
+- Fonts: Bricolage Grotesque (display), DM Sans (body), DM Mono (small labels), Caveat (handwritten notes, the logo, the footer name).
+- Single page, in this order:
+  1. Hero: copy on the left (eyebrow, headline with handwritten blue accent words, short line, Resume + See my work buttons, "available for work" tape), photo on the right with an envelope behind it and a stamp on top.
+  2. Projects: all cards the same size (no card should look more important).
+  3. About: notebook spread, then the "Off the clock" photo canvas (drag to pan) with her real photos and handwritten captions.
+  4. "From my sketchbook": a wire grid wall with paintings, polaroids, 2 quote cards, bag charms and a blue claw clip. Items are scattered and tilted, and visitors can drag them anywhere on the grid (press and hold on touch).
+  5. Approach: graph-paper page of word stickers ("things i keep coming back to") next to 4 sticky-note steps. Heading: "An eye for detail. A mind for people."
+  6. Journal, recommendations, postcard footer with the handwritten "Devanshi" wordmark.
 - Only two kinds of detail page: case studies (`#<case-slug>`) and journal posts (`#<post-slug>`). Don't add other pages.
 - Case study images are full width and stacked vertically, one between each pair of text sections, never side by side. 5 images at most.
-- Project cards are image plus name only. Sketch cards and mockup cards have no captions.
+- Project cards are image plus name only. Paintings on the wall have no captions.
 - Resume link sits in the top-right nav. LinkedIn link is in the footer only. There's a single "Back to top" link, bottom right of the footer.
 - The recommendations row scrolls slowly on its own and has no arrow buttons.
 - She likes coffee, not chai.
+- Don't change design, layout or content unless she asks.
 
 ## Where things live
-- Content data is at the top of `app.js`: `PROJECTS`, `CASES`, `SCREENS`, `MOCKUPS`, `SKETCHES`, `POSTS`, `TESTIMONIALS`.
+- Content data is at the top of `app.js`: `PROJECTS`, `CASES`, `SCREENS`, `PHOTOS` (about canvas), `WALL` (sketchbook wall), `POSTS`, `TESTIMONIALS`, `WORDS`.
+- Her personal photos are in `assets/images/` (`hero-selfie.jpg`, `life-*.jpg`). Resize new photos to about 1000px (hero 1400px) before adding them.
 - Routing: `route()` in `app.js` (hash based). Home section anchors are `#work`, `#about`, `#journal`, `#contact`.
+- `styles.css` is layered: base styles, then later blocks override them (blue scrapbook theme, layout layer, then per-section blocks at the end). Add new overrides at the end.
 - Respect `prefers-reduced-motion`. All animation loops check `reduce`.
 
 ## Testing
