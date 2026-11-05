@@ -387,7 +387,7 @@ home:()=>{
       <span class="label">What I do</span>
       <div class="chips">${["UX Research","Information Architecture","Interaction Design","Design Systems","Prototyping","Usability Testing"].map((c,i)=>`<span class="chip" style="--r:${[-3,2,-1,3,-2,1][i]}deg">${c}</span>`).join("")}</div>
       <span class="label" style="margin-top:22px">My toolkit</span>
-      <ul class="checklist">${["Figma","FigJam","Framer","pen &amp; paper"].map(t=>`<li>${t}</li>`).join("")}</ul>
+      <ul class="checklist">${["Figma","FigJam","Framer","Claude","Adobe Creative Suite","Adobe Photoshop","Adobe XD","Adobe After Effects","HTML (basic)","CSS","Python","Notion","pen &amp; paper"].map(t=>`<li>${t}</li>`).join("")}</ul>
     </div>
   </div>
   <div class="diary reveal" id="diary" aria-label="Photos of Devanshi's life outside work">

@@ -923,3 +923,7 @@ section.wrap.hero{padding-top:clamp(16px,2vw,24px)}
   .reveal.pre{opacity:1;translate:none;scale:1}
   .hx-art,.hx-eyebrow,.hx-sub,.hx-btns,.hx .status{animation:none}
 }
+
+/* toolkit: two columns so the longer list fits the notebook page */
+.checklist{display:grid;align-self:stretch;width:100%;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));column-gap:18px;row-gap:2px;font-size:1.35rem;line-height:1.25}
+.checklist li{display:flex;align-items:baseline}
