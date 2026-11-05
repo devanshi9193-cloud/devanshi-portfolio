@@ -27,6 +27,7 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
 - Routing: `route()` in `app.js` (hash based). Home section anchors are `#work`, `#about`, `#journal`, `#contact`.
 - `styles.css` is layered: base styles, then later blocks override them (blue scrapbook theme, layout layer, then per-section blocks at the end). Add new overrides at the end.
 - Respect `prefers-reduced-motion`. All animation loops check `reduce`.
+- Scroll reveal: anything with `.reveal` (plus the selectors in `REVEAL` in `app.js`) fades and rises in when it scrolls into view, using the CSS `translate`/`scale` properties. Never put `.reveal` on draggable items (`.gw-it`, `.dy-it`), because dragging also uses `translate`. The hero plays in on page load instead.
 
 ## Testing
 Serve with `python3 -m http.server` and check desktop (1440) and phone (390) widths. There should be no horizontal scroll, no console errors and no broken images.

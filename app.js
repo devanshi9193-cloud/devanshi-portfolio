@@ -166,7 +166,7 @@ const slot=(src,alt,hint="Cover image")=>src?`<img src="${src}" alt="${alt}" loa
 const pcard=p=>`<a class="pcard reveal" href="#${slugOf(p.name)}"><div class="art">${slot(p.img,p.name+" cover")}</div><div class="meta"><h3>${p.name}</h3><span class="go" aria-hidden="true">↗</span></div></a>`;
 const jcard=p=>`<a class="jcard reveal" href="#${p.slug}"><span class="label">${p.cat}</span><h3>${p.t}</h3><p class="jd">${p.d}</p><span class="go">Read · ${readTime(p)} min ↗</span></a>`;
 const readTime=p=>Math.max(1,Math.round(p.body.map(b=>Array.isArray(b[1])?b[1].join(" "):b[1]).join(" ").split(/\s+/).length/200));
-const tcard=t=>`<article class="tcard reveal" style="--tint:${t.tint}"><blockquote>“${t.quote}”</blockquote><div class="who"><span class="avatar">${t.initials}</span><div><b>${t.name}</b><span>${t.role}</span></div></div></article>`;
+const tcard=t=>`<article class="tcard" style="--tint:${t.tint}"><blockquote>“${t.quote}”</blockquote><div class="who"><span class="avatar">${t.initials}</span><div><b>${t.name}</b><span>${t.role}</span></div></div></article>`;
 const head=(label,title,right)=>`<div class="sec-head"><div><span class="label tape-label">${label}</span><h2 class="h2">${title}<svg class="squiggle" viewBox="0 0 200 14" aria-hidden="true"><path d="M3 9 C30 2 45 13 70 7 S115 2 140 8 S180 12 197 5"/></svg></h2></div>${right?`<div class="sec-aside">${right}</div>`:""}</div>`;
 
 
@@ -436,7 +436,7 @@ home:()=>{
 
 <section class="wrap" style="padding-bottom:24px">
   ${head("Recommendations","What people say",`<p class="hand-aside">kind words from<br>people i've worked with</p>`)}
-  <div class="tst-row" id="tRow">${TESTIMONIALS.map(tcard).join("")}</div>
+  <div class="tst-row reveal" id="tRow">${TESTIMONIALS.map(tcard).join("")}</div>
 </section>
 </div>`}
 };
@@ -485,13 +485,23 @@ function spy(){
 }
 addEventListener("scroll",()=>{if(!spyTick){spyTick=true;requestAnimationFrame(spy);}},{passive:true});
 addEventListener("resize",spy);
+/* safety net for big jumps (nav links, scrollbar drags): anything on screen or already passed shows up */
+let revTick=false;
+addEventListener("scroll",()=>{if(revTick) return; revTick=true; requestAnimationFrame(()=>{revTick=false;
+  document.querySelectorAll(".reveal.pre").forEach(el=>{if(el.getBoundingClientRect().top<innerHeight*.94){el.classList.remove("pre");if(io) io.unobserve(el)}})})},{passive:true});
 
+const REVEAL=["#app .sec-head","#app .stickies>.sticky","#app .wboard","#app .collage>.pcard","#app .grid4>*","#app .cs-hero>*","#app .cs-cover",".ft .postcard",".ft .ft-word"].join(",");
 let io,raf1=0,raf2=0,raf3=0,raf5=0;const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function wire(){
   if(io) io.disconnect();
+  document.querySelectorAll(".reveal.pre").forEach(el=>el.classList.remove("pre"));
   if("IntersectionObserver" in window && !reduce){
     io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove("pre");io.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});
-    document.querySelectorAll("#app .reveal").forEach((el,i)=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add("pre");el.style.transitionDelay=(i%3)*80+"ms";io.observe(el)}});
+    /* everything below the fold rises into place as it scrolls in; siblings follow one after another */
+    document.querySelectorAll(REVEAL).forEach(el=>el.classList.add("reveal"));
+    document.querySelectorAll("#app .reveal, .ft .reveal").forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){
+      const sib=[...el.parentNode.children].filter(c=>c.classList.contains("reveal")).indexOf(el);
+      el.classList.add("pre");el.style.transitionDelay=Math.min(sib,5)*90+"ms";io.observe(el)}});
   }
   cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); cancelAnimationFrame(raf3);
   parallax(); wallDrag(); fitMega(); coverParallax();
