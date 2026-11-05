@@ -339,7 +339,6 @@ home:()=>{
       <span class="fd d3" data-depth="1.8" aria-hidden="true">${FD.leaf}</span>
       <span class="fd d4" data-depth="3.2" aria-hidden="true">${FD.dot}</span>
     </div>
-    <div class="hero-right"><span class="hand">move your cursor ✦</span><span>and tap the photos</span></div>
   </div>
 </div></section>
 
