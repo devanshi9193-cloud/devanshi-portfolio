@@ -26,8 +26,7 @@ const PHOTOS=[
  {img:"assets/images/life-cafe-view.jpg",note:"coffee with a view",x:22,y:27,w:155,r:-4,pos:"62% 50%"},
  {img:"assets/images/drawing-4.jpg",note:"pink skies only",x:40,y:7,w:150,r:-3},
  {img:"assets/images/life-laughing.jpg",note:"laughing at my own jokes",x:74,y:8,w:175,r:6,pos:"50% 35%"},
- {img:"assets/images/life-hills.jpg",note:"chasing clouds in the hills",x:79,y:52,w:175,r:-4,pos:"50% 62%"},
- {img:"assets/images/life-my-people.jpg",note:"my people",x:55,y:60,w:170,r:4,pos:"50% 40%"}
+ {img:"assets/images/life-hills.jpg",note:"chasing clouds in the hills",x:79,y:52,w:175,r:-4,pos:"50% 62%"}
 ];
 const POSTS=[
  {slug:"job-hunt-tracking",t:"The Job Hunt Has a Tracking Problem",cat:"Concept",d:"A smarter job hunt space to track applications, recruiter outreach, and follow-ups in one place.",tint:"#e4ebe0",body:[
