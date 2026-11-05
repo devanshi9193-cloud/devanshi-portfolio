@@ -9,7 +9,7 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
 - Single page, in this order:
   1. Hero: copy on the left (eyebrow, headline with handwritten blue accent words, short line, Resume + See my work buttons, "available for work" tape), photo on the right with an envelope behind it and a stamp on top.
   2. Projects: all cards the same size (no card should look more important).
-  3. About: notebook spread, then the "Off the clock" photo canvas (drag to pan) with her real photos and handwritten captions.
+  3. About: notebook spread, then the "Off the clock" diary: an open blue diary on gingham with her photos, ticket stubs, a pencil, an instant camera and an iPod, all draggable. No paintings in the diary.
   4. "From my sketchbook": a wire grid wall with paintings, polaroids, 2 quote cards, bag charms and a blue claw clip. Items are scattered and tilted, and visitors can drag them anywhere on the grid (press and hold on touch).
   5. Approach: graph-paper page of word stickers ("things i keep coming back to") next to 4 sticky-note steps. Heading: "An eye for detail. A mind for people."
   6. Journal, recommendations, postcard footer with the handwritten "Devanshi" wordmark.
@@ -22,7 +22,7 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
 - Don't change design, layout or content unless she asks.
 
 ## Where things live
-- Content data is at the top of `app.js`: `PROJECTS`, `CASES`, `SCREENS`, `PHOTOS` (about canvas), `WALL` (sketchbook wall), `POSTS`, `TESTIMONIALS`, `WORDS`.
+- Content data is at the top of `app.js`: `PROJECTS`, `CASES`, `SCREENS`, `PHOTOS` (about diary), `WALL` (sketchbook wall), `POSTS`, `TESTIMONIALS`, `WORDS`.
 - Her personal photos are in `assets/images/` (`hero-selfie.jpg`, `life-*.jpg`). Resize new photos to about 1000px (hero 1400px) before adding them.
 - Routing: `route()` in `app.js` (hash based). Home section anchors are `#work`, `#about`, `#journal`, `#contact`.
 - `styles.css` is layered: base styles, then later blocks override them (blue scrapbook theme, layout layer, then per-section blocks at the end). Add new overrides at the end.

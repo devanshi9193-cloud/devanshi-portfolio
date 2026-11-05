@@ -20,13 +20,13 @@ const PROJECTS=[
 /* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Veritas, Top Brass, Approval Workflow Builder */
 /* About canvas: personal photos scattered around a draggable canvas.
    img:"" shows an empty "Your photo" slot. x/y = position in % of the canvas, w = width in px (desktop), r = tilt. */
+/* About "Off the clock" diary: photos scattered on an open diary; visitors can move them.
+   x/y/w = desktop position and width in % of the diary, r = tilt, m = [x,y,w] on phones, pos = photo focus. */
 const PHOTOS=[
- {img:"assets/images/life-night-out.jpg",note:"hi, it's me",x:6,y:9,w:180,r:-6,pos:"50% 30%"},
- {img:"assets/images/life-coffee-award.jpg",note:"officially can't function w/o coffee",x:13,y:55,w:170,r:5,pos:"45% 22%"},
- {img:"assets/images/life-cafe-view.jpg",note:"coffee with a view",x:22,y:27,w:155,r:-4,pos:"62% 50%"},
- {img:"assets/images/drawing-4.jpg",note:"pink skies only",x:40,y:7,w:150,r:-3},
- {img:"assets/images/life-laughing.jpg",note:"laughing at my own jokes",x:74,y:8,w:175,r:6,pos:"50% 35%"},
- {img:"assets/images/life-hills.jpg",note:"chasing clouds in the hills",x:79,y:52,w:175,r:-4,pos:"50% 62%"}
+ {img:"assets/images/life-coffee-award.jpg",note:"officially can't function w/o coffee",x:9,y:50,w:15,r:6,pos:"45% 22%",m:[60,20,30]},
+ {img:"assets/images/life-cafe-view.jpg",note:"coffee with a view",x:28,y:18,w:17,r:-4,pos:"62% 50%",m:[8,44,30]},
+ {img:"assets/images/life-laughing.jpg",note:"laughing at my own jokes",x:66,y:27,w:16,r:-6,pos:"50% 35%",m:[6,72,30]},
+ {img:"assets/images/life-hills.jpg",note:"chasing clouds in the hills",x:46,y:46,w:15,r:5,pos:"50% 62%",m:[60,64,30]}
 ];
 const POSTS=[
  {slug:"job-hunt-tracking",t:"The Job Hunt Has a Tracking Problem",cat:"Concept",d:"A smarter job hunt space to track applications, recruiter outreach, and follow-ups in one place.",tint:"#e4ebe0",body:[
@@ -390,12 +390,18 @@ home:()=>{
       <ul class="checklist">${["Figma","FigJam","Framer","pen &amp; paper"].map(t=>`<li>${t}</li>`).join("")}</ul>
     </div>
   </div>
-  <div class="cv reveal" id="cv" aria-label="Photos of Devanshi's life outside work">
-    <div class="cv-world" id="cvWorld">
-      <div class="cv-center"><span class="cv-hand">the bits that don't fit on a resume</span><h3>Off the clock</h3></div>
-      ${PHOTOS.map(p=>`<figure class="cv-ph" style="left:${p.x}%;top:${p.y}%;--w:${p.w}px;--r:${p.r}deg">${p.img?`<img src="${p.img}" alt="${p.note}" loading="lazy" style="object-position:${p.pos||"50% 50%"}">`:slot("",p.note,"Your photo")}<figcaption>${p.note}</figcaption></figure>`).join("")}
-    </div>
-    <span class="cv-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>drag to look around</span>
+  <div class="diary reveal" id="diary" aria-label="Photos of Devanshi's life outside work">
+    <div class="dy-cloth" aria-hidden="true"></div>
+    <div class="dy-book" aria-hidden="true"><div class="dy-page l"></div><div class="dy-page r"></div><span class="dy-strap"><i></i></span></div>
+    <span class="dy-bow" aria-hidden="true"><svg viewBox="0 0 80 50"><path d="M40 24 C28 6 6 6 8 22 C10 36 30 32 40 26 C50 32 70 36 72 22 C74 6 52 6 40 24Z" fill="#AFC5E4" stroke="#26334D" stroke-width="1.8" stroke-linejoin="round"/><path d="M36 26 L28 46 M44 26 L52 46" stroke="#26334D" stroke-width="1.8" stroke-linecap="round"/><path d="M36 26 L29 45 L33 44 Z M44 26 L51 45 L47 44 Z" fill="#AFC5E4"/><rect x="34" y="18" width="12" height="13" rx="4" fill="#E1EAF6" stroke="#26334D" stroke-width="1.8"/></svg></span>
+    <div class="dy-title"><span>the bits that don't fit on a resume</span><h3>off the clock</h3></div>
+    <div class="dy-it dy-ticket t1 no-m" style="--x:3%;--y:4%;--w:19%;--r:-12deg"><b>ADMIT ONE</b><span>NOIDA → THE HILLS</span><em>no. 0919 · seat 07</em></div>
+    <div class="dy-it dy-ticket t2 no-m" style="--x:72%;--y:66%;--w:19%;--r:9deg"><b>CAFÉ PASS</b><span>1 × cold coffee</span><em>no. 2412 · table 4</em></div>
+    <span class="dy-it dy-pencil no-m" style="--x:84%;--y:40%;--w:13%;--r:-58deg" aria-hidden="true"><svg viewBox="0 0 200 24"><rect x="2" y="3" width="18" height="18" rx="4" fill="#AFC5E4" stroke="#26334D" stroke-width="2"/><rect x="20" y="3" width="140" height="18" fill="#FBE6B0" stroke="#26334D" stroke-width="2"/><path d="M160 3 L194 12 L160 21Z" fill="#FFFDF8" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/><path d="M182 9 L194 12 L182 15Z" fill="#26334D"/></svg></span>
+    <span class="dy-it dy-prop dy-cam" style="--x:9%;--y:10%;--w:16%;--r:-8deg;--mx:6%;--my:16%;--mw:34%" aria-hidden="true"><svg viewBox="0 0 160 136"><rect x="58" y="2" width="44" height="22" rx="2" fill="#FFFDF8" stroke="#26334D" stroke-width="2"/><rect x="4" y="18" width="152" height="114" rx="18" fill="#E1EAF6" stroke="#26334D" stroke-width="2.4"/><path d="M4 50 V36 A18 18 0 0 1 22 18 H138 A18 18 0 0 1 156 36 V50 Z" fill="#C9D8EC" stroke="#26334D" stroke-width="2.4" stroke-linejoin="round"/><rect x="16" y="27" width="32" height="16" rx="4" fill="#FFFDF8" stroke="#26334D" stroke-width="2"/><path d="M22 31 H42 M22 35 H42 M22 39 H42" stroke="#AFC5E4" stroke-width="1.4"/><rect x="118" y="27" width="26" height="15" rx="4" fill="#26334D"/><rect x="122" y="30" width="9" height="5" rx="2" fill="#AFC5E4"/><circle cx="80" cy="84" r="35" fill="#FFFDF8" stroke="#26334D" stroke-width="2.4"/><circle cx="80" cy="84" r="25" fill="#26334D"/><circle cx="80" cy="84" r="14" fill="#34507D"/><circle cx="73" cy="77" r="5" fill="#AFC5E4"/><circle cx="87" cy="91" r="2.2" fill="#AFC5E4"/><circle cx="137" cy="104" r="8" fill="#FBE6B0" stroke="#26334D" stroke-width="2"/><path d="M14 120 H38" stroke="#26334D" stroke-width="2" stroke-linecap="round" opacity=".45"/><path d="M128 64 L131 72 L139 75 L131 78 L128 86 L125 78 L117 75 L125 72Z" fill="#FFFDF8" stroke="#26334D" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
+    <span class="dy-it dy-prop dy-ipod" style="--x:28%;--y:60%;--w:10%;--r:9deg;--mx:40%;--my:79%;--mw:17%" aria-hidden="true"><svg viewBox="0 0 104 172"><path d="M30 4 C10 -2 2 14 8 26" fill="none" stroke="#26334D" stroke-width="1.8" stroke-linecap="round"/><rect x="2" y="8" width="100" height="162" rx="16" fill="#FFFDF8" stroke="#26334D" stroke-width="2.4"/><rect x="13" y="19" width="78" height="58" rx="6" fill="#AFC5E4" stroke="#26334D" stroke-width="2"/><rect x="13" y="19" width="78" height="12" rx="6" fill="#C9D8EC"/><text x="52" y="28.5" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#26334D">now playing</text><text x="52" y="47" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="13" fill="#26334D">calm &amp; simple</text><text x="52" y="58" text-anchor="middle" font-family="DM Mono, monospace" font-size="6" fill="#34507D">devanshi · lo-fi</text><rect x="21" y="65" width="62" height="3.5" rx="1.75" fill="#FFFDF8"/><rect x="21" y="65" width="30" height="3.5" rx="1.75" fill="#26334D"/><circle cx="52" cy="124" r="34" fill="#E1EAF6" stroke="#26334D" stroke-width="2"/><circle cx="52" cy="124" r="12" fill="#FFFDF8" stroke="#26334D" stroke-width="2"/><text x="52" y="102" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#26334D">MENU</text><path d="M47 147 L51 150 L47 153Z M53 147 V153 M56 147 V153" fill="#26334D" stroke="#26334D" stroke-width="1.4"/><path d="M76 120 L80 124 L76 128 M80 120 L84 124 L80 128" fill="none" stroke="#26334D" stroke-width="1.6" stroke-linejoin="round"/><path d="M28 120 L24 124 L28 128 M24 120 L20 124 L24 128" fill="none" stroke="#26334D" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+    ${PHOTOS.map(p=>`<figure class="dy-it dy-ph" style="--x:${p.x}%;--y:${p.y}%;--w:${p.w}%;--r:${p.r}deg;--mx:${p.m[0]}%;--my:${p.m[1]}%;--mw:${p.m[2]}%"><img src="${p.img}" alt="${p.note}" loading="lazy" draggable="false" style="object-position:${p.pos||"50% 50%"}"><figcaption>${p.note}</figcaption></figure>`).join("")}
+    <span class="dy-hint" aria-hidden="true">psst, the photos move</span>
   </div>
 </section>
 
@@ -488,7 +494,7 @@ function wire(){
     document.querySelectorAll("#app .reveal").forEach((el,i)=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add("pre");el.style.transitionDelay=(i%3)*80+"ms";io.observe(el)}});
   }
   cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); cancelAnimationFrame(raf3);
-  parallax(); wallDrag(); canvasPan(); fitMega(); coverParallax();
+  parallax(); wallDrag(); fitMega(); coverParallax();
   /* Recommendations: slow continuous auto-scroll (pauses on hover, focus or touch; arrows still step) */
   const tRow=document.getElementById("tRow"); cancelAnimationFrame(raf5);
   if(tRow){
@@ -550,24 +556,13 @@ function fitMega(){
   m.style.fontSize="100px"; const w=inner.getBoundingClientRect().width||1;
   m.style.fontSize=Math.min(170,Math.floor(100*m.clientWidth/w*.99))+"px";
 }
-/* about canvas: drag anywhere to pan around the photos */
-function canvasPan(){
-  const cv=document.getElementById("cv"), w=document.getElementById("cvWorld"); if(!cv||!w) return;
-  let x=0,y=0,sx=0,sy=0,drag=false,lim={x:0,y:0};
-  const fit=()=>{lim={x:Math.max(0,(w.offsetWidth-cv.clientWidth)/2),y:Math.max(0,(w.offsetHeight-cv.clientHeight)/2)}; set(x,y)};
-  const set=(nx,ny)=>{x=Math.max(-lim.x,Math.min(lim.x,nx)); y=Math.max(-lim.y,Math.min(lim.y,ny)); w.style.transform=`translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`};
-  fit(); addEventListener("resize",fit);
-  cv.addEventListener("pointerdown",e=>{drag=true; sx=e.clientX-x; sy=e.clientY-y; cv.setPointerCapture(e.pointerId); cv.classList.add("grabbing")});
-  cv.addEventListener("pointermove",e=>{if(drag) set(e.clientX-sx,e.clientY-sy)});
-  const end=()=>{drag=false; cv.classList.remove("grabbing")};
-  cv.addEventListener("pointerup",end); cv.addEventListener("pointercancel",end);
-}
 /* sketchbook wall: pick anything up and move it around the grid.
    Mouse and pen drag straight away; on touch, press and hold first so the page still scrolls. */
-function wallDrag(){
-  const wall=document.querySelector(".gw"); if(!wall) return;
+function wallDrag(){ dragWithin(document.querySelector(".gw"),".gw-it"); dragWithin(document.getElementById("diary"),".dy-it"); }
+function dragWithin(wall,sel){
+  if(!wall) return;
   let top=20;
-  wall.querySelectorAll(".gw-it").forEach(el=>{
+  wall.querySelectorAll(sel).forEach(el=>{
     let dx=0,dy=0,sx=0,sy=0,tx=0,ty=0,box=null,on=false,timer=0;
     const start=(x,y)=>{
       const w=wall.getBoundingClientRect(), r=el.getBoundingClientRect();
