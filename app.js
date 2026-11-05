@@ -157,6 +157,8 @@ function art(p){
   }
   return `<svg viewBox="0 0 640 400" role="img" aria-label="${p.name} interface preview">${ui}</svg>`;
 }
+/* the smiling star from the favicon, used wherever the site shows its little star */
+const CUTE_STAR=cls=>`<svg class="${cls}" viewBox="8 9 48 48" aria-hidden="true"><path d="M32.0 12.0 L39.3 24.9 L53.9 27.9 L43.9 38.9 L45.5 53.6 L32.0 47.5 L18.5 53.6 L20.1 38.9 L10.1 27.9 L24.7 24.9Z" fill="#FBE6B0" stroke="#26334D" stroke-width="3.6" stroke-linejoin="round"/><circle cx="26.6" cy="35" r="2.3" fill="#26334D"/><circle cx="37.4" cy="35" r="2.3" fill="#26334D"/><ellipse cx="22.5" cy="40" rx="2.8" ry="1.7" fill="#F2A7B5"/><ellipse cx="41.5" cy="40" rx="2.8" ry="1.7" fill="#F2A7B5"/><path d="M29.4 39.6q2.6 2.6 5.2 0" fill="none" stroke="#26334D" stroke-width="2" stroke-linecap="round"/></svg>`;
 const FD={heart:`<svg viewBox="0 0 40 40"><path d="M20 34 C6 24 4 16 8 11 C12 6 18 8 20 13 C22 8 28 6 32 11 C36 16 34 24 20 34Z" fill="#AFC5E4" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>`,spark:`<svg viewBox="0 0 40 40"><path d="M20 3 L23 16 L36 20 L23 24 L20 37 L17 24 L4 20 L17 16Z" fill="#FBE6B0" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>`,coffee:`<svg viewBox="0 0 40 40"><path d="M15 10 C13 8 17 6 15 3 M22 10 C20 8 24 6 22 3" fill="none" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M29 19 C35 19 35 28 29 28" fill="none" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M8 15 H30 V26 C30 32 26 36 20 36 H18 C12 36 8 32 8 26 Z" fill="#ebdcc9" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="19" cy="15" rx="11" ry="2.6" fill="#7a4e3a" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>`,pencil:`<svg viewBox="0 0 40 40"><g transform="rotate(-40 20 20)"><rect x="4" y="15.5" width="5" height="9" rx="1.5" fill="#d98e86" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><rect x="9" y="15.5" width="18" height="9" fill="#ebdcc9" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M27 15.5 L36 20 L27 24.5 Z" fill="#f3e6d6" stroke="#1f201c" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M32.5 18.25 L36 20 L32.5 21.75 Z" fill="#3b261c"/></g></svg>`};
 const PORTRAIT=`<svg viewBox="0 0 300 300" aria-hidden="true"><rect width="300" height="300" fill="#e4ebe0"/><circle cx="235" cy="70" r="46" fill="#cdc4ea" opacity=".55"/><g fill="none" stroke="#1f201c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M88 300 C88 248 112 228 150 228 C188 228 212 248 212 300"/><path d="M104 132 C96 82 128 60 154 62 C190 64 204 100 196 146 C192 168 186 188 176 200"/><path d="M104 132 C100 162 112 188 142 202 C156 208 168 206 176 200"/><path d="M104 132 C126 122 156 102 168 80"/><path d="M126 150 Q131 145 136 150"/><path d="M158 150 Q163 145 168 150"/><path d="M146 162 C144 168 147 172 152 170"/><path d="M138 184 Q148 191 158 184"/><path d="M138 204 L136 228 M162 204 L164 228"/></g><circle cx="124" cy="170" r="7" fill="#f1c7ac"/><circle cx="172" cy="170" r="7" fill="#f1c7ac"/></svg>`;
 const inlineSketch=s=>s.replace(/class="s"/g,'fill="none" stroke="#2b2a26" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"').replace(/class="t"/g,'opacity=".6"');
@@ -363,9 +365,9 @@ home:()=>{
       <span class="status tape-label"><i></i>available for work</span>
     </div>
     <div class="hx-art" aria-hidden="true">
-      <div class="hx-env" data-depth="0.9"><svg viewBox="0 0 200 132"><rect x="3" y="3" width="194" height="126" rx="6" fill="#FFFDF8" stroke="#D9CFBE" stroke-width="2"/><path d="M5 8 L100 78 L195 8" fill="none" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><circle cx="100" cy="78" r="17" fill="#4A6FA5"/><circle cx="100" cy="78" r="12.5" fill="none" stroke="#AFC5E4" stroke-width="1.6"/><path d="M100 70 L102 76 L108 78 L102 80 L100 86 L98 80 L92 78 L98 76Z" fill="#E1EAF6"/></svg></div>
+      <div class="hx-env" data-depth="0.9"><svg viewBox="0 0 200 132"><rect x="3" y="3" width="194" height="126" rx="6" fill="#FFFDF8" stroke="#D9CFBE" stroke-width="2"/><path d="M5 8 L100 78 L195 8" fill="none" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><circle cx="100" cy="78" r="17" fill="#4A6FA5"/><circle cx="100" cy="78" r="12.5" fill="none" stroke="#AFC5E4" stroke-width="1.6"/>${CUTE_STAR("cute-star").replace("<svg ",'<svg x="87" y="65" width="26" height="26" ')}</svg></div>
       <figure class="hx-photo" data-depth="0.35"><img src="assets/images/hero-selfie.jpg" alt=""></figure>
-      <div class="hx-stamp" data-depth="1.3"><div class="stamp"><svg viewBox="0 0 40 40"><path d="M20 4 L23 16 L35 20 L23 24 L20 36 L17 24 L5 20 L17 16Z"/></svg><span>Devanshi</span></div><svg class="hx-cancel" viewBox="0 0 120 40"><path d="M2 8 C22 2 38 14 58 8 S98 2 118 8 M2 20 C22 14 38 26 58 20 S98 14 118 20 M2 32 C22 26 38 38 58 32 S98 26 118 32"/></svg></div>
+      <div class="hx-stamp" data-depth="1.3"><div class="stamp">${CUTE_STAR("cute-star")}<span>Devanshi</span></div><svg class="hx-cancel" viewBox="0 0 120 40"><path d="M2 8 C22 2 38 14 58 8 S98 2 118 8 M2 20 C22 14 38 26 58 20 S98 14 118 20 M2 32 C22 26 38 38 58 32 S98 26 118 32"/></svg></div>
       <span class="fd hx-spark" data-depth="2">${FD.spark}</span>
     </div>
   </div>
@@ -377,7 +379,7 @@ home:()=>{
 </section>
 
 <section class="wrap" id="sec-about">
-  ${head("About me","A little about me",`<p class="hand-aside">people first,<br>pixels next ✦</p>`)}
+  ${head("About me","A little about me",`<p class="hand-aside">people first,<br>pixels next ${CUTE_STAR("mini-star")}</p>`)}
   <div class="notebook reveal">
     <div class="nb-page nb-left">
       <p class="intro-line">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></p>
@@ -617,7 +619,7 @@ function copyText(t,btn){
 }
 /* footer: wordmark letters + live Noida time */
 /* handwritten wordmark, same as the nav logo: sparkle + letters that hop on hover */
-document.querySelector(".ft-word").innerHTML=`<svg class="ft-star" viewBox="0 0 24 24"><path d="M12 3c1 4 4 6 8 7-4 1-7 3-8 8-1-5-4-7-8-8 4-1 7-3 8-7z"/></svg>`+"Devanshi".split("").map((c,i)=>`<span style="--r:${[-3,2,-2,3,-1,2,-3,1][i]}deg">${c}</span>`).join("")+`<svg class="ft-squig" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 C40 4 70 22 110 12 S180 4 220 14 S280 20 296 8"/></svg>`;
+document.querySelector(".ft-word").innerHTML=CUTE_STAR("ft-star cute-star")+"Devanshi".split("").map((c,i)=>`<span style="--r:${[-3,2,-2,3,-1,2,-3,1][i]}deg">${c}</span>`).join("")+`<svg class="ft-squig" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 C40 4 70 22 110 12 S180 4 220 14 S280 20 296 8"/></svg>`;
 document.querySelectorAll(".ft [data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(b.dataset.copy,b)));
 const clock=()=>{try{document.getElementById("clock").textContent=new Intl.DateTimeFormat("en-IN",{hour:"numeric",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"}).format(new Date())}catch(e){}};
 clock(); setInterval(clock,15000);

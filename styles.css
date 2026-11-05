@@ -927,3 +927,15 @@ section.wrap.hero{padding-top:clamp(16px,2vw,24px)}
 /* toolkit: two columns so the longer list fits the notebook page */
 .checklist{display:grid;align-self:stretch;width:100%;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));column-gap:18px;row-gap:2px;font-size:1.35rem;line-height:1.25}
 .checklist li{display:flex;align-items:baseline}
+
+/* smiling star (same as the favicon) replaces the old blue star */
+.logo svg.cute-star{width:26px;height:26px}
+.logo:hover svg.cute-star{transform:rotate(-12deg) scale(1.12)}
+.cute-star{stroke:none}
+.cute-star path:last-child{fill:none;stroke:#26334D}
+.cute-star path:first-child{fill:#FBE6B0;stroke:#26334D}
+.mini-star{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.18em;margin-left:.1em}
+.stamp svg.cute-star{width:40px;height:40px}
+.ft-star.cute-star{width:.42em;height:.42em;margin-top:.12em;stroke:none}
+.ft-word:hover .ft-star.cute-star{transform:rotate(-12deg) scale(1.1)}
+@media (max-width:640px){.stamp svg.cute-star{width:30px;height:30px}}
