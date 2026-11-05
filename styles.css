@@ -692,7 +692,7 @@ section.wrap.hero{padding-top:clamp(16px,2vw,24px)}
 .cs-hero h1 .grey{color:var(--royal)}
 .cs-meta{position:relative;background:#fffdf8;padding:18px 20px 8px;border-top:0;rotate:0deg;box-shadow:0 2px 3px rgba(38,51,77,.06),0 14px 28px rgba(38,51,77,.1)}
 .cs-meta::before{content:"";position:absolute;top:-9px;left:calc(50% - 30px);width:60px;height:18px;rotate:0deg;background:var(--tape-grid),var(--tape-bg)}
-.cs-sec>.side .label{display:inline-block;padding:4px 12px;background:var(--tape-grid),var(--tape-bg);color:var(--royal-deep);rotate:-2deg}
+.cs-sec>.side .label{display:inline-block;padding:4px 12px;background:var(--tape-grid),var(--tape-bg);color:var(--royal-deep);rotate:0deg}
 .cs-sec>.side h2{margin-top:12px}
 .cs-card{position:relative;background:#fffdf8;rotate:-.6deg;box-shadow:0 2px 3px rgba(38,51,77,.05),0 12px 24px rgba(38,51,77,.08)}
 .cs-card:nth-child(even){rotate:.7deg;background:#F6F1E6}
