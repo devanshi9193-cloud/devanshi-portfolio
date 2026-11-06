@@ -2,7 +2,7 @@ const RESUME="https://drive.google.com/file/d/19_Zxezfa9HK3-XQeT1RTrjgaM07ZwTBE/
 const EMAIL="devanshi9193@gmail.com";
 
 /* Project thumbnails (from the previous portfolio) */
-const THUMB_RUNWAY="assets/images/thumb-runway.jpg";
+const THUMB_RUNWAY="assets/images/thumb-runway.jpg?v=2";
 const THUMB_TOP_BRASS="assets/images/thumb-top-brass.jpg";
 const THUMB_VERITAS_RESEARCH="assets/images/thumb-veritas-research.jpg";
 const THUMB_NAVSTAR="assets/images/thumb-navstar.jpg";
