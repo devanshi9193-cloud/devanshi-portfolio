@@ -939,3 +939,7 @@ section.wrap.hero{padding-top:clamp(16px,2vw,24px)}
 .ft-star.cute-star{width:.42em;height:.42em;margin-top:.12em;stroke:none}
 .ft-word:hover .ft-star.cute-star{transform:rotate(-12deg) scale(1.1)}
 @media (max-width:640px){.stamp svg.cute-star{width:30px;height:30px}}
+
+/* TOP BAR: invisible at the top of the page, outlined pill once scrolled */
+.nav{background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
+header.scrolled .nav,.nav:has(.links.open){background:rgba(251,248,241,.92);border-color:var(--dash);box-shadow:0 6px 24px rgba(38,51,77,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
