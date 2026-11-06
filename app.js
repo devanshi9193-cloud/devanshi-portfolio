@@ -180,6 +180,30 @@ const slugOf=n=>n.toLowerCase().replace(/[^a-z]+/g,"-");
 const IMGICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>';
 const slot=(src,alt,hint="Cover image")=>src?`<img src="${src}" alt="${alt}" loading="lazy">`:`<div class="slot" role="img" aria-label="${alt}"><i>${IMGICON}${hint}</i></div>`;
 const pcard=p=>`<a class="pcard reveal" href="#${slugOf(p.name)}"><div class="art">${slot(p.img,p.name+" cover")}${p.live?'<span class="pc-live"><i></i>live</span>':""}</div><div class="meta"><h3>${p.name}</h3><span class="go" aria-hidden="true">↗</span></div></a>`;
+/* Workshops & speaking: sessions Devanshi led for her colleagues at Jasper Colin (own home section, after About) */
+const TALKS=[
+ {date:"3 April 2026",kind:"Speaker talk",t:"User Research: driving design decisions",
+  p:"An introduction to user research for my colleagues, taken past the theory and into real design work: what research is, why it matters, and how it shapes the decisions we make. I broke every idea down into simple, clear explanations, we studied a product together, and we closed with an open Q&amp;A.",
+  meta:[["Format","Talk · product study · open Q&amp;A"],["Audience","Jasper Colin colleagues"]],
+  note:"explaining research simply made me understand it better, and made me a more confident presenter",
+  url:"https://www.linkedin.com/feed/update/urn:li:activity:7446061802297413632/",
+  ph:[["research-poster.jpg","The session poster: User Research, driving design decisions, speaker Devanshi Sharma, 3rd April","tall"],["research-talk.jpg","Devanshi presenting the Introduction to User Research slide to colleagues"],["research-room.jpg","Colleagues around the meeting table during the user research talk"]]},
+ {date:"May 2026",kind:"Friday Design Workshop",t:"Good UX vs. Addictive UX",
+  p:"A workshop on designing for user success, and on the line between products that genuinely help people and products built mainly to keep them hooked. Good UX rests on usability, accessibility, trust and satisfaction. Addictive UX leans on psychological triggers that push engagement and retention.",
+  meta:[["Format","Co-hosted workshop · discussion"],["Audience","Jasper Colin colleagues"]],
+  note:"the best part was the room: so many different views on where digital experiences are heading",
+  url:"https://www.linkedin.com/feed/update/urn:li:activity:7461337312694759424/",essay:"good-vs-addictive-ux",
+  ph:[["ux-stage.jpg","The Good UX vs Addictive UX title slide at the Friday Design Workshop","wide"],["ux-good.jpg","Devanshi presenting the Good UX slide"],["ux-profile.jpg","Devanshi listening during the workshop discussion"]]},
+];
+const talk=(w,i)=>`<article class="tk reveal${i%2?" flip":""}">
+  <div class="tk-note"><span class="tape-label">${w.date}</span>
+    <span class="label">${w.kind}</span><h3>${w.t}</h3><p>${w.p}</p>
+    <dl class="tk-meta">${w.meta.map(m=>`<div><dt>${m[0]}</dt><dd>${m[1]}</dd></div>`).join("")}</dl>
+    <p class="tk-hand">${w.note}</p>
+    <div class="tk-links"><a class="link-arrow" href="${w.url}" target="_blank" rel="noopener">View on LinkedIn <span>↗</span></a>${w.essay?`<a class="link-arrow" href="#${w.essay}">Read my essay on it <span>→</span></a>`:""}</div>
+  </div>
+  <div class="tk-ph">${w.ph.map((p,j)=>`<figure class="tk-print${p[2]?" "+p[2]:""}" style="--r:${[[-2,2.5,-1.5],[1.5,-2.5,2]][i%2][j]}deg"><img src="assets/images/talks/${p[0]}" alt="${p[1]}" loading="lazy" decoding="async"></figure>`).join("")}</div>
+</article>`;
 const jcard=p=>`<a class="jcard reveal" href="#${p.slug}"><span class="label">${p.cat}</span><h3>${p.t}</h3><p class="jd">${p.d}</p><span class="go">Read · ${readTime(p)} min ↗</span></a>`;
 const readTime=p=>Math.max(1,Math.round(p.body.map(b=>Array.isArray(b[1])?b[1].join(" "):b[1]).join(" ").split(/\s+/).length/200));
 const tcard=t=>`<article class="tcard" style="--tint:${t.tint}"><blockquote>“${t.quote}”</blockquote><div class="who"><span class="avatar">${t.initials}</span><div><b>${t.name}</b><span>${t.role}</span></div></div></article>`;
@@ -466,6 +490,11 @@ home:()=>{
     ${PHOTOS.map(p=>`<figure class="dy-it dy-ph" style="--x:${p.x}%;--y:${p.y}%;--w:${p.w}%;--r:${p.r}deg;--mx:${p.m[0]}%;--my:${p.m[1]}%;--mw:${p.m[2]}%"><img src="${p.img}" alt="${p.note}" loading="lazy" draggable="false" style="object-position:${p.pos||"50% 50%"}"><figcaption>${p.note}</figcaption></figure>`).join("")}
     <span class="dy-hint" aria-hidden="true">psst, the photos move</span>
   </div>
+</section>
+
+<section class="wrap" id="sec-talks">
+  ${head("Workshops &amp; speaking","Sharing what I know. <span class=\"grey\">Learning even more.</span>")}
+  <div class="tk-list">${TALKS.map(talk).join("")}</div>
 </section>
 
 <section class="wrap">
