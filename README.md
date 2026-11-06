@@ -29,7 +29,7 @@ Use a local server rather than opening `index.html` straight from disk. Fonts an
 All content lives near the top of `app.js`:
 
 - `PROJECTS`: project cards (name, thumbnail)
-- `CASES`: case study text, keyed by slug (`runway`, `top-brass`, `veritas-research`, `navstar`, `vault`, `approval-workflow-builder`)
+- `CASES`: case study text, keyed by slug (`runway`, `top-brass`, `syndicate-research`, `navstar`, `vault`, `approval-workflow-builder`)
 - `SCREENS`: case study images, up to 5 per case, shown full width between sections
 - `MOCKUPS`: the 6 rotating cards in the About section
 - `SKETCHES`: sketchbook drawings

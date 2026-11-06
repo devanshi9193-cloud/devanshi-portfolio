@@ -943,3 +943,15 @@ section.wrap.hero{padding-top:clamp(16px,2vw,24px)}
 /* TOP BAR: invisible at the top of the page, outlined pill once scrolled */
 .nav{background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
 header.scrolled .nav,.nav:has(.links.open){background:rgba(251,248,241,.92);border-color:var(--dash);box-shadow:0 6px 24px rgba(38,51,77,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+
+/* CASE MEDIA: stacked screens and product videos inside a case section */
+.cs-media{display:flex;flex-direction:column;gap:clamp(28px,4vw,44px);margin-top:clamp(20px,2.4vw,28px)}
+.cs-media .shot{margin:0}
+.cs-media .shot img{max-width:100%;margin:0 auto}
+.cs-vid video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:3px;background:#0f1220}
+
+/* PROJECT CARD: small "live" badge for shipped, public projects */
+.pcard .art{position:relative}
+.pc-live{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:4px 11px 5px 9px;border-radius:999px;background:#fffdf8;border:1.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.pc-live i{width:7px;height:7px;border-radius:50%;background:#58b368;animation:pulse 2.2s infinite}
+@media (prefers-reduced-motion:reduce){.pc-live i{animation:none}}

@@ -2,22 +2,24 @@ const RESUME="https://drive.google.com/file/d/19_Zxezfa9HK3-XQeT1RTrjgaM07ZwTBE/
 const EMAIL="devanshi9193@gmail.com";
 
 /* Project thumbnails (from the previous portfolio) */
+const THUMB_JASPER_COLIN="assets/images/thumb-jasper-colin.jpg";
 const THUMB_RUNWAY="assets/images/thumb-runway.jpg?v=2";
-const THUMB_TOP_BRASS="assets/images/thumb-top-brass.jpg";
-const THUMB_VERITAS_RESEARCH="assets/images/thumb-veritas-research.jpg";
+const THUMB_TOP_BRASS="assets/images/thumb-top-brass.jpg?v=2";
+const THUMB_SYNDICATE_RESEARCH="assets/images/thumb-syndicate-research.jpg";
 const THUMB_NAVSTAR="assets/images/thumb-navstar.jpg";
 const THUMB_VAULT="assets/images/thumb-vault.jpg";
 const THUMB_AWB="assets/images/thumb-awb.jpg";
 const PROJECTS=[
- {img:THUMB_RUNWAY,name:"Runway",line:"Research synthesis to final UI.",kind:"web",bg:"#e4ebe0",ac:"#7f9b7a",url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study?node-id=18-26103&viewport=-30%2C265%2C0.26&t=p9tf1Bqnwc6Unyb0-1&scaling=scale-down-width&content-scaling=fixed&page-id=17%3A423",featured:true},
+ {img:THUMB_JASPER_COLIN,name:"Jasper Colin",line:"Two live brand sites for a research group.",kind:"web",bg:"#ece8f6",ac:"#d6402f",live:true,url:"https://jaspercolin.com/"},
+ {img:THUMB_RUNWAY,name:"Runway",line:"Research synthesis to final UI.",kind:"web",bg:"#e4ebe0",ac:"#7f9b7a",live:true,url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study?node-id=18-26103&viewport=-30%2C265%2C0.26&t=p9tf1Bqnwc6Unyb0-1&scaling=scale-down-width&content-scaling=fixed&page-id=17%3A423",featured:true},
  {img:THUMB_TOP_BRASS,name:"Top Brass",line:"A clear, confident product experience.",kind:"mobile",bg:"#f3e9dc",ac:"#c99b6d",url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study---Top-Brass?node-id=8-1038&viewport=275%2C283%2C0.04&t=R0ETUvIOAq97g7IW-1&scaling=min-zoom&content-scaling=fixed&page-id=8%3A178",featured:true},
- {img:THUMB_VERITAS_RESEARCH,name:"Veritas Research",line:"Dense research data, made readable.",kind:"dash",bg:"#ece8f6",ac:"#8f80c9",url:"https://www.figma.com/proto/KfNsoV9MnCYPkGO8w3L33U/Veritas-Research?node-id=877-200656&viewport=660%2C426%2C0.04&t=I2jSdbvsvdfr9XOs-1&scaling=scale-down-width&content-scaling=fixed&page-id=618%3A88314",featured:true},
+ {img:THUMB_SYNDICATE_RESEARCH,name:"Syndicate Research",line:"Dense research data, made readable.",kind:"dash",bg:"#ece8f6",ac:"#8f80c9",url:"https://www.figma.com/proto/KfNsoV9MnCYPkGO8w3L33U/Veritas-Research?node-id=877-200656&viewport=660%2C426%2C0.04&t=I2jSdbvsvdfr9XOs-1&scaling=scale-down-width&content-scaling=fixed&page-id=618%3A88314",featured:true},
  {img:THUMB_NAVSTAR,name:"Navstar",line:"An AI travel planner without the tab chaos.",kind:"mobile",bg:"#e3eef2",ac:"#6f9db0",url:"https://www.figma.com/proto/ZFHkIu2gDVVyH2KSpL3Mvg/navstar--AI-travel-application?node-id=420-30775&viewport=304%2C472%2C0.15&t=NGlJmzCJWhhzdw1T-1&scaling=scale-down-width&content-scaling=fixed&page-id=264%3A155"},
  {img:THUMB_VAULT,name:"Vault",line:"Property management, simplified.",kind:"dash",bg:"#f4e4e0",ac:"#c98a7c",url:"https://www.figma.com/proto/xKqpw2nk5UkcsZUxn9nPmg/Vault--Manage-Property-Smartly?node-id=226-11606&viewport=-1033%2C-886%2C0.57&t=CW3L3rqSZ4wllqun-1&scaling=min-zoom&content-scaling=fixed&page-id=220%3A790"},
  {img:THUMB_AWB,name:"Approval Workflow Builder",line:"Complex approvals, set up in five calm steps.",kind:"flow",bg:"#e6ecf8",ac:"#4F75E8"}
 ];
 /* Case study mockup images for the rotating cards (6 slots). */
-/* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Veritas, Top Brass, Approval Workflow Builder */
+/* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Syndicate Research, Top Brass, Approval Workflow Builder */
 /* About canvas: personal photos scattered around a draggable canvas.
    img:"" shows an empty "Your photo" slot. x/y = position in % of the canvas, w = width in px (desktop), r = tilt. */
 /* About "Off the clock" diary: photos scattered on an open diary; visitors can move them.
@@ -165,7 +167,7 @@ const inlineSketch=s=>s.replace(/class="s"/g,'fill="none" stroke="#2b2a26" strok
 const slugOf=n=>n.toLowerCase().replace(/[^a-z]+/g,"-");
 const IMGICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>';
 const slot=(src,alt,hint="Cover image")=>src?`<img src="${src}" alt="${alt}" loading="lazy">`:`<div class="slot" role="img" aria-label="${alt}"><i>${IMGICON}${hint}</i></div>`;
-const pcard=p=>`<a class="pcard reveal" href="#${slugOf(p.name)}"><div class="art">${slot(p.img,p.name+" cover")}</div><div class="meta"><h3>${p.name}</h3><span class="go" aria-hidden="true">↗</span></div></a>`;
+const pcard=p=>`<a class="pcard reveal" href="#${slugOf(p.name)}"><div class="art">${slot(p.img,p.name+" cover")}${p.live?'<span class="pc-live"><i></i>live</span>':""}</div><div class="meta"><h3>${p.name}</h3><span class="go" aria-hidden="true">↗</span></div></a>`;
 const jcard=p=>`<a class="jcard reveal" href="#${p.slug}"><span class="label">${p.cat}</span><h3>${p.t}</h3><p class="jd">${p.d}</p><span class="go">Read · ${readTime(p)} min ↗</span></a>`;
 const readTime=p=>Math.max(1,Math.round(p.body.map(b=>Array.isArray(b[1])?b[1].join(" "):b[1]).join(" ").split(/\s+/).length/200));
 const tcard=t=>`<article class="tcard" style="--tint:${t.tint}"><blockquote>“${t.quote}”</blockquote><div class="who"><span class="avatar">${t.initials}</span><div><b>${t.name}</b><span>${t.role}</span></div></div></article>`;
@@ -174,9 +176,24 @@ const head=(label,title,right)=>`<div class="sec-head"><div><span class="label t
 
 /* ---------- case studies (copy taken from Devanshi's Figma case studies) ---------- */
 const CASES={
+"jasper-colin":{year:"2024 – 2025",kicker:"Brand & web · Live project",title:"Two live brand sites", grey:"for a research group.",
+ intro:"The public web presence for Jasper Colin and its sister company Robin & Berry, designed and shipped by a small team. I worked on both as a Junior UI/UX Designer.",
+ meta:[["Role","Devanshi Sharma, Junior UI/UX Designer"],["Team","Designers, marketing and developers"],["Timeline","2024 – 2025"],["Platform","Responsive web"],["Status","Live · <a href=\"https://jaspercolin.com/\" target=\"_blank\" rel=\"noopener\">jaspercolin.com ↗</a> · <a href=\"https://robinandberry.com/\" target=\"_blank\" rel=\"noopener\">robinandberry.com ↗</a>"]],
+ chips:["Live","Brand refresh","AI-assisted workflow"],
+ overview:["Two audiences, two brands, one visual language.",`<span class="grey">Jasper Colin set the system. Robin & Berry was built on top of it.</span>`],
+ problem:{h:"A research group without a shared visual language.",items:[["Inconsistent touchpoints","Without an agreed brand system, every new page and product site drifted further apart."],["Two different audiences","Jasper Colin sells B2B research and analytics; Robin & Berry sells research infrastructure, audience panels and dashboards."],["Speed without a studio","Each site had to go from design to live quickly, with a small in-house team."]]},
+ blocks:[{type:"media",side:["Walkthrough","Both sites, in seventeen seconds."],p:"Every screen is a capture from the live sites: the Jasper Colin corporate site first, then Robin & Berry.",items:["assets/images/jasper-colin/site-walkthrough.mp4|assets/images/jasper-colin/site-walkthrough-poster.jpg"]},
+  {type:"media",side:["Jasper Colin · 2024","The parent brand, and the language the next site inherited."],p:"The corporate site and a full brand identity refresh. Brand first: one visual language across every customer touchpoint, so the sites that followed could be assembled rather than invented.",items:["assets/images/jasper-colin/jc-hero.jpg","assets/images/jasper-colin/jc-data-to-decision.jpg"]},
+  {type:"media",side:["Robin & Berry · 2025","Better decisions begin with better data."],p:"A Jasper Colin sister company: research infrastructure, audience panels and decision dashboards. Much of the design workflow was AI-assisted; problem framing, states, edge cases and design QA stayed with the team.",items:["assets/images/jasper-colin/rb-hero.jpg","assets/images/jasper-colin/rb-cards.jpg"]}],
+ process:[["Brand first","Settle the visual language before drawing a single page."],["System","Type, colour, radius and components agreed up front."],["Design & build","Pages assembled from the system, with AI-assisted drafts reviewed by the team."],["QA & launch","Design QA, states and edge cases, then handed to developers to deploy."]],
+ decisions:{h:"What kept two sites consistent.",items:[["One shared language","Robin & Berry inherits Jasper Colin's system instead of starting from scratch."],["System before pages","With the system settled, page design becomes assembly, not invention."],["AI drafts, human review","AI sped up the drafts; careful review made them shippable."],["Real and public","Both sites are live, so every screen here is the real thing."]]},
+ screens:["assets/images/jasper-colin/jc-homepage.webp","assets/images/jasper-colin/rb-homepage.webp"],
+ learnings:[],
+ quote:"Get the brand right first, and every site after it gets faster."},
+
 "runway":{year:"2025",kicker:"Internal platform · Jasper Colin Research",title:"One place for", grey:"every workday.",
  intro:"An internal employee-management platform that brings attendance, leave, referrals and HR communications into one connected workspace.",
- meta:[["Company","Jasper Colin Research"],["Role","UI/UX Designer"],["Product","Employee-management platform"],["Scale","500+ employees"]],
+ meta:[["Company","Jasper Colin Research"],["Role","UI/UX Designer"],["Product","Employee-management platform"],["Scale","500+ employees"],["Status","Live · used daily by Jasper Colin employees · <a href=\"https://runway.jaspercolin.com/login\" target=\"_blank\" rel=\"noopener\">runway.jaspercolin.com ↗</a>"]],
  chips:["Attendance","Referral tracker","HR hub"],
  overview:["A broad HR platform had grown into a set of separate tasks.",`<span class="grey">The goal was to turn it into a connected daily workspace.</span>`],
  problem:{h:"Many employee needs. One coherent experience.",items:[["No clear starting point","A broad HR platform needs clear routes into both frequent and occasional tasks."],["Invisible request status","Referrals and leave requests needed visible progress, not just a submit button."],["Action and information mixed","Payroll, events and newsletters needed a home without competing with daily tasks."]]},
@@ -190,27 +207,39 @@ const CASES={
  quote:"Scope shapes structure more than style does."},
 
 "top-brass":{year:"2025",kicker:"Enterprise SaaS · Research operations",title:"A unified report builder", grey:"for enterprise research.",
- intro:"How I simplified complex research workflows with one scalable reporting experience across many research methodologies.",
- meta:[["Role","UI/UX Designer"],["Timeline","6 months"],["Platform","Enterprise SaaS"],["Domain","Research & analytics"]],
+ intro:"How our team simplified complex research workflows with one scalable reporting experience across many research methodologies, and the Signal Intelligence listening product around it.",
+ meta:[["Role","Devanshi Sharma, Junior UI/UX Designer"],["Team","Multiple designers, with a PM and engineers"],["Timeline","18 months"],["Platform","Enterprise SaaS · desktop web"],["Domain","Research & analytics"]],
  chips:["Fullscreen modal","Recent studies","Batch select"],
  overview:["The platform had grown.",`<span class="grey">The reporting experience hadn't.</span>`],
  problem:{h:"One mental model for very different research.",items:[["Many artifact types","Sessions, activities, responses, polls, recordings, clips and collections all needed a place in reports."],["Nested dialogs","Researchers clicked through layers of small popups before finding the data they needed."],["Different methods","The challenge was one mental model that works across fundamentally different research methods."]]},
  blocks:[{type:"converge",side:["The ecosystem","One report. Many sources."],from:["Survey","User interview","FGD","Diary study","Usability testing","Prototype test"],to:"One report"},
-  {type:"compare",side:["Before & after","One modern modal, replacing many tiny popups."],old:["Small floating popup","Nested dialogs","Project-first navigation","Many clicks to add data"],nw:["Large fullscreen modal","Recent studies up front","Search and project filter","Dynamic data panel with batch selection"]}],
+  {type:"compare",side:["Before & after","One modern modal, replacing many tiny popups."],old:["Small floating popup","Nested dialogs","Project-first navigation","Many clicks to add data"],nw:["Large fullscreen modal","Recent studies up front","Search and project filter","Dynamic data panel with batch selection"]},
+  {type:"media",side:["Walkthrough","The whole product, in about three minutes."],p:"Signal Intelligence, part of the Top Brass research suite: Topic setup and insights, the drill-down, AI, dashboards, the Brand track and the shared workspace.",items:["assets/images/top-brass/58-product-walkthrough.mp4"]},
+  {type:"media",side:["Signal Intelligence","One listening platform, two ways of reading the web."],p:"Topic studies explain everything said about a subject. Brand studies measure a brand on its own and against competitors. Same sources, two different questions.",items:["assets/images/top-brass/50-hero-scene.webp"]},
+  {type:"media",side:["Signature decision","Drill-downs that don't cover the page."],p:"Every widget has an expanded and a collapsed variant. The clicked widget stays expanded, the others collapse into thumbnails of their type, and the page makes room for the panel instead of covering it.",items:["assets/images/top-brass/55-before-after.webp","assets/images/top-brass/11-drilldown-mentions.webp","assets/images/top-brass/52-dark-scene.webp"]},
+  {type:"media",side:["IA & flows","Two branches from one “Create new study”."],p:"Topic and Brand share Setup, Insights, Dashboard and Configure; what's inside Insights makes them different products. Paid sources never stop setup: they join as “Pending purchase”.",items:["assets/images/top-brass/53-sitemap.webp","assets/images/top-brass/54-user-flows.webp"]},
+  {type:"media",side:["Topic setup","The result is visible while it's built."],p:"A progress rail keeps five steps in view and a live preview fills in with every choice. The query comes in three levels, so nobody has to start with Boolean syntax.",items:["assets/images/top-brass/02-setup-study-basics.webp","assets/images/top-brass/03-setup-topic-query.webp","assets/images/top-brass/04-setup-advanced-query.webp","assets/images/top-brass/05-setup-sources.webp","assets/images/top-brass/06-setup-filters.webp","assets/images/top-brass/07-setup-preview.webp"]},
+  {type:"media",side:["Insights","Each section answers one question."],p:"Instead of one long report: KPIs against the previous period, mention trend, sentiment and sources, then themes, news clusters and top posts that explain the conversation.",items:["assets/images/top-brass/01-hero-insights-overview.webp","assets/images/top-brass/30-widget-themes.webp","assets/images/top-brass/31-widget-news.webp","assets/images/top-brass/42-topic-top-posts.webp"]}],
  process:[["Discovery","Mapped study types, artifacts and existing pain points."],["Data model","Unified fragmented data models into one structure."],["Interaction design","Designed the fullscreen modal and selection patterns."],["Edge cases","Empty states, mixed data types and very large studies."],["Developer collaboration","Paired on feasibility, tokens and component behaviour."],["Accessibility & UAT","Keyboard flows, focus, contrast, then validation with researchers."]],
  decisions:{h:"The rules behind every decision.",items:[["One mental model","Every study behaves differently behind the scenes but should feel familiar."],["Recognition over recall","Recent studies reduce navigation and help users continue where they left off."],["Consistent across methods","Different study types expose different data with one shared interaction pattern."],["Reduce interaction cost","Batch selection, fewer steps and contextual metadata."]]},
  learnings:[],
  quote:"The hardest part wasn't designing reports. It was designing a workflow flexible enough for every research method, and still predictable."},
 
-"veritas-research":{year:"2026",kicker:"Market research & technology",title:"From research questions", grey:"to better decisions.",
- intro:"A clearer research experience that helps enterprise product and marketing teams discover, understand and choose the right research approach.",
- meta:[["Timeline","Sept 2025 – Jun 2026"],["Role","UX research, UX strategy, UI"],["Platform","Web platform"],["Industry","Market research"]],
- chips:["Decision-first","4 research modes","Dashboard"],
- overview:["Not every research buyer needs the same thing.",`<span class="grey">The interface had to answer: what kind of research do I actually need?</span>`],
- problem:{h:"Many approaches under one roof felt confusing.",items:[["Different needs","Some teams need weekly tracking, others deep strategy, fast answers or low-cost validation."],["Catalogue thinking","Listing everything side by side made the product feel like a catalogue."],["Hidden tradeoffs","Users needed to compare approaches and understand tradeoffs before committing."]]},
- blocks:[{type:"modes",side:["The solution","A decision-first research experience."],items:[["Tracker","Continuous monitoring of markets, customers and competitors.","Weekly data updates"],["Research","Deep strategic insight with custom cohorts and analytics.","Detailed report"],["Quick Research","Fast directional insight for urgent loops and copy tests.","24–72 hour turnaround"],["Omnibus","Shared-sample studies that split cost but keep targeting.","Cost-effective"]]}],
- process:[["Discover","Market and competitor analysis, user research."],["Define","Identify key issues and set clear design goals."],["Develop","Idea generation, wireframes and prototypes."],["Deliver","UI kit and refined UX/UI."]],
- decisions:{h:"Two screens that do the heavy lifting.",items:[["Main screen","Clear hierarchy and navigation help users discover research and pick an approach."],["Research modes","Each mode states its purpose, turnaround and output so tradeoffs are visible."],["Dashboard","A clear overview of research activity with quick access to every insight."],["Industry context","Research grouped by industry so teams find what is relevant faster."]]},
+"syndicate-research":{year:"2026",kicker:"Market research & technology",title:"From research questions", grey:"to better decisions.",
+ intro:"A clearer research experience, on web and mobile, that helps enterprise product and marketing teams discover, understand and choose the right research approach.",
+ meta:[["Timeline","Sept 2025 – Jun 2026"],["Role","UX research, UX strategy, UI / platform design"],["Platform","Web platform + mobile responsive"],["Industry","Market research & technology"]],
+ chips:["Decision-first","4 research modes","Web + mobile"],
+ overview:["Syndicate brings tracking, deep research, quick answers and shared surveys together in one platform.",`<span class="grey">The interface had to answer one question first: what kind of research do I actually need?</span>`],
+ problem:{h:"Many approaches under one roof felt confusing.",items:[["Different needs","Some teams need week-over-week tracking, others deep strategy, fast directional answers or low-cost validation."],["Catalogue thinking","Listing every approach side by side made the product feel like a catalogue, not a guide."],["Hidden tradeoffs","Users needed to compare approaches and understand tradeoffs before committing budget and time."]]},
+ blocks:[{type:"modes",side:["Research","Understanding how people choose research."],items:[["Tracker","Continuous market monitoring over long periods, with automated reporting.","Weekly data updates"],["Research","Deep strategic insight with comprehensive surveys, custom cohorts and advanced analytics.","Detailed research report"],["Quick Research","Fast directional insight for urgent internal loops, copy tests and rapid validation.","24–72 hour turnaround"],["Omnibus","Shared-sample studies that split cost but keep high-fidelity demographic targeting.","Cost-effective validation"]]},
+  {type:"shot",img:"assets/images/screen-syndicate-research-3.jpg"},
+  {type:"cards",side:["Key screens","Every screen points to a next step."],items:[["Main screen","Clear hierarchy and the four modes up front, so people pick an approach before browsing."],["Dashboard","“What do you want to learn today?”, popular prompts for your industry and continue where you left off."],["Tracker landing","Explains continuous research at a glance: live stats, featured trackers and industries covered."],["Tracker detail","Release dates, pricing, what you get and who it's for, all before adding to cart."],["AI study builder","A chat turns plain questions into structured survey questions, with live counts and timing."],["My Library","Every purchased tracker, study and request in one place, with progress and status."]]},
+  {type:"shot",img:"assets/images/screen-syndicate-research-4.jpg"},
+  {type:"cards",side:["Mobile","The same platform, in one hand."],items:[["Same four modes","Tracker, Research, Quick Research and Omnibus keep the same entry points on a 393px screen."],["Stacked, scannable cards","Stats, study cards and library counts stack into one column with clear status."],["AI study builder on the go","Omnibus and Quick Research keep the chat-led flow, sized for thumbs."],["Library and profile","Purchased research and account settings stay one tap away."]]},
+  {type:"shot",img:"assets/images/screen-syndicate-research-8.jpg"},
+  {type:"shot",img:"assets/images/screen-syndicate-research-9.jpg"}],
+ process:[["Discover","Market and competitor analysis, plus user research on how people choose research."],["Define","Key issues identified and turned into clear design goals."],["Develop","Idea generation, wireframes and prototypes for each research journey."],["Deliver","Refined UX/UI and a UI kit for web and mobile."]],
+ decisions:{h:"The rules behind every screen.",items:[["Decision first, catalogue second","Users choose an approach by need and timeline before they see a single study."],["Tradeoffs in plain sight","Each mode states its purpose, turnaround and output so comparing is easy."],["Pick up where you left off","Recent studies and recommendations cut navigation for returning users."],["AI that structures, not replaces","The chat drafts survey questions; researchers keep, edit or undo every change."]]},
  system:{colors:[["Light grey","#F4F5F7"],["Blue","#2F37F5"],["Grey","#65676B"],["Black","#303237"],["White","#FFFFFF"]],type:"Inter",note:"Built for clean organisation and precise quantitative data, without extra ornament."},
  learnings:[],
  quote:"Research shouldn't feel like a catalogue. It should feel like a guided choice."},
@@ -261,8 +290,11 @@ const CASES={
 };
 const projBySlug=slug=>PROJECTS.find(p=>slugOf(p.name)===slug);
 function caseBlock(b,p){
+  if(b.type==="shot") return `<div class="wrap shot-wrap reveal"><figure class="shot">${slot(b.img,p.name+" screen","Screen")}</figure></div>`;
   const side=`<div class="side"><span class="label">${b.side[0]}</span><h2>${b.side[1]}</h2></div>`;
   let body="";
+  if(b.type==="media") body=`${b.p?`<p class="cs-body-p">${b.p}</p>`:""}<div class="cs-media">${b.items.map(it=>{const [src,pst]=it.split("|"); return [src,pst]}).map(([src,pst])=>/\.mp4$/.test(src)?`<figure class="shot cs-vid"><video src="${src}" poster="${pst||src.replace(/\.mp4$/,"-poster.webp")}" controls playsinline preload="none"></video></figure>`:`<figure class="shot"><img src="${src}" alt="${p.name} screen" loading="lazy"></figure>`).join("")}</div>`;
+  if(b.type==="cards") body=`<div class="cs-cards" style="--cols:${b.items.length%3===0?3:2}">${b.items.map((it,i)=>`<div class="cs-card"><span class="n">0${i+1}</span><h3>${it[0]}</h3><p>${it[1]}</p></div>`).join("")}</div>`;
   if(b.type==="steps") body=`<div class="cs-steps" style="--acc:${p.ac}">${b.items.map(i=>`<div class="cs-step"><h3>${i[0]}</h3><p>${i[1]}</p></div>`).join("")}</div>`;
   if(b.type==="tree") body=`<div class="tree"><span class="root">${b.root}</span><div class="groups">${b.groups.map(g=>`<div class="g"><b>${g[0]}</b>${g[1].map(x=>`<span>${x}</span>`).join("")}</div>`).join("")}</div></div>`;
   if(b.type==="converge") body=`<div class="chipset">${b.from.map(x=>`<span>${x}</span>`).join("")}<span class="to">→</span><span class="one">${b.to}</span></div>`;
@@ -285,18 +317,13 @@ const SCREENS={
   "assets/images/screen-runway-3.jpg",
   "assets/images/screen-runway-4.jpg"
  ],
- "top-brass": [
-  "assets/images/screen-top-brass-1.jpg",
-  "assets/images/screen-top-brass-2.jpg",
-  "assets/images/screen-top-brass-3.jpg",
-  "assets/images/screen-top-brass-4.jpg",
-  "assets/images/screen-top-brass-5.jpg"
- ],
- "veritas-research": [
-  "assets/images/screen-veritas-research-1.jpg",
-  "assets/images/screen-veritas-research-2.jpg",
-  "assets/images/screen-veritas-research-3.jpg",
-  "assets/images/screen-veritas-research-4.jpg"
+ "top-brass": [],
+ "syndicate-research": [
+  "assets/images/screen-syndicate-research-1.jpg",
+  "assets/images/screen-syndicate-research-2.jpg",
+  "assets/images/screen-syndicate-research-7.jpg",
+  "assets/images/screen-syndicate-research-5.jpg",
+  "assets/images/screen-syndicate-research-6.jpg"
  ],
  "navstar": [
   "assets/images/screen-navstar-1.jpg",
@@ -319,7 +346,7 @@ const SCREENS={
 Object.keys(SCREENS).forEach(k=>{ if(CASES[k]) CASES[k].screens=SCREENS[k]; });
 /* Screens: 5 full-width images spread evenly between sections, stacked vertically. Add images to CASES[slug].screens. */
 function interleave(c,p,parts){
-  const sc=(c.screens&&c.screens.length?c.screens:Array(5).fill("")).slice(0,5);
+  const sc=(Array.isArray(c.screens)?c.screens:Array(5).fill("")).slice(0,5);
   const secs=parts.filter(Boolean); let k=0, out="";
   const G=secs.length-1, n=sc.length, at=new Set();
   if(n>=G){ for(let g=0;g<G;g++) at.add(g); } else { for(let j=0;j<n;j++) at.add(n===1?0:Math.round(j*(G-1)/(n-1))); }
@@ -459,7 +486,8 @@ function renderPost(slug){
 const app=document.getElementById("app");
 let shown="";
 function route(){
-  const h=(location.hash||"#home").slice(1);
+  let h=(location.hash||"#home").slice(1);
+  if(h==="veritas-research"){ h="syndicate-research"; history.replaceState(null,"","#"+h); }
   const secs=["work","about","journal","contact"];
   let view="home";
   if(CASES[h]) view="case:"+h; else if(POSTMAP[h]) view="post:"+h;
