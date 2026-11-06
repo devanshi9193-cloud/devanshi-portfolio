@@ -994,12 +994,10 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 .hx-photo .me .me-fig{width:auto;aspect-ratio:auto;object-fit:contain;display:block}
 
 /* snapshot: clicking the photo prints a little polaroid of the pose that pops out and fades */
-.me-print{position:absolute;z-index:6;left:50%;top:60%;width:104px;padding:6px 6px 24px;background:#fff;box-shadow:0 2px 4px rgba(38,51,77,.08),0 14px 28px rgba(38,51,77,.22);pointer-events:none;opacity:0;animation:mePrint 3.1s cubic-bezier(.3,1.3,.5,1) forwards}
+.me-print{position:absolute;z-index:6;width:clamp(78px,7.4vw,98px);padding:5px 5px 20px;background:#fff;box-shadow:0 2px 4px rgba(38,51,77,.08),0 12px 24px rgba(38,51,77,.2);pointer-events:none;opacity:0;transform:translate(-50%,-50%)}
 .me-print .pi{position:relative;aspect-ratio:1/1.12;overflow:hidden;background:#E1EAF6;background-image:radial-gradient(circle,rgba(175,197,228,.75) 1.6px,transparent 2px);background-size:14px 14px}
 .me-print img{position:absolute;left:50%;top:4%;width:96%;height:auto;transform:translateX(-50%)}
-.me-print span{position:absolute;left:0;right:0;bottom:3px;text-align:center;font-family:var(--f-hand);font-weight:700;font-size:1.05rem;line-height:1;color:var(--ink)}
-@keyframes mePrint{0%{opacity:0;transform:translate(-50%,-20px) scale(.45) rotate(0deg)}14%{opacity:1;transform:translate(calc(-50% + var(--dx)),28px) scale(1.04) rotate(var(--rot))}22%{transform:translate(calc(-50% + var(--dx)),34px) scale(1) rotate(var(--rot))}82%{opacity:1;transform:translate(calc(-50% + var(--dx)),42px) scale(1) rotate(var(--rot))}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),74px) scale(.96) rotate(var(--rot))}}
-@media (prefers-reduced-motion:reduce){.me-print{animation:mePrintR 3.1s linear forwards;transform:translate(calc(-50% + var(--dx)),34px) rotate(var(--rot))}@keyframes mePrintR{0%,100%{opacity:0}10%,85%{opacity:1}}}
+.me-print span{position:absolute;left:0;right:0;bottom:2px;text-align:center;font-family:var(--f-hand);font-weight:700;font-size:.98rem;line-height:1;color:var(--ink)}
 
 /* hero: handwritten hint next to the photo, pointing at it */
 .hx-snap{position:absolute;left:-44px;bottom:20%;z-index:3;margin:0;width:128px;font-family:var(--f-hand);font-size:1.4rem;line-height:1.05;color:var(--royal);rotate:-6deg;pointer-events:none}
@@ -1043,3 +1041,4 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 @media (prefers-reduced-motion:reduce){.tk-print{transition:none}}
 
 .tk:has(.tall) .tk-ph{grid-template-columns:1.12fr 1fr}
+@media (max-width:640px){.me-print{width:64px;padding:4px 4px 15px}.me-print span{font-size:.8rem;bottom:1px}}

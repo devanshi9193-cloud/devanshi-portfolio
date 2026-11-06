@@ -670,15 +670,38 @@ function meChar(){
         const src=ac.createBufferSource(), f=ac.createBiquadFilter(), g=ac.createGain(); src.buffer=b; f.type="highpass"; f.frequency.value=i?900:1800; g.gain.value=i?.12:.2;
         src.connect(f).connect(g).connect(ac.destination); src.start(ac.currentTime+at) }) }catch(_){} };
   const CAPS=["cheese!","cute!","so me","one more!","♡","candid!","the pose"]; let shot=0;
-  const print=p=>{ const art=me.closest(".hx-art"); if(!art) return;
-    art.querySelectorAll(".me-print").forEach((el,i,all)=>{ if(all.length-i>2) el.remove() });
+  /* each print lands on the next free corner of the photo card and stays. When all four corners are full
+     (or after a while), they slide behind the card into the envelope and the note says so. */
+  const CORNERS=[[0,0,-10],[1,0,9],[1,1,-7],[0,1,8]], slots=[null,null,null,null]; let tuckT=0, sayT=0, tucking=false;
+  meAbort.signal.addEventListener("abort",()=>{clearTimeout(tuckT);clearTimeout(sayT)});
+  const say=(html,back)=>{ const nb=me.closest(".hx-art")?.querySelector(".hx-snap b"); if(!nb) return; clearTimeout(sayT); nb.innerHTML=html;
+    if(!reduce) nb.animate([{scale:.85},{scale:1.08},{scale:1}],{duration:420,easing:"cubic-bezier(.3,1.6,.5,1)"});
+    if(back) sayT=setTimeout(()=>{nb.innerHTML="click a picture <br>of me!"},back) };
+  const tuck=()=>{ const art=me.closest(".hx-art"), env=art&&art.querySelector(".hx-env"), els=slots.filter(Boolean); if(!env||!els.length) return;
+    tucking=true; const ex=env.offsetLeft+env.offsetWidth/2, ey=env.offsetTop+env.offsetHeight*.55, D=reduce?300:820, G=140;
+    els.forEach((el,k)=>{ el.style.zIndex="0"; const x=parseFloat(el.style.left), y=parseFloat(el.style.top), r=el.dataset.r;
+      el.animate([{opacity:1,transform:`translate(-50%,-50%) rotate(${r}deg)`},
+        {opacity:1,offset:.7,transform:`translate(calc(-50% + ${(ex-x).toFixed(0)}px),calc(-50% + ${(ey-y-22).toFixed(0)}px)) scale(.55) rotate(-11deg)`},
+        {opacity:0,transform:`translate(calc(-50% + ${(ex-x).toFixed(0)}px),calc(-50% + ${(ey-y+6).toFixed(0)}px)) scale(.4) rotate(-11deg)`}],
+        {duration:D,delay:k*G,easing:"cubic-bezier(.5,0,.3,1)",fill:"forwards"}).finished.then(()=>el.remove(),()=>el.remove()) });
+    tuckT=setTimeout(()=>{ slots.fill(null); tucking=false;
+      if(!reduce) env.animate([{scale:1},{scale:1.1},{scale:.97},{scale:1}],{duration:460,easing:"ease-out"});
+      say("such cute <br>photos! &hearts;",3800) },(els.length-1)*G+D) };
+  const print=p=>{ const art=me.closest(".hx-art"), ph=me.closest(".hx-photo"); if(!art||!ph||tucking) return;
+    const i=slots.indexOf(null); if(i<0) return;
     const el=document.createElement("div"); el.className="me-print"; el.setAttribute("aria-hidden","true");
-    const side=shot%2?1:-1; el.style.setProperty("--dx",(side*(70+Math.random()*50)).toFixed(0)+"px"); el.style.setProperty("--rot",(side*(5+Math.random()*7)).toFixed(1)+"deg");
     el.innerHTML=`<div class="pi"><img src="assets/images/me/me-${p}.webp" alt=""></div><span>${CAPS[shot%CAPS.length]}</span>`;
-    art.appendChild(el); setTimeout(()=>el.remove(),3200); shot++ };
+    const W=ph.offsetWidth, H=ph.offsetHeight, inset=Math.min(26,W*.08), [cxn,cyn,r]=CORNERS[i];
+    const x=ph.offsetLeft+(cxn?W-inset:inset), y=ph.offsetTop+(cyn?H-inset:inset), sx=ph.offsetLeft+W/2-x, sy=ph.offsetTop+H*.45-y;
+    el.style.left=x.toFixed(0)+"px"; el.style.top=y.toFixed(0)+"px"; el.dataset.r=r; art.appendChild(el);
+    el.animate([{opacity:0,transform:`translate(calc(-50% + ${sx.toFixed(0)}px),calc(-50% + ${sy.toFixed(0)}px)) scale(.35) rotate(0deg)`},
+      {opacity:1,offset:.55,transform:`translate(-50%,-50%) scale(1.07) rotate(${r}deg)`},
+      {opacity:1,transform:`translate(-50%,-50%) scale(1) rotate(${r}deg)`}],{duration:reduce?1:720,easing:"cubic-bezier(.3,1.2,.5,1)",fill:"forwards"});
+    slots[i]=el; shot++;
+    clearTimeout(tuckT); tuckT=setTimeout(tuck,slots.every(Boolean)?1800:9000) };
   const NEXT={shy:"peace",peace:"tada",tada:"think",think:"peace"};
   const snap=e=>{ e.preventDefault(); clearTimeout(idle); clearTimeout(bored); snapped=true;
-    const nb=me.closest(".hx-art")?.querySelector(".hx-snap b"); if(nb) nb.innerHTML=shot<1?"so cute! <br>one more?":"one more? <br>&hearts;";
+    if(!tucking){ const left=slots.filter(x=>!x).length-1; say(left===3?"so cute! <br>one more?":left>0?`${left} more! <br>&hearts;`:"all four! <br>&hearts;") }
     const cur=me.dataset.p; me.classList.remove("flash"); void me.offsetWidth; me.classList.add("flash"); shutter(); print(cur);
     clearTimeout(flashT); setTimeout(()=>{ set(NEXT[cur]||"peace",true) },160);
     if(!inPhoto) idle=setTimeout(()=>{snapped=false; set("shy")},2600) };
