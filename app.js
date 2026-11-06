@@ -5,6 +5,7 @@ const EMAIL="devanshi9193@gmail.com";
 const THUMB_JASPER_COLIN="assets/images/thumb-jasper-colin.jpg";
 const THUMB_RUNWAY="assets/images/thumb-runway.jpg?v=2";
 const THUMB_TOP_BRASS="assets/images/thumb-top-brass.jpg?v=2";
+const THUMB_USER_TESTING="assets/images/thumb-user-testing.jpg";
 const THUMB_SYNDICATE_RESEARCH="assets/images/thumb-syndicate-research.jpg";
 const THUMB_NAVSTAR="assets/images/thumb-navstar.jpg";
 const THUMB_VAULT="assets/images/thumb-vault.jpg";
@@ -13,6 +14,7 @@ const PROJECTS=[
  {img:THUMB_JASPER_COLIN,name:"Jasper Colin",line:"Two live brand sites for a research group.",kind:"web",bg:"#ece8f6",ac:"#d6402f",live:true,url:"https://jaspercolin.com/"},
  {img:THUMB_RUNWAY,name:"Runway",line:"Research synthesis to final UI.",kind:"web",bg:"#e4ebe0",ac:"#7f9b7a",live:true,url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study?node-id=18-26103&viewport=-30%2C265%2C0.26&t=p9tf1Bqnwc6Unyb0-1&scaling=scale-down-width&content-scaling=fixed&page-id=17%3A423",featured:true},
  {img:THUMB_TOP_BRASS,name:"Top Brass",line:"A clear, confident product experience.",kind:"mobile",bg:"#f3e9dc",ac:"#c99b6d",url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study---Top-Brass?node-id=8-1038&viewport=275%2C283%2C0.04&t=R0ETUvIOAq97g7IW-1&scaling=min-zoom&content-scaling=fixed&page-id=8%3A178",featured:true},
+ {img:THUMB_USER_TESTING,name:"User Testing",line:"Every kind of usability test, one calm flow.",kind:"dash",bg:"#ece6fb",ac:"#6c47e8"},
  {img:THUMB_SYNDICATE_RESEARCH,name:"Syndicate Research",line:"Dense research data, made readable.",kind:"dash",bg:"#ece8f6",ac:"#8f80c9",url:"https://www.figma.com/proto/KfNsoV9MnCYPkGO8w3L33U/Veritas-Research?node-id=877-200656&viewport=660%2C426%2C0.04&t=I2jSdbvsvdfr9XOs-1&scaling=scale-down-width&content-scaling=fixed&page-id=618%3A88314",featured:true},
  {img:THUMB_NAVSTAR,name:"Navstar",line:"An AI travel planner without the tab chaos.",kind:"mobile",bg:"#e3eef2",ac:"#6f9db0",url:"https://www.figma.com/proto/ZFHkIu2gDVVyH2KSpL3Mvg/navstar--AI-travel-application?node-id=420-30775&viewport=304%2C472%2C0.15&t=NGlJmzCJWhhzdw1T-1&scaling=scale-down-width&content-scaling=fixed&page-id=264%3A155"},
  {img:THUMB_VAULT,name:"Vault",line:"Property management, simplified.",kind:"dash",bg:"#f4e4e0",ac:"#c98a7c",url:"https://www.figma.com/proto/xKqpw2nk5UkcsZUxn9nPmg/Vault--Manage-Property-Smartly?node-id=226-11606&viewport=-1033%2C-886%2C0.57&t=CW3L3rqSZ4wllqun-1&scaling=min-zoom&content-scaling=fixed&page-id=220%3A790"},
@@ -225,6 +227,25 @@ const CASES={
  learnings:[],
  quote:"The hardest part wasn't designing reports. It was designing a workflow flexible enough for every research method, and still predictable."},
 
+"user-testing":{year:"2025",kicker:"Top Brass · Usability research",title:"Every kind of user test,", grey:"in one calm flow.",
+ intro:"A redesign of User Testing, the Top Brass module where research teams build usability studies, send them to participants and read the results, from first click to AI summary.",
+ meta:[["Role","Devanshi Sharma, UI/UX Designer · redesigned the module end to end"],["Team","Part of the Top Brass product team, with a PM and engineers"],["Platform","Enterprise SaaS · desktop web"],["Domain","Usability research"]],
+ chips:["9 tests · 7 surveys","Logic jumps","AI insights"],
+ overview:["User Testing lets a researcher test anything from a Figma prototype to a live site, a mobile app or an information structure.",`<span class="grey">The redesign had to make nine test types and seven kinds of question and survey feel like one product.</span>`],
+ problem:{h:"Many methods, one researcher.",items:[["Different test types","Prototype, live website, mobile app, first click, 5-second, navigation, card sort, tree and preference tests, plus five standard usability surveys."],["Setup that sprawls","Study details, participant pitch, screeners, technical needs, tests, follow-up questions and branching all had to fit one flow."],["Results in many shapes","Success rates, heatmaps, card groupings, survey scores and hours of session video all needed a readable home."]]},
+ blocks:[
+  {type:"media",side:["Walkthrough","The whole flow, in thirty seconds."],p:"From setting up a study to reading AI insights: Setup, the test library, building a test, results and AI analysis.",items:["assets/images/user-testing/walkthrough.mp4|assets/images/user-testing/walkthrough-poster.jpg"]},
+  {type:"media",side:["The flow","Four steps, always in view."],p:"Every study moves through Setup, Create, Recruit and Insights, shown as tabs at the top of the page so researchers always know where they are. Setup collects the study name, dates, language, duration, cover image and what participants need: webcam, audio or screen recording.",items:["assets/images/user-testing/setup-pitch.jpg"]},
+  {type:"media",side:["Test library","Every method, one picker."],p:"“Add Test” groups everything into Tests and Questions & Surveys. Each option says in one line what it checks, so choosing a method doesn't need a research glossary. A “Know more” panel explains each one in depth.",items:["assets/images/user-testing/add-test.jpg"]},
+  {type:"media",side:["Building a test","The same shape for every method."],p:"Every test uses the same structure: title and instructions, the thing being tested, then follow-up questions. A sidebar keeps the whole study in order, from welcome screen to thank-you screen. Prototype tests can be a task flow with a goal screen or free exploration. Logic jumps send participants to different questions based on their answers.",items:["assets/images/user-testing/prototype-task.jpg","assets/images/user-testing/first-click.jpg"]},
+  {type:"cards",side:["Methods","What each test answers."],items:[["Prototype, website & app","Can people complete a task, and where do they get stuck?"],["First click & 5-second","Is the first impression right, and does the first click land in the right place?"],["Navigation & tree test","Can people find things in the menus and the structure?"],["Card sort","How do people expect content to be grouped, open or closed?"],["Preference test","Which design do people choose, and why?"],["SUS, PSSUQ, SUPR-Q, ALFQ, AUS","Standard scored surveys that measure usability, including for assistive technologies."]]},
+  {type:"media",side:["Insights","Overview first, detail on demand."],p:"The activity overview shows completion, drop-off and time for the whole study. Each test then gets results suited to its type: goal success, clicks and heatmaps for a prototype; grades, factor scores and question-level notes for SUS.",items:["assets/images/user-testing/ins-overview.jpg","assets/images/user-testing/ins-prototype.jpg","assets/images/user-testing/ins-sus.jpg"]},
+  {type:"media",side:["AI analysis","From hours of video to the moments that matter."],p:"An AI summary pulls pain points, positive feedback, suggestions and patterns from across the study. In session videos, a coloured timeline marks positive, neutral and negative moments, and quotes are listed with timestamps and highlighted by sentiment.",items:["assets/images/user-testing/ins-ai-summary.jpg","assets/images/user-testing/ins-video-ai.jpg"]}],
+ process:[["Understand","Learned the existing module and the research methods behind each test type."],["Structure","Mapped the study flow into Setup, Create, Recruit and Insights, with one pattern for every test."],["Design","Designed setup, every test builder, logic jumps, overlays and the results views."],["Systemise","Built shared components for tests, questions, charts and modals so new methods slot in."]],
+ decisions:{h:"The rules behind every screen.",items:[["One shape for every test","Title, instructions, the thing being tested, then questions. Learn one test and you know them all."],["Explain in place","One-line descriptions and “Know more” panels instead of research jargon."],["The study, always in view","A sidebar shows every block in order, from welcome screen to thank-you screen."],["Results that match the method","Each test type gets the charts that answer its own question, under one shared overview."]]},
+ learnings:[],
+ quote:"Sixteen methods, one pattern. Researchers should learn the tool once and then forget about it."},
+
 "syndicate-research":{year:"2026",kicker:"Market research & technology",title:"From research questions", grey:"to better decisions.",
  intro:"A clearer research experience, on web and mobile, that helps enterprise product and marketing teams discover, understand and choose the right research approach.",
  meta:[["Timeline","Sept 2025 – Jun 2026"],["Role","UX research, UX strategy, UI / platform design"],["Platform","Web platform + mobile responsive"],["Industry","Market research & technology"]],
@@ -318,6 +339,7 @@ const SCREENS={
   "assets/images/screen-runway-4.jpg"
  ],
  "top-brass": [],
+ "user-testing": [],
  "syndicate-research": [
   "assets/images/screen-syndicate-research-1.jpg",
   "assets/images/screen-syndicate-research-2.jpg",
