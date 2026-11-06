@@ -10,6 +10,16 @@ const THUMB_SYNDICATE_RESEARCH="assets/images/thumb-syndicate-research.jpg";
 const THUMB_NAVSTAR="assets/images/thumb-navstar.jpg";
 const THUMB_VAULT="assets/images/thumb-vault.jpg";
 const THUMB_AWB="assets/images/thumb-awb.jpg";
+/* Hero: Devanshi's cartoon, standing in a tall photo frame. She leans toward the cursor; clicking the photo takes a picture and she changes pose. */
+const ME=`<div class="me" data-p="shy" role="img" aria-label="A cartoon of Devanshi, standing and smiling">
+<span class="me-shadow" aria-hidden="true"></span>
+<div class="me-pose">${["shy","peace","think","tada"].map(p=>`<img class="me-fig me-${p}" src="assets/images/me/me-${p}.webp" alt="" draggable="false">`).join("")}</div>
+<span class="me-cheese" aria-hidden="true">say cheese!</span>
+<span class="me-spk k1" aria-hidden="true">${'<svg viewBox="0 0 40 40"><path d="M20 34 C6 24 4 16 8 11 C12 6 18 8 20 13 C22 8 28 6 32 11 C36 16 34 24 20 34Z" fill="#AFC5E4" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/></svg>'}</span>
+<span class="me-spk k2" aria-hidden="true">${'<svg viewBox="0 0 40 40"><path d="M20 34 C6 24 4 16 8 11 C12 6 18 8 20 13 C22 8 28 6 32 11 C36 16 34 24 20 34Z" fill="#FBE6B0" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/></svg>'}</span>
+<span class="me-spk k3" aria-hidden="true">${'<svg viewBox="0 0 40 40"><path d="M20 34 C6 24 4 16 8 11 C12 6 18 8 20 13 C22 8 28 6 32 11 C36 16 34 24 20 34Z" fill="#AFC5E4" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/></svg>'}</span>
+<span class="me-flash" aria-hidden="true"></span>
+</div>`;
 const PROJECTS=[
  {img:THUMB_JASPER_COLIN,name:"Jasper Colin",line:"Two live brand sites for a research group.",kind:"web",bg:"#ece8f6",ac:"#d6402f",live:true,url:"https://jaspercolin.com/"},
  {img:THUMB_RUNWAY,name:"Runway",line:"Research synthesis to final UI.",kind:"web",bg:"#e4ebe0",ac:"#7f9b7a",live:true,url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study?node-id=18-26103&viewport=-30%2C265%2C0.26&t=p9tf1Bqnwc6Unyb0-1&scaling=scale-down-width&content-scaling=fixed&page-id=17%3A423",featured:true},
@@ -416,9 +426,10 @@ home:()=>{
     </div>
     <div class="hx-art" aria-hidden="true">
       <div class="hx-env" data-depth="0.9"><svg viewBox="0 0 200 132"><rect x="3" y="3" width="194" height="126" rx="6" fill="#FFFDF8" stroke="#D9CFBE" stroke-width="2"/><path d="M5 8 L100 78 L195 8" fill="none" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><circle cx="100" cy="78" r="17" fill="#4A6FA5"/><circle cx="100" cy="78" r="12.5" fill="none" stroke="#AFC5E4" stroke-width="1.6"/>${CUTE_STAR("cute-star").replace("<svg ",'<svg x="87" y="65" width="26" height="26" ')}</svg></div>
-      <figure class="hx-photo" data-depth="0.35"><img src="assets/images/hero-selfie.jpg" alt=""></figure>
+      <figure class="hx-photo" data-depth="0.35">${ME}</figure>
       <div class="hx-stamp" data-depth="1.3"><div class="stamp">${CUTE_STAR("cute-star")}<span>Devanshi</span></div><svg class="hx-cancel" viewBox="0 0 120 40"><path d="M2 8 C22 2 38 14 58 8 S98 2 118 8 M2 20 C22 14 38 26 58 20 S98 14 118 20 M2 32 C22 26 38 38 58 32 S98 26 118 32"/></svg></div>
       <span class="fd hx-spark" data-depth="2">${FD.spark}</span>
+      <p class="hx-snap"><b>click a picture <br>of me!</b><svg class="hx-snap-cam" viewBox="0 0 32 32"><g transform="rotate(-10 16 17)" stroke="#26334D" stroke-width="1.6" stroke-linejoin="round"><rect x="9.5" y="6.5" width="9" height="5" rx="1.6" fill="#AFC5E4"/><rect x="3" y="9.5" width="26" height="17" rx="4.2" fill="#4A6FA5"/><circle cx="16" cy="18" r="6.4" fill="#FBE6B0"/><circle cx="16" cy="18" r="3.3" fill="#26334D" stroke="none"/></g></svg><svg class="hx-snap-arrow" viewBox="0 0 60 44"><path d="M4 38 C22 40 40 30 50 10"/><path d="M41 12 L51 8 L53 19"/></svg></p>
     </div>
   </div>
 </div></section>
@@ -557,7 +568,7 @@ function wire(){
       el.classList.add("pre");el.style.transitionDelay=Math.min(sib,5)*90+"ms";io.observe(el)}});
   }
   cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); cancelAnimationFrame(raf3);
-  parallax(); wallDrag(); fitMega(); coverParallax();
+  parallax(); meChar(); wallDrag(); fitMega(); coverParallax();
   /* Recommendations: slow continuous auto-scroll (pauses on hover, focus or touch; arrows still step) */
   const tRow=document.getElementById("tRow"); cancelAnimationFrame(raf5);
   if(tRow){
@@ -599,6 +610,61 @@ function wire(){
   });
 }
 
+/* hero cartoon: four poses. Shy by default, "ta-da" over links and buttons, and she leans toward the cursor.
+   A photo (flash, shutter, print, next pose) is only taken when the photo is clicked. */
+let raf6=0, meAbort=null;
+function meChar(){
+  if(meAbort) meAbort.abort(); cancelAnimationFrame(raf6);
+  const me=document.querySelector(".hx-photo .me"); if(!me) return;
+  meAbort=new AbortController(); const sig={signal:meAbort.signal};
+  let tx=0,ty=0,cx=0,cy=0,mouse=false,idle=0,bored=0,flashT=0,cycle=0,over=false,inPhoto=false,snapped=false,ac=null;
+  const apply=()=>{me.style.setProperty("--cx",cx.toFixed(3)); me.style.setProperty("--cy",cy.toFixed(3))};
+  const set=(p,quiet)=>{ if(me.dataset.p===p) return; me.dataset.p=p; me.classList.toggle("posing",p==="peace");
+    if(!quiet){ me.classList.remove("flash"); clearTimeout(flashT) }
+    if(p==="peace"&&!reduce&&!quiet) flashT=setTimeout(()=>{void me.offsetWidth; me.classList.add("flash")},420) };
+  const visible=()=>{const r=me.getBoundingClientRect(); return r.bottom>0&&r.top<innerHeight};
+  addEventListener("pointermove",e=>{
+    if(e.pointerType!=="mouse") return;
+    const r=me.getBoundingClientRect(), mx=r.left+r.width/2, my=r.top+r.height*.3;
+    tx=Math.max(-1,Math.min(1,(e.clientX-mx)/(innerWidth*.45))); ty=Math.max(-1,Math.min(1,(e.clientY-my)/(innerHeight*.5)));
+    mouse=true; clearTimeout(idle); clearTimeout(bored);
+    const t=e.target.closest?e.target:null; over=!!(t&&t.closest("a,button,.btn,[role=button]"));
+    const wasIn=inPhoto; inPhoto=!!(t&&t.closest(".hx-photo .me")); if(wasIn&&!inPhoto) snapped=false;
+    if(!inPhoto) set(over?"tada":"shy");
+    if(reduce){cx=tx;cy=ty;apply()}
+  },sig);
+  document.addEventListener("mouseleave",()=>{clearTimeout(idle);clearTimeout(bored); mouse=false; over=false; set("shy")},sig);
+  /* click (or right-click) the photo: snap a picture. Flash + shutter, a little print pops out, then she changes pose */
+  const shutter=()=>{ try{ const A=window.AudioContext||window.webkitAudioContext; if(!A) return; ac=ac||new A(); if(ac.state==="suspended") ac.resume();
+      [0,.07].forEach((at,i)=>{ const n=Math.floor(ac.sampleRate*.05), b=ac.createBuffer(1,n,ac.sampleRate), d=b.getChannelData(0);
+        for(let j=0;j<n;j++) d[j]=(Math.random()*2-1)*Math.pow(1-j/n,4);
+        const src=ac.createBufferSource(), f=ac.createBiquadFilter(), g=ac.createGain(); src.buffer=b; f.type="highpass"; f.frequency.value=i?900:1800; g.gain.value=i?.12:.2;
+        src.connect(f).connect(g).connect(ac.destination); src.start(ac.currentTime+at) }) }catch(_){} };
+  const CAPS=["cheese!","cute!","so me","one more!","♡","candid!","the pose"]; let shot=0;
+  const print=p=>{ const art=me.closest(".hx-art"); if(!art) return;
+    art.querySelectorAll(".me-print").forEach((el,i,all)=>{ if(all.length-i>2) el.remove() });
+    const el=document.createElement("div"); el.className="me-print"; el.setAttribute("aria-hidden","true");
+    const side=shot%2?1:-1; el.style.setProperty("--dx",(side*(70+Math.random()*50)).toFixed(0)+"px"); el.style.setProperty("--rot",(side*(5+Math.random()*7)).toFixed(1)+"deg");
+    el.innerHTML=`<div class="pi"><img src="assets/images/me/me-${p}.webp" alt=""></div><span>${CAPS[shot%CAPS.length]}</span>`;
+    art.appendChild(el); setTimeout(()=>el.remove(),3200); shot++ };
+  const NEXT={shy:"peace",peace:"tada",tada:"think",think:"peace"};
+  const snap=e=>{ e.preventDefault(); clearTimeout(idle); clearTimeout(bored); snapped=true;
+    const nb=me.closest(".hx-art")?.querySelector(".hx-snap b"); if(nb) nb.innerHTML=shot<1?"so cute! <br>one more?":"one more? <br>&hearts;";
+    const cur=me.dataset.p; me.classList.remove("flash"); void me.offsetWidth; me.classList.add("flash"); shutter(); print(cur);
+    clearTimeout(flashT); setTimeout(()=>{ set(NEXT[cur]||"peace",true) },160);
+    if(!inPhoto) idle=setTimeout(()=>{snapped=false; set("shy")},2600) };
+  me.addEventListener("click",snap,sig); me.addEventListener("contextmenu",snap,sig);
+  /* no mouse (phones): every few seconds she changes pose on her own */
+  if(!matchMedia("(hover:hover)").matches&&!reduce){ const seq=["shy","think","shy","tada","shy","peace"]; let k=0;
+    cycle=setInterval(()=>{ if(!document.body.contains(me)){clearInterval(cycle);return} if(visible()) set(seq[k=(k+1)%seq.length],true) },3200);
+    meAbort.signal.addEventListener("abort",()=>clearInterval(cycle)); }
+  apply(); if(reduce) return;
+  const tick=t=>{
+    if(!mouse){tx=Math.sin(t/1900)*.35; ty=Math.cos(t/2300)*.15}
+    cx+=(tx-cx)*.08; cy+=(ty-cy)*.08; apply();
+    raf6=requestAnimationFrame(tick)};
+  raf6=requestAnimationFrame(tick);
+}
 /* hero: layers drift toward the cursor at different depths; idle sway otherwise */
 function parallax(){
   const card=document.getElementById("heroCard"); if(!card||reduce) return;
