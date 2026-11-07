@@ -1042,3 +1042,11 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 
 .tk:has(.tall) .tk-ph{grid-template-columns:1.12fr 1fr}
 @media (max-width:640px){.me-print{width:64px;padding:4px 4px 15px}.me-print span{font-size:.8rem;bottom:1px}}
+
+/* HERO ENVELOPE: open while photos are being taken, the flap closes once they're all tucked inside */
+.hx-env svg{overflow:visible}
+.hx-env .env-flap{transform-box:view-box;transform-origin:100px 4px;transform:scaleY(-1);transition:transform .55s cubic-bezier(.5,0,.3,1)}
+.hx-env .env-seal{opacity:0;transition:opacity .2s}
+.hx-env.shut .env-flap{transform:none}
+.hx-env.shut .env-seal{opacity:1;transition-delay:.4s}
+@media (prefers-reduced-motion:reduce){.hx-env .env-flap,.hx-env .env-seal{transition:none}}

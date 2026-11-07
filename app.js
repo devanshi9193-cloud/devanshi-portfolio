@@ -449,7 +449,7 @@ home:()=>{
       <span class="status tape-label"><i></i>available for work</span>
     </div>
     <div class="hx-art" aria-hidden="true">
-      <div class="hx-env" data-depth="0.9"><svg viewBox="0 0 200 132"><rect x="3" y="3" width="194" height="126" rx="6" fill="#FFFDF8" stroke="#D9CFBE" stroke-width="2"/><path d="M5 8 L100 78 L195 8" fill="none" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><circle cx="100" cy="78" r="17" fill="#4A6FA5"/><circle cx="100" cy="78" r="12.5" fill="none" stroke="#AFC5E4" stroke-width="1.6"/>${CUTE_STAR("cute-star").replace("<svg ",'<svg x="87" y="65" width="26" height="26" ')}</svg></div>
+      <div class="hx-env" data-depth="0.9"><svg viewBox="0 0 200 132"><rect x="3" y="3" width="194" height="126" rx="6" fill="#EFE6D6" stroke="#D9CFBE" stroke-width="2"/><path d="M4 5 L100 72 L196 5 L196 123 Q196 128 191 128 L9 128 Q4 128 4 123Z" fill="#FFFDF8"/><path d="M5 128 L84 66 M195 128 L116 66" fill="none" stroke="#E6DDCD" stroke-width="1.6" stroke-linecap="round"/><path d="M4 4 L100 72 L196 4" fill="none" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><g class="env-flap"><path d="M4 4 L100 78 L196 4Z" fill="#FFFDF8" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><g class="env-seal"><circle cx="100" cy="78" r="17" fill="#4A6FA5"/><circle cx="100" cy="78" r="12.5" fill="none" stroke="#AFC5E4" stroke-width="1.6"/>${CUTE_STAR("cute-star").replace("<svg ",'<svg x="87" y="65" width="26" height="26" ')}</g></g></svg></div>
       <figure class="hx-photo" data-depth="0.35">${ME}</figure>
       <div class="hx-stamp" data-depth="1.3"><div class="stamp">${CUTE_STAR("cute-star")}<span>Devanshi</span></div><svg class="hx-cancel" viewBox="0 0 120 40"><path d="M2 8 C22 2 38 14 58 8 S98 2 118 8 M2 20 C22 14 38 26 58 20 S98 14 118 20 M2 32 C22 26 38 38 58 32 S98 26 118 32"/></svg></div>
       <span class="fd hx-spark" data-depth="2">${FD.spark}</span>
@@ -678,15 +678,19 @@ function meChar(){
     if(!reduce) nb.animate([{scale:.85},{scale:1.08},{scale:1}],{duration:420,easing:"cubic-bezier(.3,1.6,.5,1)"});
     if(back) sayT=setTimeout(()=>{nb.innerHTML="click a picture <br>of me!"},back) };
   const tuck=()=>{ const art=me.closest(".hx-art"), env=art&&art.querySelector(".hx-env"), els=slots.filter(Boolean); if(!env||!els.length) return;
-    tucking=true; const ex=env.offsetLeft+env.offsetWidth/2, ey=env.offsetTop+env.offsetHeight*.55, D=reduce?300:820, G=140;
+    tucking=true; const ex=env.offsetLeft+env.offsetWidth/2, ey=env.offsetTop+env.offsetHeight*.32, D=reduce?300:820, G=140;
     els.forEach((el,k)=>{ el.style.zIndex="0"; const x=parseFloat(el.style.left), y=parseFloat(el.style.top), r=el.dataset.r;
       el.animate([{opacity:1,transform:`translate(-50%,-50%) rotate(${r}deg)`},
         {opacity:1,offset:.7,transform:`translate(calc(-50% + ${(ex-x).toFixed(0)}px),calc(-50% + ${(ey-y-22).toFixed(0)}px)) scale(.55) rotate(-11deg)`},
         {opacity:0,transform:`translate(calc(-50% + ${(ex-x).toFixed(0)}px),calc(-50% + ${(ey-y+6).toFixed(0)}px)) scale(.4) rotate(-11deg)`}],
         {duration:D,delay:k*G,easing:"cubic-bezier(.5,0,.3,1)",fill:"forwards"}).finished.then(()=>el.remove(),()=>el.remove()) });
-    tuckT=setTimeout(()=>{ slots.fill(null); tucking=false;
-      if(!reduce) env.animate([{scale:1},{scale:1.1},{scale:.97},{scale:1}],{duration:460,easing:"ease-out"});
-      say("such cute <br>photos! &hearts;",3800) },(els.length-1)*G+D) };
+    /* once the last photo is in, the flap closes, the envelope gives a little bounce and the note speaks;
+       a few seconds later the flap opens again for the next round */
+    tuckT=setTimeout(()=>{ slots.fill(null); env.classList.add("shut");
+      tuckT=setTimeout(()=>{
+        if(!reduce) env.animate([{scale:1},{scale:1.1},{scale:.97},{scale:1}],{duration:460,easing:"ease-out"});
+        say("such cute <br>photos! &hearts;",3800);
+        tuckT=setTimeout(()=>{ env.classList.remove("shut"); tucking=false },4200) },reduce?0:560) },(els.length-1)*G+D) };
   const print=p=>{ const art=me.closest(".hx-art"), ph=me.closest(".hx-photo"); if(!art||!ph||tucking) return;
     const i=slots.indexOf(null); if(i<0) return;
     const el=document.createElement("div"); el.className="me-print"; el.setAttribute("aria-hidden","true");
