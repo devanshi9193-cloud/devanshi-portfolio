@@ -8,7 +8,7 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
 - Fonts: Bricolage Grotesque (display), DM Sans (body), DM Mono (small labels), Caveat (handwritten notes, the logo, the footer name).
 - Single page, in this order:
   1. Hero: copy on the left (eyebrow, headline with handwritten blue accent words, short line, Resume + See my work buttons, "available for work" tape), photo on the right with an open envelope behind it and a stamp on top. Snapshots taken by clicking the photo sit on its 4 corners, then slide into the envelope, which closes before the note says "such cute photos!" and opens again a few seconds later.
-  2. Projects: all cards the same size (no card should look more important).
+  2. Projects: all cards the same size (no card should look more important), 2 per row on laptop and desktop, 1 per row on phones.
   3. About: notebook spread, then the "Off the clock" diary: an open blue diary on gingham with her photos, ticket stubs, a pencil, an instant camera and an iPod, all draggable. No paintings in the diary.
   4. "Workshops & speaking" (`TALKS` in `app.js`): one spread per session she led at Jasper Colin, a lined note (date tape, topic, write-up, format and audience, a handwritten takeaway, "View on LinkedIn" in a new tab) next to 3 taped photos from that LinkedIn post (`assets/images/talks/`). No co-presenter names.
   5. "From my sketchbook": a wire grid wall with paintings, polaroids, 2 quote cards, bag charms and a blue claw clip. Items are scattered and tilted, and visitors can drag them anywhere on the grid (press and hold on touch).

@@ -1056,3 +1056,8 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 .pcard .art img{aspect-ratio:3/2;height:auto}
 .pcard .pc-live{left:auto;right:-12px;top:-12px;rotate:8deg;z-index:3}
 .pcard,.collage .pcard,.collage .pcard:nth-child(n){rotate:0deg}
+/* project cards: 2 per row on laptop/desktop (1 per row on phones, from the 640px rule above) */
+@media (min-width:641px){.collage{grid-template-columns:1fr 1fr}.collage .pcard:nth-child(n){margin-top:0}}
+/* hero envelope: sit low enough that the open flap stays inside the hero card (which clips its overflow) */
+.hx-env{--ew:clamp(150px,17vw,230px);width:var(--ew);top:calc(var(--ew) * .46)}
+@media (max-width:640px){.hx-env{--ew:130px;left:-4px}}
