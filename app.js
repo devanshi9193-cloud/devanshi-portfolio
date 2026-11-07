@@ -120,25 +120,32 @@ const IMG_DRAW2="assets/images/drawing-2.jpg";
 const IMG_DRAW3="assets/images/drawing-3.jpg";
 const IMG_DRAW4="assets/images/drawing-4.jpg";
 const IMG_DRAW5="assets/images/drawing-5.jpg";
+const IMG_DRAW6="assets/images/drawing-6.jpg";
+const IMG_DRAW7="assets/images/drawing-7.jpg";
+const IMG_DRAW8="assets/images/drawing-8.jpg";
 /* Sketchbook wall: a wire grid with paintings, polaroids, quotes and charms pinned to it.
    t: d = painting, p = polaroid (img:"" shows an empty "Your photo" slot), q = quote card, c = charm, claw = hair clip.
    x/y/w = desktop position and width in % of the wall, r = tilt. m = [x,y,w] on phones, or null to hide it there. */
 const WALL=[
- {t:"claw",x:84,y:-6.5,w:10,r:-14,m:[68,-2.4,22]},
- {t:"c",c:"star",x:3,y:2.5,w:6,r:5,m:[58,31,11]},
- {t:"d",img:IMG_DRAW2,x:11,y:10,w:10,r:-9,m:[74,29,22]},
- {t:"q",q:1,x:24,y:4,w:13,r:7,m:[10,25,40]},
- {t:"p",img:"assets/images/portrait.jpg",note:"hi, it's me",x:41,y:14,w:11,r:-6,m:[54,5,38]},
- {t:"d",img:IMG_DRAW1,x:54,y:3,w:13,r:10,m:[4,3,44]},
- {t:"c",c:"heart",x:70,y:2.5,w:5.5,r:-4,m:null},
- {t:"d",img:IMG_DRAW3,x:77,y:12,w:9.5,r:-8,m:[9,75,26]},
- {t:"p",img:"assets/images/life-dinner-mirror.jpg",note:"dressed up for dinner",x:2,y:52,w:11,r:-10,m:null},
- {t:"d",img:IMG_DRAW4,x:16,y:45,w:14,r:6,m:[50,49,42]},
- {t:"q",q:2,x:33,y:56,w:12,r:-7,m:[5,50,40]},
- {t:"p",img:"assets/images/life-tiny-mirror.jpg",note:"tiny mirror, big mood",x:48,y:44,w:11,r:9,m:null},
- {t:"d",img:IMG_DRAW5,x:62,y:40,w:14,r:-5,m:[40,73,40]},
- {t:"c",c:"tag",x:80,y:48,w:8,r:4,m:[84,72,13]},
- {t:"c",c:"cloud",x:91,y:40,w:5.5,r:-3,m:null}
+ {t:"claw",x:84,y:-5.85,w:10,r:-14,m:[68,-2.24,22]},
+ {t:"c",c:"star",x:3,y:2.25,w:6,r:5,m:[58,28.93,11]},
+ {t:"d",img:IMG_DRAW2,x:11,y:9,w:10,r:-9,m:[74,27.07,22]},
+ {t:"q",q:1,x:24,y:3.6,w:13,r:7,m:[10,23.33,40]},
+ {t:"p",img:"assets/images/portrait.jpg",note:"hi, it's me",x:41,y:12.6,w:11,r:-6,m:[54,4.67,38]},
+ {t:"d",img:IMG_DRAW1,x:54,y:2.7,w:13,r:10,m:[4,2.8,44]},
+ {t:"c",c:"heart",x:70,y:2.25,w:5.5,r:-4,m:null},
+ {t:"d",img:IMG_DRAW3,x:77,y:10.8,w:9.5,r:-8,m:[9,70,26]},
+ {t:"p",img:"assets/images/life-dinner-mirror.jpg",note:"dressed up for dinner",x:2,y:46.8,w:11,r:-10,m:null},
+ {t:"d",img:IMG_DRAW4,x:16,y:40.5,w:14,r:6,m:[50,45.73,42]},
+ {t:"q",q:2,x:33,y:50.4,w:12,r:-7,m:[5,46.67,40]},
+ {t:"p",img:"assets/images/life-tiny-mirror.jpg",note:"tiny mirror, big mood",x:48,y:39.6,w:11,r:9,m:null},
+ {t:"d",img:IMG_DRAW5,x:62,y:36,w:14,r:-5,m:[40,68.13,40]},
+ {t:"c",c:"tag",x:80,y:43.2,w:8,r:4,m:[84,67.2,13]},
+ {t:"c",c:"cloud",x:91,y:36,w:5.5,r:-3,m:null},
+ /* her flower, cartoon and power-line paintings, fitted into the gaps along the bottom (wall is 1 row taller for them) */
+ {t:"d",img:IMG_DRAW6,x:18,y:67,w:11,r:-6,m:[3,85.5,21]},
+ {t:"d",img:IMG_DRAW8,x:47.5,y:74,w:8.8,r:6,m:[70,85,20]},
+ {t:"d",img:IMG_DRAW7,x:61,y:68,w:17,r:-3,m:[27,87.5,38]}
 ];
 const QUOTES={
  1:`<span class="gw-q-a">people<br>first,</span><span class="gw-q-b">pixels<br>next</span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L23 16 L36 20 L23 24 L20 37 L17 24 L4 20 L17 16Z"/></svg>`,

@@ -1061,3 +1061,7 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 /* hero envelope: sit low enough that the open flap stays inside the hero card (which clips its overflow) */
 .hx-env{--ew:clamp(150px,17vw,230px);width:var(--ew);top:calc(var(--ew) * .46)}
 @media (max-width:640px){.hx-env{--ew:130px;left:-4px}}
+/* sketchbook wall: one extra row (16x10 desktop, 6x15 phone) so the bottom paintings fit; cells stay square */
+.gw{aspect-ratio:16/10}
+.gw-grid{background-size:calc(100% / 16) calc(100% / 10)}
+@media (max-width:640px){.gw{aspect-ratio:6/15}.gw-grid{background-size:calc(100% / 6) calc(100% / 15)}}
