@@ -16,7 +16,7 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
   7. Journal, recommendations, postcard footer with the handwritten "Devanshi" wordmark.
 - Only two kinds of detail page: case studies (`#<case-slug>`) and journal posts (`#<post-slug>`). Don't add other pages.
 - Case study images are full width and stacked vertically, one between each pair of text sections, never side by side. 5 images at most.
-- Project cards are image plus name only. Paintings on the wall have no captions.
+- Project cards are the thumbnail only, no name, and sit straight (no tilt) (thumbnails exported from her Figma file "User Testing (Redesign)", Section 1, saved in `assets/images/cards/`, set as `card` in `PROJECTS`; `img` stays the case study cover). Paintings on the wall have no captions.
 - Resume link sits in the top-right nav. LinkedIn link is in the footer only. There's a single "Back to top" link, bottom right of the footer.
 - The recommendations row scrolls slowly on its own and has no arrow buttons.
 - She likes coffee, not chai.

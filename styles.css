@@ -1050,3 +1050,9 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 .hx-env.shut .env-flap{transform:none}
 .hx-env.shut .env-seal{opacity:1;transition-delay:.4s}
 @media (prefers-reduced-motion:reduce){.hx-env .env-flap,.hx-env .env-seal{transition:none}}
+
+/* PROJECT CARDS: thumbnail only (3:2 Figma thumbnails), taped white print, no name row */
+.pcard .art{aspect-ratio:auto;padding:10px}
+.pcard .art img{aspect-ratio:3/2;height:auto}
+.pcard .pc-live{left:auto;right:-12px;top:-12px;rotate:8deg;z-index:3}
+.pcard,.collage .pcard,.collage .pcard:nth-child(n){rotate:0deg}

@@ -21,14 +21,14 @@ const ME=`<div class="me" data-p="shy" role="img" aria-label="A cartoon of Devan
 <span class="me-flash" aria-hidden="true"></span>
 </div>`;
 const PROJECTS=[
- {img:THUMB_JASPER_COLIN,name:"Jasper Colin",line:"Two live brand sites for a research group.",kind:"web",bg:"#ece8f6",ac:"#d6402f",live:true,url:"https://jaspercolin.com/"},
- {img:THUMB_RUNWAY,name:"Runway",line:"Research synthesis to final UI.",kind:"web",bg:"#e4ebe0",ac:"#7f9b7a",live:true,url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study?node-id=18-26103&viewport=-30%2C265%2C0.26&t=p9tf1Bqnwc6Unyb0-1&scaling=scale-down-width&content-scaling=fixed&page-id=17%3A423",featured:true},
- {img:THUMB_TOP_BRASS,name:"Top Brass",line:"A clear, confident product experience.",kind:"mobile",bg:"#f3e9dc",ac:"#c99b6d",url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study---Top-Brass?node-id=8-1038&viewport=275%2C283%2C0.04&t=R0ETUvIOAq97g7IW-1&scaling=min-zoom&content-scaling=fixed&page-id=8%3A178",featured:true},
- {img:THUMB_USER_TESTING,name:"User Testing",line:"Every kind of usability test, one calm flow.",kind:"dash",bg:"#ece6fb",ac:"#6c47e8"},
- {img:THUMB_SYNDICATE_RESEARCH,name:"Syndicate Research",line:"Dense research data, made readable.",kind:"dash",bg:"#ece8f6",ac:"#8f80c9",url:"https://www.figma.com/proto/KfNsoV9MnCYPkGO8w3L33U/Veritas-Research?node-id=877-200656&viewport=660%2C426%2C0.04&t=I2jSdbvsvdfr9XOs-1&scaling=scale-down-width&content-scaling=fixed&page-id=618%3A88314",featured:true},
- {img:THUMB_NAVSTAR,name:"Navstar",line:"An AI travel planner without the tab chaos.",kind:"mobile",bg:"#e3eef2",ac:"#6f9db0",url:"https://www.figma.com/proto/ZFHkIu2gDVVyH2KSpL3Mvg/navstar--AI-travel-application?node-id=420-30775&viewport=304%2C472%2C0.15&t=NGlJmzCJWhhzdw1T-1&scaling=scale-down-width&content-scaling=fixed&page-id=264%3A155"},
- {img:THUMB_VAULT,name:"Vault",line:"Property management, simplified.",kind:"dash",bg:"#f4e4e0",ac:"#c98a7c",url:"https://www.figma.com/proto/xKqpw2nk5UkcsZUxn9nPmg/Vault--Manage-Property-Smartly?node-id=226-11606&viewport=-1033%2C-886%2C0.57&t=CW3L3rqSZ4wllqun-1&scaling=min-zoom&content-scaling=fixed&page-id=220%3A790"},
- {img:THUMB_AWB,name:"Approval Workflow Builder",line:"Complex approvals, set up in five calm steps.",kind:"flow",bg:"#e6ecf8",ac:"#4F75E8"}
+ {img:THUMB_JASPER_COLIN,card:"assets/images/cards/jasper-colin.jpg",name:"Jasper Colin",line:"Two live brand sites for a research group.",kind:"web",bg:"#ece8f6",ac:"#d6402f",live:true,url:"https://jaspercolin.com/"},
+ {img:THUMB_RUNWAY,card:"assets/images/cards/runway.jpg",name:"Runway",line:"Research synthesis to final UI.",kind:"web",bg:"#e4ebe0",ac:"#7f9b7a",live:true,url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study?node-id=18-26103&viewport=-30%2C265%2C0.26&t=p9tf1Bqnwc6Unyb0-1&scaling=scale-down-width&content-scaling=fixed&page-id=17%3A423",featured:true},
+ {img:THUMB_TOP_BRASS,card:"assets/images/cards/top-brass.jpg",name:"Top Brass",line:"A clear, confident product experience.",kind:"mobile",bg:"#f3e9dc",ac:"#c99b6d",url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study---Top-Brass?node-id=8-1038&viewport=275%2C283%2C0.04&t=R0ETUvIOAq97g7IW-1&scaling=min-zoom&content-scaling=fixed&page-id=8%3A178",featured:true},
+ {img:THUMB_USER_TESTING,card:"assets/images/cards/user-testing.jpg",name:"User Testing",line:"Every kind of usability test, one calm flow.",kind:"dash",bg:"#ece6fb",ac:"#6c47e8"},
+ {img:THUMB_SYNDICATE_RESEARCH,card:"assets/images/cards/syndicate-research.jpg",name:"Syndicate Research",line:"Dense research data, made readable.",kind:"dash",bg:"#ece8f6",ac:"#8f80c9",url:"https://www.figma.com/proto/KfNsoV9MnCYPkGO8w3L33U/Veritas-Research?node-id=877-200656&viewport=660%2C426%2C0.04&t=I2jSdbvsvdfr9XOs-1&scaling=scale-down-width&content-scaling=fixed&page-id=618%3A88314",featured:true},
+ {img:THUMB_NAVSTAR,card:"assets/images/cards/navstar.jpg",name:"Navstar",line:"An AI travel planner without the tab chaos.",kind:"mobile",bg:"#e3eef2",ac:"#6f9db0",url:"https://www.figma.com/proto/ZFHkIu2gDVVyH2KSpL3Mvg/navstar--AI-travel-application?node-id=420-30775&viewport=304%2C472%2C0.15&t=NGlJmzCJWhhzdw1T-1&scaling=scale-down-width&content-scaling=fixed&page-id=264%3A155"},
+ {img:THUMB_VAULT,card:"assets/images/cards/vault.jpg",name:"Vault",line:"Property management, simplified.",kind:"dash",bg:"#f4e4e0",ac:"#c98a7c",url:"https://www.figma.com/proto/xKqpw2nk5UkcsZUxn9nPmg/Vault--Manage-Property-Smartly?node-id=226-11606&viewport=-1033%2C-886%2C0.57&t=CW3L3rqSZ4wllqun-1&scaling=min-zoom&content-scaling=fixed&page-id=220%3A790"},
+ {img:THUMB_AWB,card:"assets/images/cards/awb.jpg",name:"Approval Workflow Builder",line:"Complex approvals, set up in five calm steps.",kind:"flow",bg:"#e6ecf8",ac:"#4F75E8"}
 ];
 /* Case study mockup images for the rotating cards (6 slots). */
 /* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Syndicate Research, Top Brass, Approval Workflow Builder */
@@ -179,7 +179,8 @@ const inlineSketch=s=>s.replace(/class="s"/g,'fill="none" stroke="#2b2a26" strok
 const slugOf=n=>n.toLowerCase().replace(/[^a-z]+/g,"-");
 const IMGICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>';
 const slot=(src,alt,hint="Cover image")=>src?`<img src="${src}" alt="${alt}" loading="lazy">`:`<div class="slot" role="img" aria-label="${alt}"><i>${IMGICON}${hint}</i></div>`;
-const pcard=p=>`<a class="pcard reveal" href="#${slugOf(p.name)}"><div class="art">${slot(p.img,p.name+" cover")}${p.live?'<span class="pc-live"><i></i>live</span>':""}</div><div class="meta"><h3>${p.name}</h3><span class="go" aria-hidden="true">↗</span></div></a>`;
+/* project cards: just the Figma thumbnail (card), no name on the card; the name stays as the link's accessible label */
+const pcard=p=>`<a class="pcard reveal" href="#${slugOf(p.name)}" aria-label="${p.name} case study"><div class="art">${slot(p.card||p.img,p.name+" thumbnail")}${p.live?'<span class="pc-live"><i></i>live</span>':""}</div></a>`;
 /* Workshops & speaking: sessions Devanshi led for her colleagues at Jasper Colin (own home section, after About) */
 const TALKS=[
  {date:"3 April 2026",kind:"Speaker talk",t:"User Research: driving design decisions",
