@@ -20,6 +20,7 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
 - Resume link sits in the top-right nav. LinkedIn link is in the footer only. There's a single "Back to top" link, bottom right of the footer.
 - The recommendations row scrolls slowly on its own and has no arrow buttons.
 - She likes coffee, not chai.
+- Never use the phrase "people first, pixels next" anywhere on the site.
 - Don't change design, layout or content unless she asks.
 
 ## Where things live

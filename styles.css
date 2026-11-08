@@ -1065,3 +1065,7 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 .gw{aspect-ratio:16/10}
 .gw-grid{background-size:calc(100% / 16) calc(100% / 10)}
 @media (max-width:640px){.gw{aspect-ratio:6/15}.gw-grid{background-size:calc(100% / 6) calc(100% / 15)}}
+/* yellow quote card: "an eye for detail. a mind for people." */
+.gw-q1 .gw-q-a{font-size:14cqi;letter-spacing:-.02em}
+.gw-q1 .gw-q-b{font-size:21cqi;margin:1cqi 0 7cqi}
+.gw-q1 .gw-q-b:last-of-type{margin-bottom:0}

@@ -148,7 +148,7 @@ const WALL=[
  {t:"d",img:IMG_DRAW7,x:61,y:68,w:17,r:-3,m:[27,87.5,38]}
 ];
 const QUOTES={
- 1:`<span class="gw-q-a">people<br>first,</span><span class="gw-q-b">pixels<br>next</span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L23 16 L36 20 L23 24 L20 37 L17 24 L4 20 L17 16Z"/></svg>`,
+ 1:`<span class="gw-q-a">an eye for</span><span class="gw-q-b">detail.</span><span class="gw-q-a">a mind for</span><span class="gw-q-b">people.</span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L23 16 L36 20 L23 24 L20 37 L17 24 L4 20 L17 16Z"/></svg>`,
  2:`<span class="gw-q-a">make it</span><span class="gw-q-b">simple.</span><span class="gw-q-a">make it</span><span class="gw-q-b">kind.</span>`
 };
 const PINS=["#AFC5E4","#FBE6B0","#F3C9D3","#FFFDF8"];
@@ -452,7 +452,7 @@ home:()=>{
     <div class="hx-copy">
       <span class="hx-eyebrow">UI/UX designer · Noida, India</span>
       <h1 class="hx-title">${words("Hii, I'm Devanshi. I make")} <em>${words("complex products")}</em> ${words("feel")} <em>${words("calm &amp; simple.")}</em></h1>
-      <p class="hx-sub">Research-driven designer with 4+ years across SaaS, dashboards and mobile. People first, pixels next.</p>
+      <p class="hx-sub">Research-driven designer with 4+ years across research and design, now shaping SaaS, dashboards and mobile.</p>
       <div class="row hx-btns"><a class="btn hx-ghost" href="${RESUME}" target="_blank" rel="noopener">Resume ↗</a><a class="btn dark" href="#work">See my work →</a></div>
       <span class="status tape-label"><i></i>available for work</span>
     </div>
@@ -472,11 +472,11 @@ home:()=>{
 </section>
 
 <section class="wrap" id="sec-about">
-  ${head("About me","A little about me",`<p class="hand-aside">people first,<br>pixels next ${CUTE_STAR("mini-star")}</p>`)}
+  ${head("About me","A little about me")}
   <div class="notebook reveal">
     <div class="nb-page nb-left">
       <p class="intro-line">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></p>
-      <p class="nb-text">I'm Devanshi, a UX researcher and designer with 4+ years of experience turning user and market insights into simple, intuitive experiences across SaaS, dashboards and mobile. Off the screen, I fill sketchbooks.</p>
+      <p class="nb-text">I'm Devanshi, a UX researcher and designer with 4+ years of experience: over two years in primary research, interviewing respondents and turning their answers into insights, then two years designing SaaS, dashboards and mobile. That's why my designs start with people and end simple and intuitive. Off the screen, I fill sketchbooks.</p>
     </div>
     <div class="nb-page nb-right">
       <span class="label">What I do</span>
