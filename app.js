@@ -353,25 +353,24 @@ const CASES={
  quote:"Next time, I'd talk to users on day one."}
 };
 const projBySlug=slug=>PROJECTS.find(p=>slugOf(p.name)===slug);
+/* case study section: centred eyebrow, heading, optional lead paragraph and body */
+const vsec=(eyebrow,h,body,lead="")=>`<section class="vt-sec reveal"><div class="wrap">${eyebrow?`<span class="vt-eyebrow">${eyebrow}</span>`:""}${h?`<h2 class="vt-h2">${h}</h2>`:""}${lead?`<p class="vt-p">${lead}</p>`:""}${body?`<div class="vt-body">${body}</div>`:""}</div></section>`;
+const vcards=(items,cols)=>`<div class="vt-cards" style="--cols:${cols||(items.length%3===0?3:2)}">${items.map(it=>`<div class="vt-card"><h3>${it[0]}</h3><p>${it[1]}</p></div>`).join("")}</div>`;
+/* research & thinking blocks, drawn as diagrams (media blocks are handled in renderCase) */
 function caseBlock(b,p){
-  if(b.type==="shot") return `<div class="wrap shot-wrap reveal"><figure class="shot">${slot(b.img,p.name+" screen","Screen")}</figure></div>`;
-  const side=`<div class="side"><span class="label">${b.side[0]}</span><h2>${b.side[1]}</h2></div>`;
   let body="";
-  if(b.type==="media") body=`${b.p?`<p class="cs-body-p">${b.p}</p>`:""}<div class="cs-media">${b.items.map(it=>{const [src,pst]=it.split("|"); return [src,pst]}).map(([src,pst])=>/\.mp4$/.test(src)?`<figure class="shot cs-vid"><video src="${src}" poster="${pst||src.replace(/\.mp4$/,"-poster.webp")}" controls playsinline preload="none"></video></figure>`:`<figure class="shot"><img src="${src}" alt="${p.name} screen" loading="lazy"></figure>`).join("")}</div>`;
-  if(b.type==="cards") body=`<div class="cs-cards" style="--cols:${b.items.length%3===0?3:2}">${b.items.map((it,i)=>`<div class="cs-card"><span class="n">0${i+1}</span><h3>${it[0]}</h3><p>${it[1]}</p></div>`).join("")}</div>`;
-  if(b.type==="steps") body=`<div class="cs-steps" style="--acc:${p.ac}">${b.items.map(i=>`<div class="cs-step"><h3>${i[0]}</h3><p>${i[1]}</p></div>`).join("")}</div>`;
+  if(b.type==="cards"||b.type==="steps") body=vcards(b.items,b.type==="steps"?3:0);
   if(b.type==="tree") body=`<div class="tree"><span class="root">${b.root}</span><div class="groups">${b.groups.map(g=>`<div class="g"><b>${g[0]}</b>${g[1].map(x=>`<span>${x}</span>`).join("")}</div>`).join("")}</div></div>`;
   if(b.type==="converge") body=`<div class="chipset">${b.from.map(x=>`<span>${x}</span>`).join("")}<span class="to">→</span><span class="one">${b.to}</span></div>`;
-  if(b.type==="compare") body=`<div class="compare" style="--tint:${p.bg}"><div class="old"><span class="label">Before</span><ul>${b.old.map(x=>`<li>${x}</li>`).join("")}</ul></div><div class="new"><span class="label" style="color:var(--muted)">After</span><ul>${b.nw.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`;
+  if(b.type==="compare") body=`<div class="compare"><div class="old"><span class="label">Before</span><ul>${b.old.map(x=>`<li>${x}</li>`).join("")}</ul></div><div class="new"><span class="label">After</span><ul>${b.nw.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`;
   if(b.type==="modes") body=`<div class="modes">${b.items.map((m,i)=>`<div class="mode" style="--tint:${["#ece8f6","#e4ebe0","#f3e9dc","#e3eef2"][i%4]}"><b>${m[0]}</b><p>${m[1]}</p><em>${m[2]}</em></div>`).join("")}</div>`;
-  if(b.type==="flow") body=`<div class="compare" style="--tint:${p.bg}"><div class="old"><span class="label">Old way</span><span class="q">${b.qOld}</span></div><div class="new"><span class="label" style="color:var(--muted)">New way</span><span class="q">${b.qNew}</span></div></div><div class="flow" style="--tint:${p.bg}">${b.lanes.map(l=>`<div class="lane${l[2]?" hi":""}"><span>${l[0]}</span>${l[1].map(x=>`<span class="st">${x}</span>`).join('<span class="ar">→</span>')}</div>`).join("")}</div>`;
-  if(b.type==="persona") body=`<div class="persona" style="--tint:${p.bg}"><span class="av">${b.initials}</span><div><b>${b.name}</b><p>${b.text}</p><q>${b.quote}</q></div></div>`;
-  if(b.type==="logic") body=`<div class="logic" style="--tint:${p.bg};--acc:${p.ac}"><span class="node">Visit request</span>${b.levels.map(l=>`<span class="ar">→</span><div class="lv"><span class="label">${l[0]}</span><b>${l[1]}</b><div class="who">${l[2].map(x=>`<span>${x}</span>`).join(`<i>${l[3]}</i>`)}</div></div>`).join("")}<span class="ar">→</span><span class="node ok">Approved</span></div><p class="cs-body-p">Approvers inside a level work in parallel; levels run one after another.</p>`;
-  if(b.type==="options") body=`<div class="options">${b.items.map(o=>`<div class="opt${o[2]?" on":""}" style="--tint:${p.bg}">${o[2]?'<span class="pick">★ Chosen</span>':""}<b>${o[0]}</b><p>${o[1]}</p></div>`).join("")}</div>`;
-  if(b.type==="insights") body=`<div class="insights">${b.items.map((x,i)=>`<div class="ins"><span class="label">I${i+1}</span><span>${x[0]}</span><span class="ar">→</span><b>${x[1]}</b></div>`).join("")}</div>`;
+  if(b.type==="flow") body=`<div class="compare"><div class="old"><span class="label">Old way</span><span class="q">${b.qOld}</span></div><div class="new"><span class="label">New way</span><span class="q">${b.qNew}</span></div></div><div class="flow">${b.lanes.map(l=>`<div class="lane${l[2]?" hi":""}"><span>${l[0]}</span>${l[1].map(x=>`<span class="st">${x}</span>`).join('<span class="ar">→</span>')}</div>`).join("")}</div>`;
+  if(b.type==="persona") body=`<div class="persona"><span class="av">${b.initials}</span><div><b>${b.name}</b><p>${b.text}</p><q>${b.quote}</q></div></div>`;
+  if(b.type==="logic") body=`<div class="logic"><span class="node">Visit request</span>${b.levels.map(l=>`<span class="ar">→</span><div class="lv"><span class="label">${l[0]}</span><b>${l[1]}</b><div class="who">${l[2].map(x=>`<span>${x}</span>`).join(`<i>${l[3]}</i>`)}</div></div>`).join("")}<span class="ar">→</span><span class="node ok">Approved</span></div><p class="vt-p">Approvers inside a level work in parallel; levels run one after another.</p>`;
+  if(b.type==="options") body=`<div class="options">${b.items.map(o=>`<div class="opt${o[2]?" on":""}">${o[2]?'<span class="pick">★ Chosen</span>':""}<b>${o[0]}</b><p>${o[1]}</p></div>`).join("")}</div>`;
+  if(b.type==="insights") body=`<div class="insights">${b.items.map(x=>`<div class="ins"><span>${x[0]}</span><span class="ar">→</span><b>${x[1]}</b></div>`).join("")}</div>`;
   if(b.type==="health") body=`<div class="health">${b.items.map(h=>`<div class="hcard"><span class="st" style="color:${h[1]}"><i style="background:${h[1]}"></i>${h[0]}</span><b>${h[2]}</b><span>${h[3]}</span></div>`).join("")}</div>`;
-  if(b.type==="scope") body=`<div class="scope" style="--tint:${p.bg}"><div class="built"><h3>What I built</h3>${b.built.map(x=>`<p><b>${x[0]}</b>${x[1]}</p>`).join("")}</div><div class="later"><h3>What I didn't (yet)</h3>${b.later.map(x=>`<p><b>${x[0]}</b>${x[1]}</p>`).join("")}</div></div>`;
-  return `<section class="wrap cs-sec reveal" style="padding-top:clamp(56px,7vw,96px)">${side}<div class="body">${body}</div></section>`;
+  return vsec(b.side[0],b.side[1],body);
 }
 /* Case study screens (from Devanshi's Figma files) */
 const SCREENS={
@@ -409,36 +408,56 @@ const SCREENS={
  ]
 };
 Object.keys(SCREENS).forEach(k=>{ if(CASES[k]) CASES[k].screens=SCREENS[k]; });
-/* Screens: 5 full-width images spread evenly between sections, stacked vertically. Add images to CASES[slug].screens. */
-function interleave(c,p,parts){
-  const sc=(Array.isArray(c.screens)?c.screens:Array(5).fill("")).slice(0,5);
-  const secs=parts.filter(Boolean); let k=0, out="";
-  const G=secs.length-1, n=sc.length, at=new Set();
-  if(n>=G){ for(let g=0;g<G;g++) at.add(g); } else { for(let j=0;j<n;j++) at.add(n===1?0:Math.round(j*(G-1)/(n-1))); }
-  secs.forEach((h,i)=>{ out+=h; if(k<sc.length&&at.has(i)){ out+=`<div class="wrap shot-wrap reveal"><figure class="shot">${slot(sc[k],p.name+" screen "+(k+1),"Screen "+String(k+1).padStart(2,"0"))}</figure></div>`; k++; } });
-  while(k<sc.length){ out+=`<div class="wrap shot-wrap reveal"><figure class="shot">${slot(sc[k],p.name+" screen "+(k+1),"Screen "+String(k+1).padStart(2,"0"))}</figure></div>`; k++; }
-  return out;
-}
+/* Case study page, laid out like the VoiceToNotes case study Devanshi picked as a reference:
+   big title, a meta row, the cover, then centred sections (about, challenge, process, research diagrams, decisions).
+   Fewer screens: one walkthrough video at most, plus at most 3 screens, each full width between text sections. */
+const MAX_SCREENS=3;
 function renderCase(slug){
   const c=CASES[slug], p=projBySlug(slug), slugs=Object.keys(CASES), nx=slugs[(slugs.indexOf(slug)+1)%slugs.length], np=projBySlug(nx);
-  const sec=(label,h,body)=>`<section class="wrap cs-sec reveal">${`<div class="side"><span class="label">${label}</span><h2>${h}</h2></div>`}<div class="body">${body}</div></section>`;
-  return `<div class="page" style="--acc:${p.ac}">
-<div class="wrap cs-top"><a class="link-arrow" href="#work"><span style="transform:none">←</span> All projects</a><span class="label">Case study · ${c.year}</span></div>
-<section class="wrap cs-hero" style="padding-top:clamp(24px,3vw,40px)">
-  <div><span class="label">${c.kicker}</span><h1>${c.title} <span class="grey">${c.grey}</span></h1><p>${c.intro}</p></div>
-  <div class="cs-meta">${c.meta.map(m=>`<div><span class="label">${m[0]}</span><span>${m[1]}</span></div>`).join("")}</div>
-</section>
-<div class="wrap"><div class="cs-cover" id="cover"><div class="art" data-depth="1">${slot(p.img,p.name+" cover")}</div>${c.chips.map((x,i)=>`<span class="chip-f c${i+1}" data-depth="${2+i*.6}">${x}</span>`).join("")}</div></div>
-${interleave(c,p,[sec("Overview",p.name,`<p class="cs-lead">${c.overview[0]} ${c.overview[1]}</p>`),
-sec("The problem",c.problem.h,`<div class="cs-cards" style="--cols:${c.problem.items.length===4?2:3}">${c.problem.items.map((it,i)=>`<div class="cs-card"><span class="n">0${i+1}</span><h3>${it[0]}</h3><p>${it[1]}</p></div>`).join("")}</div>`),
-c.blocks.map(b=>caseBlock(b,p)).join(""),
-sec("Process","How I got there.",`<div class="cs-steps" style="--acc:${p.ac}">${c.process.map((s,i)=>`<div class="cs-step"><span class="label">0${i+1}</span><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("")}</div>`),
-sec("Design decisions",c.decisions.h,`<div class="cs-cards" style="--cols:${c.decisions.items.length===4?2:3}">${c.decisions.items.map((it,i)=>`<div class="cs-card" style="background:${i%2?"var(--card)":p.bg}"><span class="n">0${i+1}</span><h3>${it[0]}</h3><p>${it[1]}</p></div>`).join("")}</div>`),
-c.system?sec("Design system","A visual language with restraint.",`<div class="swatches">${c.system.colors.map(x=>`<div class="sw"><i style="background:${x[1]}"></i>${x[0]}<span>${x[1]}</span></div>`).join("")}</div><div class="type-row"><b>Aa</b><span class="muted">${c.system.type}</span></div><p class="cs-body-p">${c.system.note}</p>`):"",
-c.stats?sec("Outcomes","What changed.",`<div class="cs-stats" style="--acc:${p.ac}">${c.stats.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>`):"",
-c.learnings&&c.learnings.length?sec("Learnings","What I'd carry forward.",`<div class="cs-cards">${c.learnings.map(it=>`<div class="cs-card"><h3>${it[0]}</h3><p>${it[1]}</p></div>`).join("")}</div>`):""])}
-<div class="wrap cs-quote reveal"><q>${c.quote}</q></div>
-<div class="wrap" style="padding-bottom:24px"><a class="cs-next reveal" href="#${nx}"><div><span class="label">Next project</span><h2>${np.name}</h2><p class="muted" style="margin-top:8px">${np.line}</p></div><div class="mini">${slot(np.img,np.name+" cover","")}</div><span class="arr" aria-hidden="true">→</span></a></div>
+  const shot=(src,alt,isVid,poster)=>`<figure class="vt-shot${isVid?" vid":""}">${isVid?`<video src="${src}" poster="${poster}" controls playsinline preload="none"></video>`:`<img src="${src}" alt="${alt}" loading="lazy">`}</figure>`;
+  /* split media blocks into: the walkthrough video, up to 3 featured screens with their text, and text-only highlights */
+  let video=null; const feats=[], notes=[];
+  c.blocks.filter(b=>b.type==="media").forEach(b=>{
+    const vid=b.items.find(s=>/\.mp4/.test(s)), imgs=b.items.filter(s=>!/\.mp4/.test(s));
+    if(vid&&!video){ const [src,pst]=vid.split("|"); video={src,poster:pst||src.replace(/\.mp4$/,"-poster.webp"),side:b.side,p:b.p}; return; }
+    if(imgs.length&&feats.length<MAX_SCREENS) feats.push({img:imgs[0],side:b.side,p:b.p});
+    else if(b.p) notes.push([b.side[1],b.p]);
+  });
+  const pool=[...c.blocks.filter(b=>b.type==="shot").map(b=>b.img),...(c.screens||[])].filter(s=>s&&!feats.some(f=>f.img===s));
+  const extra=pool.slice(0,Math.max(0,MAX_SCREENS-feats.length));
+  const between=src=>`<div class="wrap vt-shot-wrap reveal">${shot(src,p.name+" screen")}</div>`;
+
+  const about=`<section class="vt-sec reveal"><div class="wrap"><div class="vt-about">
+    <span class="vt-icon" aria-hidden="true">${p.name.charAt(0)}</span>
+    <div><h2>About the project</h2><p class="vt-lead">${c.overview[0]} ${c.overview[1].replace(/<[^>]+>/g,"")}</p><div class="vt-tags">${c.chips.map(x=>`<span>${x}</span>`).join("")}</div></div>
+  </div></div></section>`;
+  const challenge=vsec("The challenge",c.problem.h,vcards(c.problem.items,c.problem.items.length===4?2:3));
+  const process=vsec("Design process","How I got there.",`<ol class="vt-process" style="--n:${c.process.length}">${c.process.map(s=>`<li class="vt-step"><b>${s[0]}</b><p>${s[1]}</p></li>`).join("")}</ol>`);
+  const research=c.blocks.filter(b=>b.type!=="media"&&b.type!=="shot").map(b=>caseBlock(b,p));
+  const walk=video?vsec(video.side[0],video.side[1],shot(video.src,"",true,video.poster),video.p):"";
+  const featSecs=feats.map(f=>vsec(f.side[0],f.side[1],shot(f.img,p.name+" · "+f.side[1]),f.p));
+  const more=notes.length?vsec("Also inside","More of the product.",vcards(notes,notes.length===1?1:notes.length%3===0?3:2)):"";
+  const decisions=vsec("Design decisions",c.decisions.h,vcards(c.decisions.items,c.decisions.items.length===4?2:3));
+  const system=c.system?vsec("Design system","A visual language with restraint.",`<div class="vt-swatches">${c.system.colors.map(x=>`<div class="vt-sw"><i style="background:${x[1]}"></i>${x[0]}<span>${x[1]}</span></div>`).join("")}</div><p class="vt-type"><b>Aa</b> ${c.system.type}</p>`,c.system.note):"";
+  const stats=c.stats?vsec("Outcomes","What changed.",`<div class="vt-stats">${c.stats.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>`):"";
+  const learn=c.learnings&&c.learnings.length?vsec("Learnings","What I'd carry forward.",vcards(c.learnings,3)):"";
+
+  /* plain screens (no text of their own) go one after each early text section */
+  const parts=[about,challenge,process,...research,walk,...featSecs,more,decisions,system,stats,learn].filter(Boolean);
+  const slotsAt=[1,2,parts.length-2];
+  let out=""; parts.forEach((s,i)=>{ out+=s; slotsAt.forEach((at,k)=>{ if(at===i&&extra[k]) out+=between(extra[k]); }); });
+
+  return `<div class="page vt" style="--acc:${p.ac};--tint:${p.bg}">
+<section class="vt-top"><div class="wrap">
+  <a class="vt-back" href="#work">← Back</a>
+  <h1 class="vt-title">${p.name}</h1>
+  <p class="vt-sub">${c.title} ${c.grey}</p>
+  <div class="vt-meta"><p class="vt-intro">${c.intro}</p>${c.meta.map(m=>`<div><span>${m[0]}:</span><b>${m[1]}</b></div>`).join("")}</div>
+</div></section>
+<div class="wrap wide"><figure class="vt-cover">${slot(p.img,p.name+" cover").replace('loading="lazy"','fetchpriority="high"')}</figure></div>
+${out}
+<div class="wrap vt-quote reveal"><q>${c.quote}</q></div>
+<div class="wrap"><a class="vt-next reveal" href="#${nx}"><div><span class="vt-mono">Next</span><h2>${np.name}</h2><p>${np.line}</p></div><span class="vt-next-img" style="background:${np.bg}">${slot(np.card||np.img,np.name+" cover","")}</span></a></div>
 </div>`;
 }
 

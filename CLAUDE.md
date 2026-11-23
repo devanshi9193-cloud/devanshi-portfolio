@@ -15,7 +15,8 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
   6. Approach: graph-paper page of word stickers ("things i keep coming back to") next to 4 sticky-note steps. Heading: "An eye for detail. A mind for people."
   7. Journal, recommendations, postcard footer with the handwritten "Devanshi" wordmark.
 - Only two kinds of detail page: case studies (`#<case-slug>`) and journal posts (`#<post-slug>`). Don't add other pages.
-- Case study images are full width and stacked vertically, one between each pair of text sections, never side by side. 5 images at most.
+- Case study pages follow yashkumardesigns.framer.website/vtn (`renderCase`, `vt-` classes at the end of `styles.css`): back link, big project name, subtitle, intro + meta row, the cover, then centred sections: About the project, The challenge, Design process (a timeline; vertical on phones), the research diagrams from `blocks`, one walkthrough video, featured screens with their text, Design decisions, Design system, Outcomes, Learnings, quote, Next project.
+- Fewer screens on case studies: at most 3 images (`MAX_SCREENS` in `app.js`) plus one walkthrough video, each full width, never side by side. Media blocks beyond the first 3 keep their text in an "Also inside" card section.
 - Project cards are the thumbnail only, no name, and sit straight (no tilt) (thumbnails exported from her Figma file "User Testing (Redesign)", Section 1, saved in `assets/images/cards/`, set as `card` in `PROJECTS`; `img` stays the case study cover). Paintings on the wall have no captions.
 - Resume link sits in the top-right nav. LinkedIn link is in the footer only. There's a single "Back to top" link, bottom right of the footer.
 - The recommendations row scrolls slowly on its own and has no arrow buttons.
