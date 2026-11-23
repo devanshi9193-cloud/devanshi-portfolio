@@ -1,4 +1,4 @@
-const RESUME="https://drive.google.com/file/d/19XMypTnlCKBMzSmfbgzvfGzUkiKXzgm5/view?usp=sharing";
+const RESUME="https://drive.google.com/file/d/1FN9Q9AKOeYhH4_8-p4tU696nNeNo1049/view?usp=sharing";
 const EMAIL="devanshi9193@gmail.com";
 
 /* Project thumbnails (from the previous portfolio) */
@@ -32,19 +32,15 @@ const PROJECTS=[
 ];
 /* Case study mockup images for the rotating cards (6 slots). */
 /* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Syndicate Research, Top Brass, Approval Workflow Builder */
-/* About canvas: personal photos scattered around a draggable canvas.
-   img:"" shows an empty "Your photo" slot. x/y = position in % of the canvas, w = width in px (desktop), r = tilt. */
-/* About "Off the clock" diary: photos scattered on an open diary; visitors can move them.
-   x/y/w = desktop position and width in % of the diary, r = tilt, m = [x,y,w] on phones, pos = photo focus. */
-const PHOTOS=[
- {img:"assets/images/life-cafe-view.jpg",note:"coffee with a view",x:27,y:10,w:13,r:-4,pos:"62% 50%",m:[4,34,27]},
- {img:"assets/images/life-coffee-award.jpg",note:"officially can't function w/o coffee",x:8,y:48,w:13,r:6,pos:"45% 22%",m:[66,13,28]},
- {img:"assets/images/life-hills.jpg",note:"chasing clouds in the hills",x:38,y:44,w:13,r:5,pos:"50% 62%",m:[38,58,27]},
- {img:"assets/images/portrait.jpg",note:"hi, it's me",x:50,y:12,w:12,r:-5,m:[36,31,27]},
- {img:"assets/images/life-laughing.jpg",note:"laughing at my own jokes",x:64,y:30,w:13,r:-6,pos:"50% 35%",m:[69,40,27]},
- {img:"assets/images/life-dinner-mirror.jpg",note:"dressed up for dinner",x:53,y:54,w:12,r:7,m:[6,60,27]},
- {img:"assets/images/life-tiny-mirror.jpg",note:"tiny mirror, big mood",x:79,y:36,w:12,r:8,m:[68,66,27]}
-];
+/* Skills and tools section: [name, area]. Areas are the filter buttons. */
+const SKILL_AREAS={design:"UX/UI Design",quality:"Design Systems &amp; Quality",research:"Research &amp; Analysis",product:"Product",ai:"AI",tools:"Tools"};
+const SKILLS=[
+ ...["UX Flows","User Flows","Interaction Design","Information Architecture","Wireframing","Prototyping","Visual Design","Responsive Design"].map(n=>[n,"design"]),
+ ...["Design Systems","Reusable UI Components","Consistency","Accessibility","Inclusive Design"].map(n=>[n,"quality"]),
+ ...["Human-Centered Design (HCD)","Design Thinking","User Interviews (IDIs)","Questionnaires &amp; Surveys (CATI)","Usability Testing","Qualitative &amp; Quantitative Analysis","Insight Synthesis"].map(n=>[n,"research"]),
+ ...["Concept to Release","Post-Release Effectiveness Measurement","Iterative Product Improvement","Cross-Functional Collaboration"].map(n=>[n,"product"]),
+ ...["AI-Assisted Design","Generative AI","Prompt Engineering","Human-in-the-Loop Review"].map(n=>[n,"ai"]),
+ ...["Figma","FigJam","Figma AI plugins","Figma Make","Adobe Creative Suite","Adobe Photoshop","Adobe After Effects","Adobe XD","Claude","Claude Code","ChatGPT","Gemini","Framer","JIRA","Miro","Notion","HTML (basic)","CSS"].map(n=>[n,"tools"])];
 const POSTS=[
  {slug:"job-hunt-tracking",t:"The Job Hunt Has a Tracking Problem",cat:"Concept",d:"A smarter job hunt space to track applications, recruiter outreach, and follow-ups in one place.",tint:"#e4ebe0",body:[
   ["h","The problem"],
@@ -472,7 +468,7 @@ home:()=>{
       <span class="hx-eyebrow">UI/UX designer · Noida, India</span>
       <h1 class="hx-title">${words("Hii, I'm Devanshi. I make")} <em>${words("complex products")}</em> ${words("feel")} <em>${words("calm &amp; simple.")}</em></h1>
       <p class="hx-sub">Research-driven designer with 4+ years across research and design, now shaping SaaS, dashboards and mobile.</p>
-      <div class="row hx-btns"><a class="btn hx-ghost" href="${RESUME}" target="_blank" rel="noopener">Resume ↗</a><a class="btn dark" href="#work">See my work →</a></div>
+      <div class="row hx-btns"><a class="btn dark" href="#work">See my work →</a></div>
       <span class="status tape-label"><i></i>available for work</span>
     </div>
     <div class="hx-art" aria-hidden="true">
@@ -492,31 +488,18 @@ home:()=>{
 
 <section class="wrap" id="sec-about">
   ${head("About me","A little about me")}
-  <div class="notebook reveal">
+  <div class="notebook solo reveal">
     <div class="nb-page nb-left">
       <p class="intro-line">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></p>
       <p class="nb-text">I'm Devanshi, a UX researcher and designer with 4+ years of experience: over two years in primary research, interviewing respondents and turning their answers into insights, then two years designing SaaS, dashboards and mobile. That's why my designs start with people and end simple and intuitive. Off the screen, I fill sketchbooks.</p>
     </div>
-    <div class="nb-page nb-right">
-      <span class="label">What I do</span>
-      <div class="chips">${["UX Research","Information Architecture","Interaction Design","Design Systems","Prototyping","Usability Testing"].map((c,i)=>`<span class="chip" style="--r:${[-3,2,-1,3,-2,1][i]}deg">${c}</span>`).join("")}</div>
-      <span class="label" style="margin-top:22px">My toolkit</span>
-      <ul class="checklist">${["Figma","FigJam","Framer","Claude","Adobe Creative Suite","Adobe Photoshop","Adobe XD","Adobe After Effects","HTML (basic)","CSS","Notion","pen &amp; paper"].map(t=>`<li>${t}</li>`).join("")}</ul>
-    </div>
   </div>
-  <div class="diary reveal" id="diary" aria-label="Photos of Devanshi's life outside work">
-    <div class="dy-cloth" aria-hidden="true"></div>
-    <div class="dy-book" aria-hidden="true"><div class="dy-page l"></div><div class="dy-page r"></div><span class="dy-strap"><i></i></span></div>
-    <span class="dy-bow" aria-hidden="true"><svg viewBox="0 0 80 50"><path d="M40 24 C28 6 6 6 8 22 C10 36 30 32 40 26 C50 32 70 36 72 22 C74 6 52 6 40 24Z" fill="#AFC5E4" stroke="#26334D" stroke-width="1.8" stroke-linejoin="round"/><path d="M36 26 L28 46 M44 26 L52 46" stroke="#26334D" stroke-width="1.8" stroke-linecap="round"/><path d="M36 26 L29 45 L33 44 Z M44 26 L51 45 L47 44 Z" fill="#AFC5E4"/><rect x="34" y="18" width="12" height="13" rx="4" fill="#E1EAF6" stroke="#26334D" stroke-width="1.8"/></svg></span>
-    <div class="dy-title"><span>the bits that don't fit on a resume</span><h3>off the clock</h3></div>
-    <div class="dy-it dy-ticket t1 no-m" style="--x:3%;--y:4%;--w:19%;--r:-12deg"><b>ADMIT ONE</b><span>NOIDA → THE HILLS</span><em>no. 0919 · seat 07</em></div>
-    <div class="dy-it dy-ticket t2 no-m" style="--x:72%;--y:66%;--w:19%;--r:9deg"><b>CAFÉ PASS</b><span>1 × cold coffee</span><em>no. 2412 · table 4</em></div>
-    <span class="dy-it dy-pencil no-m" style="--x:40%;--y:86%;--w:13%;--r:-4deg" aria-hidden="true"><svg viewBox="0 0 200 24"><rect x="2" y="3" width="18" height="18" rx="4" fill="#AFC5E4" stroke="#26334D" stroke-width="2"/><rect x="20" y="3" width="140" height="18" fill="#FBE6B0" stroke="#26334D" stroke-width="2"/><path d="M160 3 L194 12 L160 21Z" fill="#FFFDF8" stroke="#26334D" stroke-width="2" stroke-linejoin="round"/><path d="M182 9 L194 12 L182 15Z" fill="#26334D"/></svg></span>
-    <span class="dy-it dy-prop dy-cam" style="--x:9%;--y:10%;--w:16%;--r:-8deg;--mx:5%;--my:15%;--mw:30%" aria-hidden="true"><svg viewBox="0 0 160 136"><rect x="58" y="2" width="44" height="22" rx="2" fill="#FFFDF8" stroke="#26334D" stroke-width="2"/><rect x="4" y="18" width="152" height="114" rx="18" fill="#E1EAF6" stroke="#26334D" stroke-width="2.4"/><path d="M4 50 V36 A18 18 0 0 1 22 18 H138 A18 18 0 0 1 156 36 V50 Z" fill="#C9D8EC" stroke="#26334D" stroke-width="2.4" stroke-linejoin="round"/><rect x="16" y="27" width="32" height="16" rx="4" fill="#FFFDF8" stroke="#26334D" stroke-width="2"/><path d="M22 31 H42 M22 35 H42 M22 39 H42" stroke="#AFC5E4" stroke-width="1.4"/><rect x="118" y="27" width="26" height="15" rx="4" fill="#26334D"/><rect x="122" y="30" width="9" height="5" rx="2" fill="#AFC5E4"/><circle cx="80" cy="84" r="35" fill="#FFFDF8" stroke="#26334D" stroke-width="2.4"/><circle cx="80" cy="84" r="25" fill="#26334D"/><circle cx="80" cy="84" r="14" fill="#34507D"/><circle cx="73" cy="77" r="5" fill="#AFC5E4"/><circle cx="87" cy="91" r="2.2" fill="#AFC5E4"/><circle cx="137" cy="104" r="8" fill="#FBE6B0" stroke="#26334D" stroke-width="2"/><path d="M14 120 H38" stroke="#26334D" stroke-width="2" stroke-linecap="round" opacity=".45"/><path d="M128 64 L131 72 L139 75 L131 78 L128 86 L125 78 L117 75 L125 72Z" fill="#FFFDF8" stroke="#26334D" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
-    <span class="dy-it dy-prop dy-ipod" style="--x:28%;--y:60%;--w:10%;--r:9deg;--mx:44%;--my:15%;--mw:14%" aria-hidden="true"><svg viewBox="0 0 104 172"><path d="M30 4 C10 -2 2 14 8 26" fill="none" stroke="#26334D" stroke-width="1.8" stroke-linecap="round"/><rect x="2" y="8" width="100" height="162" rx="16" fill="#FFFDF8" stroke="#26334D" stroke-width="2.4"/><rect x="13" y="19" width="78" height="58" rx="6" fill="#AFC5E4" stroke="#26334D" stroke-width="2"/><rect x="13" y="19" width="78" height="12" rx="6" fill="#C9D8EC"/><text x="52" y="28.5" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#26334D">now playing</text><text x="52" y="47" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="13" fill="#26334D">calm &amp; simple</text><text x="52" y="58" text-anchor="middle" font-family="DM Mono, monospace" font-size="6" fill="#34507D">devanshi · lo-fi</text><rect x="21" y="65" width="62" height="3.5" rx="1.75" fill="#FFFDF8"/><rect x="21" y="65" width="30" height="3.5" rx="1.75" fill="#26334D"/><circle cx="52" cy="124" r="34" fill="#E1EAF6" stroke="#26334D" stroke-width="2"/><circle cx="52" cy="124" r="12" fill="#FFFDF8" stroke="#26334D" stroke-width="2"/><text x="52" y="102" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#26334D">MENU</text><path d="M47 147 L51 150 L47 153Z M53 147 V153 M56 147 V153" fill="#26334D" stroke="#26334D" stroke-width="1.4"/><path d="M76 120 L80 124 L76 128 M80 120 L84 124 L80 128" fill="none" stroke="#26334D" stroke-width="1.6" stroke-linejoin="round"/><path d="M28 120 L24 124 L28 128 M24 120 L20 124 L24 128" fill="none" stroke="#26334D" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
-    ${PHOTOS.map(p=>`<figure class="dy-it dy-ph" style="--x:${p.x}%;--y:${p.y}%;--w:${p.w}%;--r:${p.r}deg;--mx:${p.m[0]}%;--my:${p.m[1]}%;--mw:${p.m[2]}%"><img src="${p.img}" alt="${p.note}" loading="lazy" draggable="false" style="object-position:${p.pos||"50% 50%"}"><figcaption>${p.note}</figcaption></figure>`).join("")}
-    <span class="dy-hint" aria-hidden="true">psst, the photos move</span>
-  </div>
+</section>
+
+<section class="wrap" id="sec-skills">
+  ${head("Skills &amp; tools",'Skills and <em class="sk-em">tools</em>',"<p class=\"sk-aside\">Filter by area to see where each skill fits.</p>")}
+  <div class="sk-filters reveal" role="group" aria-label="Filter skills">${[["all","All"],...Object.entries(SKILL_AREAS)].map(([k,v],i)=>`<button type="button" class="sk-f" data-f="${k}" aria-pressed="${i===0}">${v}</button>`).join("")}</div>
+  <ul class="sk-list reveal">${SKILLS.map(([n,a])=>`<li class="sk" data-a="${a}">${n}</li>`).join("")}</ul>
 </section>
 
 <section class="wrap" id="sec-talks">
@@ -624,7 +607,7 @@ function wire(){
       el.classList.add("pre");el.style.transitionDelay=Math.min(sib,5)*90+"ms";io.observe(el)}});
   }
   cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); cancelAnimationFrame(raf3);
-  parallax(); meChar(); wallDrag(); fitMega(); coverParallax();
+  parallax(); meChar(); wallDrag(); skillFilter(); fitMega(); coverParallax();
   /* Recommendations: slow continuous auto-scroll (pauses on hover, focus or touch; arrows still step) */
   const tRow=document.getElementById("tRow"); cancelAnimationFrame(raf5);
   if(tRow){
@@ -770,7 +753,14 @@ function fitMega(){
 }
 /* sketchbook wall: pick anything up and move it around the grid.
    Mouse and pen drag straight away; on touch, press and hold first so the page still scrolls. */
-function wallDrag(){ dragWithin(document.querySelector(".gw"),".gw-it"); dragWithin(document.getElementById("diary"),".dy-it"); }
+/* Skills and tools: an area button outlines its skills and fades the rest (all stay visible) */
+function skillFilter(){
+  const bs=[...document.querySelectorAll(".sk-f")]; if(!bs.length) return;
+  bs.forEach(b=>b.addEventListener("click",()=>{ const f=b.dataset.f;
+    bs.forEach(x=>x.setAttribute("aria-pressed",x===b));
+    document.querySelectorAll(".sk").forEach(li=>{ li.classList.toggle("on",f!=="all"&&li.dataset.a===f); li.classList.toggle("off",f!=="all"&&li.dataset.a!==f); }); }));
+}
+function wallDrag(){ dragWithin(document.querySelector(".gw"),".gw-it"); }
 function dragWithin(wall,sel){
   if(!wall) return;
   let top=20;
