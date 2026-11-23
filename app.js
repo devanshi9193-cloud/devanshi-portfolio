@@ -488,18 +488,18 @@ home:()=>{
 
 <section class="wrap" id="sec-about">
   ${head("About me","A little about me")}
-  <div class="notebook solo reveal">
+  <div class="notebook reveal">
     <div class="nb-page nb-left">
       <p class="intro-line">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></p>
       <p class="nb-text">I'm Devanshi, a UX researcher and designer with 4+ years of experience: over two years in primary research, interviewing respondents and turning their answers into insights, then two years designing SaaS, dashboards and mobile. That's why my designs start with people and end simple and intuitive. Off the screen, I fill sketchbooks.</p>
     </div>
+    <div class="nb-page nb-right">
+      <span class="label">Skills &amp; tools</span>
+      <p class="sk-aside">Filter by area to see where each skill fits.</p>
+      <div class="sk-filters" role="group" aria-label="Filter skills">${[["all","All"],...Object.entries(SKILL_AREAS)].map(([k,v],i)=>`<button type="button" class="sk-f" data-f="${k}" aria-pressed="${i===0}">${v}</button>`).join("")}</div>
+      <ul class="sk-list">${SKILLS.map(([n,a])=>`<li class="sk" data-a="${a}">${n}</li>`).join("")}</ul>
+    </div>
   </div>
-</section>
-
-<section class="wrap" id="sec-skills">
-  ${head("Skills &amp; tools",'Skills and <em class="sk-em">tools</em>',"<p class=\"sk-aside\">Filter by area to see where each skill fits.</p>")}
-  <div class="sk-filters reveal" role="group" aria-label="Filter skills">${[["all","All"],...Object.entries(SKILL_AREAS)].map(([k,v],i)=>`<button type="button" class="sk-f" data-f="${k}" aria-pressed="${i===0}">${v}</button>`).join("")}</div>
-  <ul class="sk-list reveal">${SKILLS.map(([n,a])=>`<li class="sk" data-a="${a}">${n}</li>`).join("")}</ul>
 </section>
 
 <section class="wrap" id="sec-talks">

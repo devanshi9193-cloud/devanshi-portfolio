@@ -1170,13 +1170,8 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 .vt-next-img img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:8px}
 .vt-next-img.post{aspect-ratio:3/2;display:grid;place-items:center;font:500 1.8rem var(--f-display);letter-spacing:-.03em}
 
-/* ABOUT notebook is a single page now (skills moved to their own section) */
-.notebook.solo{grid-template-columns:1fr}
-.notebook.solo::before{content:none}
-.notebook.solo .nb-left{border-radius:6px;box-shadow:none}
 
-/* SKILLS AND TOOLS: area filter buttons over a wrap of skill pills */
-.sk-em{font-family:var(--f-hand);font-style:normal;font-weight:700;font-size:1.18em;letter-spacing:0;line-height:.8;color:var(--royal)}
+/* SKILLS AND TOOLS (right page of the About notebook): area filter buttons over a wrap of skill pills */
 .sk-aside{margin:0;color:var(--muted);font-size:1rem;line-height:1.5}
 .sk-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .sk-f{font:inherit;font-size:.84rem;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;line-height:1.3;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
@@ -1198,3 +1193,14 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 .resume-fab:hover{background:#9DB7DD;translate:0 -2px;box-shadow:2px 5px 0 var(--ink),0 14px 28px rgba(38,51,77,.22)}
 .resume-fab:active{translate:0 1px;box-shadow:1px 1px 0 var(--ink)}
 @media (max-width:640px){.resume-fab{padding:10px 16px;font-size:.86rem;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom))}}
+
+.nb-right .sk-aside{margin:0 0 14px;font-size:.92rem}
+.nb-right .sk-filters{margin-bottom:14px}
+.nb-right .sk-list{gap:7px}
+/* About notebook: one whole lined page, bio on top then skills & tools, at every width.
+   The lines sit on the notebook itself so they run straight through both parts. */
+.notebook{grid-template-columns:1fr;background:repeating-linear-gradient(180deg,transparent 0 31px,rgba(74,111,165,.13) 31px 32px),#fffdf8;background-position:0 22px}
+.notebook::before{display:none}
+.notebook .nb-page{background:none;border:0;border-radius:0;box-shadow:none}
+.notebook .nb-left{padding-bottom:0}
+.notebook .nb-right{padding-top:32px}
