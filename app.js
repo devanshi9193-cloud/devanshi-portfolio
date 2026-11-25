@@ -350,7 +350,7 @@ const CASES={
 };
 const projBySlug=slug=>PROJECTS.find(p=>slugOf(p.name)===slug);
 /* case study section: centred eyebrow, heading, optional lead paragraph and body */
-const vsec=(eyebrow,h,body,lead="")=>`<section class="vt-sec reveal"><div class="wrap">${eyebrow?`<span class="vt-eyebrow">${eyebrow}</span>`:""}${h?`<h2 class="vt-h2">${h}</h2>`:""}${lead?`<p class="vt-p">${lead}</p>`:""}${body?`<div class="vt-body">${body}</div>`:""}</div></section>`;
+const vsec=(eyebrow,h,body,lead="")=>`<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">${eyebrow||""}</span><div class="fx-main">${h?`<h2 class="fx-h">${h}</h2>`:""}${lead?`<p class="fx-p">${lead}</p>`:""}${body?`<div class="vt-body">${body}</div>`:""}</div></div></div></section>`;
 const vcards=(items,cols)=>`<div class="vt-cards" style="--cols:${cols||(items.length%3===0?3:2)}">${items.map(it=>`<div class="vt-card"><h3>${it[0]}</h3><p>${it[1]}</p></div>`).join("")}</div>`;
 /* research & thinking blocks, drawn as diagrams (media blocks are handled in renderCase) */
 function caseBlock(b,p){
@@ -442,7 +442,7 @@ function renderCase(slug){
   });
   const pool=[...c.blocks.filter(b=>b.type==="shot").map(b=>b.img),...(c.screens||[])].filter(s=>s&&!feats.some(f=>f.img===s));
   const extra=pool.slice(0,Math.max(0,MAX_SCREENS-feats.length));
-  const between=src=>`<div class="wrap vt-shot-wrap reveal">${shot(src,p.name+" screen")}</div>`;
+  const between=src=>`<div class="wrap vt-shot-wrap reveal"><div class="fx-grid"><span></span><div class="fx-main">${shot(src,p.name+" screen")}</div></div></div>`;
 
   /* Story order she asked for (Nov 2026): the problem, my decisions and why, what happened after launch */
   const challenge=vsec("The problem",c.problem.h,vcards(c.problem.items,c.problem.items.length===4?2:3),`${c.overview[0]} ${c.overview[1].replace(/<[^>]+>/g,"")}`);
@@ -461,17 +461,21 @@ function renderCase(slug){
   const slotsAt=[0,1,parts.length-2];
   let out=""; parts.forEach((s,i)=>{ out+=s; slotsAt.forEach((at,k)=>{ if(at===i&&extra[k]) out+=between(extra[k]); }); });
 
-  return `<div class="page vt" style="--acc:${p.ac};--tint:${p.bg}">
-<section class="vt-top"><div class="wrap">
-  <a class="vt-back" href="#work">← Back</a>
-  <h1 class="vt-title">${p.name}</h1>
-  <p class="vt-sub">${c.title} ${c.grey}</p>
-  <div class="vt-meta"><p class="vt-intro">${c.intro}</p>${c.meta.map(m=>`<div><span>${m[0]}:</span><b>${m[1]}</b></div>`).join("")}</div>
+  /* Page frame follows the Framer case study she picked (Nov 2026): rule + back link and kind/year, big title,
+     meta grid beside the intro line, full-width cover, then ruled rows with a small label on the left. No numbering. */
+  return `<div class="page vt fx" style="--acc:${p.ac};--tint:${p.bg}">
+<section class="fx-top"><div class="wrap">
+  <div class="fx-bar"><a class="fx-back" href="#work">← All work</a><span>${c.kicker} · ${c.year}</span></div>
+  <h1 class="fx-title">${p.name}</h1>
+  <div class="fx-head">
+    <dl class="fx-meta">${c.meta.map(m=>`<div><dt>${m[0]}</dt><dd>${m[1]}</dd></div>`).join("")}</dl>
+    <p class="fx-intro">${c.intro}</p>
+  </div>
 </div></section>
-<div class="wrap wide"><figure class="vt-cover">${slot(p.img,p.name+" cover").replace('loading="lazy"','fetchpriority="high"')}</figure></div>
+<div class="wrap"><figure class="vt-cover fx-cover">${slot(p.img,p.name+" cover").replace('loading="lazy"','fetchpriority="high"')}</figure></div>
 ${out}
-<div class="wrap vt-quote reveal"><q>${c.quote}</q></div>
-<div class="wrap"><a class="vt-next reveal" href="#${nx}"><div><span class="vt-mono">Next</span><h2>${np.name}</h2><p>${np.line}</p></div><span class="vt-next-img" style="background:${np.bg}">${slot(np.card||np.img,np.name+" cover","")}</span></a></div>
+${vsec("In one line","",`<q class="fx-quote">${c.quote}</q>`)}
+<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next project</span><a class="fx-next" href="#${nx}"><span>Up next →</span><b>${np.name}</b><em>${np.line}</em></a></div></div></section>
 </div>`;
 }
 
