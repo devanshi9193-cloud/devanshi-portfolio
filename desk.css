@@ -766,3 +766,6 @@ h1,h2,h3,h4,h5,h6,h1 *,h2 *,h3 *,h4 *,.pg-h .grey,.c-blue,.c-red{color:var(--ink
 }
 /* Playground only: more room between the puzzle/notes and the footer */
 body:has(#jzArea) .ft.field{margin-top:clamp(40px,6vw,96px)}
+/* notes waiting for approval (only the sender sees these) */
+.nt.nt-pend{opacity:.7;outline:1.5px dashed var(--royal-mist);outline-offset:-1.5px}
+.nt.nt-pend .nt-by span:last-child{color:var(--royal)}

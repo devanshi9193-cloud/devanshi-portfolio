@@ -591,7 +591,11 @@ const PUZZLES=[
  {id:"q1",q:1,label:"An eye for detail"},{id:"q2",q:2,label:"Make it simple"}
 ];
 /* Notes wall: shared storage is set up once Devanshi picks a service. Until then notes stay on the visitor's device. */
-const NOTES_API="";
+/* Notes wall storage: a Supabase project (table + rules in supabase/notes.sql). Fill in the Project URL and the
+   publishable (anon) key from Supabase > Project Settings > API. Both are public by design; the table rules decide what visitors can do.
+   Empty = notes stay in the visitor's own browser. */
+const NOTES_DB={url:"https://jcgmbgvtuwhaehfrujgr.supabase.co",key:"sb_publishable_9-0B5P8yysPSYFUsZbrjpg_Yqsikf0E"};
+const NOTES_API=!!(NOTES_DB.url&&NOTES_DB.key);
 
 const PAGES={
 work:()=>`<div class="page">
@@ -667,7 +671,7 @@ ${ptop("Playground","Two small things to play with while you're here.")}
         </form>
       </div>
     </div>
-    ${NOTES_API?"":`<p class="nt-local">Notes are kept on this device for now.</p>`}
+    <p class="nt-local" id="ntMsg">${NOTES_API?"New notes show up here once Devanshi approves them.":"Notes are kept on this device for now."}</p>
   </div>
 </section>
 </div>`
@@ -793,12 +797,29 @@ function notesWall(){
   const fmt=d=>new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"}).format(new Date(d));
   const card=n=>{const a=document.createElement("article"); a.className="nt";
     const q=document.createElement("p"); q.className="nt-q"; q.textContent=n.text;
-    const f=document.createElement("p"); f.className="nt-by"; const b=document.createElement("span"); b.textContent=n.name||"anonymous"; const d=document.createElement("span"); d.textContent=fmt(n.at); f.append(b,d);
+    const f=document.createElement("p"); f.className="nt-by"; const b=document.createElement("span"); b.textContent=n.name||"anonymous"; const d=document.createElement("span"); d.textContent=n.pending?"Waiting for approval":fmt(n.at); f.append(b,d);
+    if(n.pending) a.classList.add("nt-pend");
     a.append(q,f); return a;};
   const readLocal=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return []}};
   const writeLocal=l=>{try{localStorage.setItem(KEY,JSON.stringify(l.slice(0,200)))}catch(e){}};
-  const fetchAll=()=>NOTES_API?fetch(NOTES_API).then(r=>r.json()).catch(()=>[]):Promise.resolve(readLocal());
-  const save=n=>NOTES_API?fetch(NOTES_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(n)}).catch(()=>{}):Promise.resolve(writeLocal([n,...readLocal()]));
+  const PKEY="dv-notes-pending", msg=document.getElementById("ntMsg");
+  const hdr={apikey:NOTES_DB.key,Authorization:"Bearer "+NOTES_DB.key};
+  const readPend=()=>{try{return JSON.parse(localStorage.getItem(PKEY)||"[]")}catch(e){return []}};
+  const writePend=l=>{try{localStorage.setItem(PKEY,JSON.stringify(l.slice(0,20)))}catch(e){}};
+  /* shared notes: approved ones from Supabase, plus this visitor's own notes still waiting for approval */
+  const fetchAll=()=>{ if(!NOTES_API) return Promise.resolve(readLocal());
+    return fetch(NOTES_DB.url.replace(/\/$/,"")+"/rest/v1/notes?select=text,name,created_at&order=created_at.desc&limit=300",{headers:hdr})
+      .then(r=>r.ok?r.json():[]).catch(()=>[]).then(rows=>{
+        const live=rows.map(r=>({text:r.text,name:r.name,at:r.created_at}));
+        const seen=new Set(live.map(n=>n.text+"|"+(n.name||"")));
+        const month=Date.now()-30*864e5;
+        const pend=readPend().filter(n=>!seen.has(n.text+"|"+(n.name||""))&&new Date(n.at)>month); writePend(pend);
+        return [...live,...pend.map(n=>({...n,pending:true}))]; }); };
+  const save=n=>{ if(!NOTES_API){ writeLocal([n,...readLocal()]); return Promise.resolve(true); }
+    const today=readPend().filter(x=>Date.now()-new Date(x.at)<864e5).length;
+    if(today>=3) return Promise.resolve("limit");
+    return fetch(NOTES_DB.url.replace(/\/$/,"")+"/rest/v1/notes",{method:"POST",headers:{...hdr,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({text:n.text,name:n.name||null})})
+      .then(r=>{ if(!r.ok) return false; writePend([n,...readPend()]); return true; }).catch(()=>false); };
   const render=l=>{grid.querySelectorAll(".nt:not(.nt-new)").forEach(x=>x.remove()); l.sort((a,b)=>new Date(b.at)-new Date(a.at)).forEach(n=>grid.appendChild(card(n)));
     if(!l.length){const e=document.createElement("p"); e.className="nt nt-empty"; e.textContent="No notes yet. Be the first to leave one."; grid.appendChild(e);}};
   fetchAll().then(render);
@@ -808,7 +829,8 @@ function notesWall(){
   txt.addEventListener("input",()=>left.textContent=240-txt.value.length);
   form.addEventListener("submit",e=>{e.preventDefault(); const text=txt.value.trim(); if(!text) return;
     const n={text,name:nm.value.trim().slice(0,40),at:new Date().toISOString()};
-    save(n).then(()=>fetchAll().then(render)); form.reset(); left.textContent="240"; toggle(false);});
+    save(n).then(ok=>{ if(msg) msg.textContent=ok===true?(NOTES_API?"Thank you! Your note will appear for everyone once Devanshi approves it.":"Saved on this device."):ok==="limit"?"That's a lot of notes for one day. Try again tomorrow.":"Couldn't send your note. Please try again.";
+      fetchAll().then(render); }); form.reset(); left.textContent="240"; toggle(false);});
 }
 
 /* ---------- Dock: macOS-style magnification on hover; active page gets a dot ---------- */
