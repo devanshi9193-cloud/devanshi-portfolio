@@ -662,7 +662,7 @@ h1,h2,h3,h4,h5,h6,h1 *,h2 *,h3 *,h4 *,.pg-h .grey,.c-blue,.c-red{color:var(--ink
 .wcard:hover .wc-cap b{color:var(--ink)}
 
 /* ===== JOURNAL POST: editorial page on the paper (no notebook) ===== */
-.jp .wrap{max-width:760px}
+/* (old 760px column removed) */
 .jp-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:clamp(36px,5vw,64px)}
 .jp-meta,.jp-cat{font:500 .95rem var(--f-sans);color:var(--faint)}
 .jp-head{padding-top:clamp(48px,7vw,96px);padding-bottom:clamp(32px,4vw,48px);border-bottom:1px solid var(--line)}
@@ -704,7 +704,7 @@ h1,h2,h3,h4,h5,h6,h1 *,h2 *,h3 *,h4 *,.pg-h .grey,.c-blue,.c-red{color:var(--ink
 .jt-art .label,.jt-art span:first-child{color:var(--royal)}
 
 /* ===== JOURNAL POST uses the case study frame (.fx); only the body text and cover need styles ===== */
-.jp .wrap{max-width:none}
+/* journal post uses the same .wrap width as the case study pages */
 .jp-cover{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;aspect-ratio:21/9;padding:clamp(24px,5vw,64px);border-radius:6px;background:var(--royal-soft)}
 .jp-cover-t{font-family:var(--f-display);font-size:clamp(1.6rem,4vw,3.2rem);line-height:1.15;color:var(--ink);max-width:20ch}
 .jp-cover .jt-cat{font:500 .72rem var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--royal)}
@@ -758,3 +758,11 @@ h1,h2,h3,h4,h5,h6,h1 *,h2 *,h3 *,h4 *,.pg-h .grey,.c-blue,.c-red{color:var(--ink
   .ft.field{margin-top:-80px;padding-top:190px}
   .fd-scene{-webkit-mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.15) 50px,rgba(0,0,0,.5) 100px,rgba(0,0,0,.85) 145px,#000 175px);mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.15) 50px,rgba(0,0,0,.5) 100px,rgba(0,0,0,.85) 145px,#000 175px)}
 }
+
+/* ===== FOOTER photo cropped at the bottom (her screenshot, Nov 2026): about 10vw of the flowers/hill cut off ===== */
+@media (min-width:861px){
+  .ft.field{min-height:calc(46.25vw + clamp(100px,10vw,160px))}
+  .fd-scene{background-position:center calc(100% + 10vw),0 0}
+}
+/* Playground only: more room between the puzzle/notes and the footer */
+body:has(#jzArea) .ft.field{margin-top:clamp(40px,6vw,96px)}
