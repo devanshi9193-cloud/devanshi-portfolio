@@ -834,7 +834,16 @@ function notesWall(){
 }
 
 /* ---------- Dock: macOS-style magnification on hover; active page gets a dot ---------- */
-function dock(){ return; /* pill nav has no magnification */
+/* Light / dark theme switch in the top bar (saved per visitor; first visit follows the device setting) */
+function themeToggle(){
+  const b=document.getElementById("themeBtn"); if(!b||b.dataset.on) return; b.dataset.on="1";
+  const meta=document.querySelector('meta[name="theme-color"]');
+  const set=t=>{document.documentElement.setAttribute("data-theme",t); try{localStorage.setItem("dv-theme",t)}catch(e){}
+    b.setAttribute("aria-label",t==="dark"?"Switch to light theme":"Switch to dark theme"); if(meta) meta.content=t==="dark"?"#121417":"#FBFBF9";};
+  set(document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light");
+  b.addEventListener("click",()=>set(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"));
+}
+function dock(){ themeToggle(); return; /* pill nav has no magnification */
   const d=document.querySelector(".dock"); if(!d||reduce||!matchMedia("(hover:hover)").matches) return;
   const items=[...d.querySelectorAll(".dk")];
   d.addEventListener("mousemove",e=>{ for(const it of items){ const r=it.getBoundingClientRect(); const dist=Math.abs(e.clientX-(r.left+r.width/2));
@@ -879,11 +888,20 @@ function route(){
   document.querySelectorAll(".dock a[data-r]").forEach(a=>{const on=a.dataset.r===tab; a.classList.toggle("active",on); if(on) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");});
   if(view!==shown){
     app.innerHTML=view.startsWith("case:")?renderCase(h):view.startsWith("post:")?renderPost(h):PAGES[view]();
-    shown=view; window.scrollTo({top:0,behavior:"instant"}); wire();
+    shown=view; window.scrollTo({top:0,behavior:"instant"}); wire(); crumb(view,h);
   }
   if(h==="contact") setTimeout(()=>document.getElementById("sec-contact").scrollIntoView({behavior:"smooth"}),30);
 }
 addEventListener("hashchange",route);
+/* top bar, left side: her name on the main pages; on a detail page a breadcrumb "← Work / <title>" (Nov 2026, at her request) */
+function crumb(view,h){
+  const el=document.getElementById("tbLeft"); if(!el) return;
+  const esc=t=>String(t).replace(/<[^>]*>/g,"").replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  if(view.startsWith("case:")||view.startsWith("post:")){
+    const isCase=view.startsWith("case:"), back=isCase?["#work","Work"]:["#journal","Journal"], title=isCase?projBySlug(h).name:POSTMAP[h].t;
+    el.innerHTML=`<nav class="tb-crumb" aria-label="Breadcrumb"><a href="${back[0]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>${back[1]}</a><span class="tb-sl" aria-hidden="true">/</span><span class="tb-here" aria-current="page">${esc(title)}</span></nav>`;
+  } else el.innerHTML=`<a class="tb-name" href="#work">Devanshi Sharma</a>`;
+}
 
 /* safety net for big jumps (nav links, scrollbar drags): anything on screen or already passed shows up */
 let revTick=false;

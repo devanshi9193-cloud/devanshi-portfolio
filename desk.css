@@ -796,3 +796,67 @@ body:has(#jzArea) .ft.field{margin-top:clamp(40px,6vw,96px)}
   a,a *,button,button *,label,summary,select,[role="button"],.wcard,.wcard *,.jz-pc,video{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27%3E%3Crect x=%275%27 y=%275%27 width=%2714%27 height=%2714%27 fill=%27%230B5470%27 transform=%27rotate(45 12 12)%27/%3E%3C/svg%3E") 12 12,pointer!important}
   input,textarea,[contenteditable="true"],.sel{cursor:text!important}
 }
+
+/* whiter background (her request, Nov 2026): same fine grain, nearly white */
+:root{--desk:#FBFBF9;--frame:#FBFBF9;--paper:#FFFFFF;--card:#F0EFEB;--line:#E6E4DF}
+:root{--paper-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .3 0 0 0 0 .3 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ===== TOP BAR (Nov 2026, her request): fixed, minimal, very light; name left, theme switch right ===== */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;
+  padding:max(18px,env(safe-area-inset-top)) clamp(20px,2.6vw,36px) 18px;pointer-events:none;
+  background:linear-gradient(180deg,var(--desk) 0,var(--desk) 35%,transparent)}
+.topbar>*{pointer-events:auto}
+.tb-name{font:400 1rem var(--f-sans);color:var(--faint);letter-spacing:.005em;transition:color .25s}
+.tb-name:hover{color:var(--ink)}
+.tb-theme{display:grid;place-items:center;width:34px;height:34px;margin-right:-6px;padding:0;border:0;border-radius:50%;background:none;color:var(--faint);transition:color .25s,background .25s}
+.tb-theme:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.tb-theme svg{width:20px;height:20px}
+.tb-moon{display:none}
+:root[data-theme="dark"] .tb-sun{display:none}
+:root[data-theme="dark"] .tb-moon{display:block}
+.tb-name:focus-visible,.tb-theme:focus-visible{outline:2px solid var(--royal);outline-offset:3px;border-radius:6px}
+
+/* ===== DARK THEME: same layout and fonts, night colours (sky blue stays the accent) ===== */
+:root[data-theme="dark"]{color-scheme:dark;
+  --desk:#121417;--frame:#121417;--paper:#181B1F;--card:#1E2227;--line:#2A2F36;--dash:#3A4049;
+  --ink:#ECE9E3;--muted:#AEB2BA;--faint:#7C828C;
+  --royal:#4A9CC0;--royal-deep:#357F9F;--royal-soft:#16303B;--royal-mist:#2B5466;--band:#4A9CC0;
+  --red:#E2BC69;--red-deep:#C9A04A;--red-soft:#352E20;--matcha:#E2BC69;--matcha-soft:#352E20;--kraft:#2B5466;--kraft-soft:#16303B;--sun:#352E20;
+  --paper-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .92 0 0 0 0 .92 0 0 0 0 .92 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* dark theme fixes */
+:root[data-theme="dark"] .dock.pill ul{background:linear-gradient(180deg,rgba(40,44,51,.72),rgba(26,29,34,.6));border-color:rgba(255,255,255,.1);box-shadow:0 0 0 .5px rgba(0,0,0,.5),0 18px 40px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08)}
+:root[data-theme="dark"] .pl{color:#A3A8B1}
+:root[data-theme="dark"] .pl:hover{color:var(--ink)}
+:root[data-theme="dark"] .pl.active{background:rgba(255,255,255,.12);color:var(--ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+:root[data-theme="dark"] .pl-sep{background:rgba(255,255,255,.14)}
+:root[data-theme="dark"] .tk-print{background:var(--card)}
+:root[data-theme="dark"] .vt .tree .root,:root[data-theme="dark"] .tree .root{background:var(--royal);color:#fff}
+:root[data-theme="dark"] .wc-cap .sl{color:var(--faint)}
+:root[data-theme="dark"] .topbar{background:linear-gradient(180deg,var(--desk) 0,var(--desk) 35%,transparent)}
+:root[data-theme="dark"] ::selection{background:#3a3222;color:var(--ink)}
+:root[data-theme="dark"] .nt-open:hover{background:rgba(255,255,255,.05)}
+/* room under the fixed top bar on case studies and journal posts */
+#app .page.fx{padding-top:clamp(52px,5vw,68px)}
+/* Nov 2026, at her request: every page title is 64px and sits at the same place, 240px from the top
+   (scaled down on phones so long titles still fit) */
+.wk-h,.pg-h,.ab-top .pg-h,.fx-title{font-size:64px}
+.page>section.wk-top,.page>section.pg-top,.wk-top,.pg-top{padding-top:232px}
+#app .page.fx{padding-top:0}
+#app .fx .fx-top{padding-top:232px}
+#app .fx .fx-bar{display:none}
+#app .fx .fx-title{margin-top:0}
+@media (max-width:760px){
+  .wk-h,.pg-h,.ab-top .pg-h,.fx-title{font-size:clamp(2.4rem,10vw,64px)}
+  .page>section.wk-top,.page>section.pg-top,.wk-top,.pg-top,#app .fx .fx-top{padding-top:132px}
+}
+/* breadcrumb in the top bar on case studies and journal posts */
+.tb-left{min-width:0}
+.tb-crumb{display:flex;align-items:center;gap:8px;font:400 1rem var(--f-sans);color:var(--faint);min-width:0;white-space:nowrap}
+.tb-crumb a{display:inline-flex;align-items:center;gap:8px;color:var(--faint);transition:color .25s}
+.tb-crumb a:hover{color:var(--ink)}
+.tb-crumb svg{width:18px;height:18px;flex:none}
+.tb-sl{opacity:.6}
+.tb-here{color:var(--ink);overflow:hidden;text-overflow:ellipsis}
+.tb-crumb a:focus-visible{outline:2px solid var(--royal);outline-offset:3px;border-radius:6px}
+.topbar{gap:16px}
