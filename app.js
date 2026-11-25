@@ -567,143 +567,310 @@ ${vsec("In one line","",`<q class="fx-quote">${c.quote}</q>`)}
 </div>`;
 }
 
+/* ---------- Top-level pages (Nov 2026): Work (first page), About, Playground, Journal. Reached from the dock. ---------- */
+const TOP=["work","about","playground","journal"];
+const projMeta=p=>{const c=CASES[slugOf(p.name)]||{}; return [(c.kicker||"").split(" · ")[0],c.year].filter(Boolean).join(" · ");};
+/* captions describe the project instead of naming it (no "Jasper Colin", "Runway"...) */
+const wcard=p=>{const d=p.line.replace(/\.$/,""); return `<a class="wcard" href="#${slugOf(p.name)}" aria-label="${d}, case study"><div class="wc-art"><img src="${p.card||p.img}" alt="" loading="lazy" decoding="async"></div><p class="wc-cap"><b>${d}</b><span class="sl">/</span><span>${projMeta(p)}</span></p></a>`;};
+const jtile=p=>`<a class="wcard jtile" href="#${p.slug}"><div class="wc-art jt-art" style="--tint:${p.tint}"><span class="jt-cat">${p.cat}</span><h3>${p.t}</h3><p>${p.d}</p></div><p class="wc-cap"><b>${p.cat.charAt(0)+p.cat.slice(1).toLowerCase()}</b><span class="sl">/</span><span>${readTime(p)} min read</span></p></a>`;
+const ptop=(h,sub)=>`<section class="wrap pg-top"><h1 class="pg-h">${h}</h1>${sub?`<p class="pg-sub">${sub}</p>`:""}</section>`;
+const shead=(h,sub)=>`<div class="s-head"><h2>${h}</h2>${sub?`<p>${sub}</p>`:""}</div>`;
+/* About: photos of Devanshi at the end, in small groups with a heading over each group (no numbers) */
+const ME_PHOTOS=[
+ ["Me",[["portrait.jpg","Portrait of Devanshi"],["hero-selfie.jpg","Devanshi smiling at the camera"],["life-tiny-mirror.jpg","Devanshi in a tiny pocket mirror on her desk"]]],
+ ["At work",[["life-coffee-award.jpg","Devanshi holding her award at the Jasper Colin annual event"]]],
+ ["In the hills",[["life-cafe-view.jpg","Devanshi at a café looking out over misty hills"],["life-hills.jpg","Devanshi on a brick lookout in the fog"]]],
+ ["Nights out",[["life-night-out.jpg","Devanshi smiling on a night out"],["life-laughing.jpg","Devanshi laughing at dinner"],["life-dinner-mirror.jpg","A mirror selfie on a night out"]]]
+];
+/* Things I like: removed from About for now (Nov 2026); she will add more photos later */
+const LIKES=[[IMG_DRAW1,"Painting"],[IMG_DRAW2,"Painting"],[IMG_DRAW3,"Painting"],[IMG_DRAW5,"Painting"]];
+/* Playground: 9-piece jigsaws of her drawings and her two quote cards */
+const PUZZLES=[
+ {id:"d1",img:IMG_DRAW1},{id:"d2",img:IMG_DRAW2},{id:"d3",img:IMG_DRAW3},{id:"d4",img:IMG_DRAW4},
+ {id:"d5",img:IMG_DRAW5},{id:"d6",img:IMG_DRAW6},{id:"d7",img:IMG_DRAW7},{id:"d8",img:IMG_DRAW8},
+ {id:"q1",q:1,label:"An eye for detail"},{id:"q2",q:2,label:"Make it simple"}
+];
+/* Notes wall: shared storage is set up once Devanshi picks a service. Until then notes stay on the visitor's device. */
+const NOTES_API="";
+
 const PAGES={
-home:()=>{
-  let k=0; const words=s=>s.split(" ").map(w=>`<span class="w" style="animation-delay:${(k++)*.05}s">${w}</span>`).join(" ");
-  const NOTES=["#FFFDF8","#E1EAF6","#F6F1E6","#EAF0F8"];
-  return `<div class="page">
-<section class="wrap hero"><div class="hero-card hx" id="heroCard">
-  <div class="hx-grid">
-    <div class="hx-copy">
-      <span class="hx-eyebrow">UI/UX designer · Noida, India</span>
-      <h1 class="hx-title">${words("Hii, I'm Devanshi. I make")} <em>${words("complex products")}</em> ${words("feel")} <em>${words("calm &amp; simple.")}</em></h1>
-      <p class="hx-sub">Research-driven designer with 4+ years across research and design, now shaping SaaS, dashboards and mobile.</p>
-      <span class="status tape-label"><i></i>available for work</span>
-    </div>
-    <div class="hx-art" aria-hidden="true">
-      <div class="hx-env" data-depth="0.9"><svg viewBox="0 0 200 132"><rect x="3" y="3" width="194" height="126" rx="6" fill="#EFE6D6" stroke="#D9CFBE" stroke-width="2"/><path d="M4 5 L100 72 L196 5 L196 123 Q196 128 191 128 L9 128 Q4 128 4 123Z" fill="#FFFDF8"/><path d="M5 128 L84 66 M195 128 L116 66" fill="none" stroke="#E6DDCD" stroke-width="1.6" stroke-linecap="round"/><path d="M4 4 L100 72 L196 4" fill="none" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><g class="env-flap"><path d="M4 4 L100 78 L196 4Z" fill="#FFFDF8" stroke="#D9CFBE" stroke-width="2" stroke-linejoin="round"/><g class="env-seal"><circle cx="100" cy="78" r="17" fill="#4A6FA5"/><circle cx="100" cy="78" r="12.5" fill="none" stroke="#AFC5E4" stroke-width="1.6"/>${CUTE_STAR("cute-star").replace("<svg ",'<svg x="87" y="65" width="26" height="26" ')}</g></g></svg></div>
-      <figure class="hx-photo" data-depth="0.35">${ME}</figure>
-      <div class="hx-stamp" data-depth="1.3"><div class="stamp">${CUTE_STAR("cute-star")}<span>Devanshi</span></div><svg class="hx-cancel" viewBox="0 0 120 40"><path d="M2 8 C22 2 38 14 58 8 S98 2 118 8 M2 20 C22 14 38 26 58 20 S98 14 118 20 M2 32 C22 26 38 38 58 32 S98 26 118 32"/></svg></div>
-      <span class="fd hx-spark" data-depth="2">${FD.spark}</span>
-      <p class="hx-snap"><b>click a picture <br>of me!</b><svg class="hx-snap-cam" viewBox="0 0 32 32"><g transform="rotate(-10 16 17)" stroke="#26334D" stroke-width="1.6" stroke-linejoin="round"><rect x="9.5" y="6.5" width="9" height="5" rx="1.6" fill="#AFC5E4"/><rect x="3" y="9.5" width="26" height="17" rx="4.2" fill="#4A6FA5"/><circle cx="16" cy="18" r="6.4" fill="#FBE6B0"/><circle cx="16" cy="18" r="3.3" fill="#26334D" stroke="none"/></g></svg><svg class="hx-snap-arrow" viewBox="0 0 60 44"><path d="M4 38 C22 40 40 30 50 10"/><path d="M41 12 L51 8 L53 19"/></svg></p>
-    </div>
+work:()=>`<div class="page">
+${`<section class="wrap wk-top">
+  <h1 class="wk-h">Devanshi Sharma believes good design should feel effortless.</h1>
+  <div class="wk-meta">
+    <div><span>Currently</span><p>Designing at Jasper Colin,<br>in Delhi NCR, India</p></div>
+    <div><span>Previously</span><p>Two years in primary research, interviewing respondents<br>and turning their answers into insights.</p></div>
   </div>
-</div></section>
+</section>`}
+<section class="wrap"><div class="wk-grid">${PROJECTS.map(wcard).join("")}</div></section>
+</div>`,
 
-<section class="wrap" id="sec-work">
-  ${head("Selected work","Projects",`<p class="hand-aside">${PROJECTS.length} case studies,<br>all made with ♡</p>`)}
-  <div class="collage">${PROJECTS.map(pcard).join("")}</div>
-</section>
+journal:()=>`<div class="page">
+${ptop("Journal",`${POSTS.length} entries, written over coffee.`)}
+<section class="wrap"><div class="wk-grid">${POSTS.map(jtile).join("")}</div></section>
+</div>`,
 
-<section class="wrap" id="sec-about">
-  ${head("About me","A little about me")}
-  <div class="notebook reveal">
-    <div class="nb-page nb-left">
-      <p class="intro-line">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></p>
-      <p class="nb-text">I'm Devanshi, a UX researcher and designer with 4+ years of experience: over two years in primary research, interviewing respondents and turning their answers into insights, then two years designing SaaS, dashboards and mobile. That's why my designs start with people and end simple and intuitive. Off the screen, I fill sketchbooks.</p>
-    </div>
-    <div class="nb-page nb-right">
-      <span class="label">Skills &amp; tools</span>
-      <p class="sk-aside">Filter by area to see where each skill fits.</p>
-      <div class="sk-filters" role="group" aria-label="Filter skills">${[["all","All"],...Object.entries(SKILL_AREAS)].map(([k,v],i)=>`<button type="button" class="sk-f" data-f="${k}" aria-pressed="${i===0}">${v}</button>`).join("")}</div>
-      <ul class="sk-list">${SKILLS.map(([n,a])=>`<li class="sk" data-a="${a}">${n}</li>`).join("")}</ul>
-    </div>
+about:()=>`<div class="page">
+<section class="wrap pg-top ab-top">
+  <h1 class="pg-h">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></h1>
+  <div class="wk-meta">
+    <div><span>About</span><p>I'm Devanshi, a UX researcher and designer with 4+ years of experience: over two years in primary research, interviewing respondents and turning their answers into insights, then two years designing SaaS, dashboards and mobile.</p></div>
+    <div><span>Why it shows</span><p>That's why my designs start with people and end simple and intuitive. Off the screen, I fill sketchbooks.</p></div>
   </div>
 </section>
 
-<section class="wrap" id="sec-talks">
-  ${head("Workshops &amp; speaking","Sharing what I know. <span class=\"grey\">Learning even more.</span>")}
+<section class="wrap ab-sec" id="sec-skills">
+  ${shead("Skills &amp; tools","Filter by area to see where each skill fits.")}
+  <div class="sk-filters" role="group" aria-label="Filter skills">${[["all","All"],...Object.entries(SKILL_AREAS)].map(([k,v],i)=>`<button type="button" class="sk-f" data-f="${k}" aria-pressed="${i===0}">${v}</button>`).join("")}</div>
+  <ul class="sk-list">${SKILLS.map(([n,a])=>`<li class="sk" data-a="${a}">${n}</li>`).join("")}</ul>
+</section>
+
+<section class="wrap ab-sec" id="sec-talks">
+  ${shead("Workshops &amp; speaking","Sharing what I know. Learning even more.")}
   <div class="tk-list">${TALKS.map(talk).join("")}</div>
 </section>
 
-<section class="wrap">
-  ${head("Off the screen","From my sketchbook",`<p class="rm-note">pick anything up<br>&amp; move it around<svg viewBox="0 0 60 50" aria-hidden="true"><path d="M6 4 C30 6 46 18 44 42 M36 34 L44 44 L52 34"/></svg></p>`)}
-  <div class="gw reveal"><div class="gw-grid" aria-hidden="true"></div>
-    ${WALL.map((w,i)=>{
-      const st=`--x:${w.x}%;--y:${w.y}%;--w:${w.w}%;--r:${w.r}deg;`+(w.m?`--mx:${w.m[0]}%;--my:${w.m[1]}%;--mw:${w.m[2]}%;`:"");
-      const cls=w.m?"":" no-m";
-      if(w.t==="claw") return `<span class="gw-it gw-claw${cls}" style="${st}">${CLAW}</span>`;
-      if(w.t==="c") return `<span class="gw-it gw-charm${cls}" style="${st}--d:${4+i%3}s" aria-hidden="true">${CHARMS[w.c]}</span>`;
-      const pin=PIN(PINS[i%PINS.length]);
-      if(w.t==="q") return `<figure class="gw-it gw-q gw-q${w.q}${cls}" style="${st}">${pin}<blockquote>${QUOTES[w.q]}</blockquote></figure>`;
-      if(w.t==="p") return `<figure class="gw-it gw-pol${cls}" style="${st}">${pin}${slot(w.img,w.note,"Your photo")}<figcaption>${w.note}</figcaption></figure>`;
-      return `<figure class="gw-it gw-print${cls}" style="${st}">${pin}<img src="${w.img}" alt="A painting by Devanshi" loading="lazy" draggable="false"></figure>`;
-    }).join("")}
+<section class="wrap ab-sec">
+  ${shead("Recommendations","Kind words from people I've worked with.")}
+  <div class="tst-row" id="tRow">${TESTIMONIALS.map(tcard).join("")}</div>
+</section>
+
+<section class="wrap ab-sec ab-photos">
+  <div class="ph-grid">${ME_PHOTOS.map(([h,ps])=>ps.map((p,i)=>`<figure class="ph"><span class="ph-h"${i?' aria-hidden="true"':""}>${i?"&nbsp;":h}</span><img src="assets/images/${p[0]}" alt="${p[1]}" loading="lazy" decoding="async"></figure>`).join("")).join("")}</div>
+</section>
+</div>`,
+
+playground:()=>`<div class="page">
+${ptop("Playground","Two small things to play with while you're here.")}
+<section class="wrap pg-wrap">
+  <div class="seg" role="tablist" aria-label="Playground">
+    <button type="button" role="tab" id="tab-puzzle" aria-controls="pg-puzzle" aria-selected="true">Jigsaw puzzles</button>
+    <button type="button" role="tab" id="tab-notes" aria-controls="pg-notes" aria-selected="false">Notes wall</button>
+  </div>
+  <div class="pg-pane" id="pg-puzzle" role="tabpanel" aria-labelledby="tab-puzzle">
+    <p class="pg-lead">Pick one of my drawings or quote cards, then drag the 9 pieces into place.</p>
+    <div class="jz-pick" role="group" aria-label="Choose a puzzle">${PUZZLES.map((p,i)=>`<button type="button" class="jz-th${p.q?" q q"+p.q:""}" data-i="${i}" aria-pressed="${i===0}" aria-label="${p.q?p.label:"Painting "+p.id.slice(1)}">${p.img?`<img src="${p.img}" alt="" loading="lazy">`:`<span>${p.q===1?"detail.":"simple."}</span>`}</button>`).join("")}</div>
+    <div class="jz-bar"><span class="jz-stat" id="jzStat" aria-live="polite">0 of 9 placed</span><button type="button" class="jz-btn" id="jzShuffle">Shuffle again</button></div>
+    <div class="jz-area" id="jzArea"></div>
+  </div>
+  <div class="pg-pane" id="pg-notes" role="tabpanel" aria-labelledby="tab-notes" hidden>
+    <p class="pg-lead">Leave a thought, a quote or just a hello. No sign-in, just a note.</p>
+    <div class="nt-grid" id="ntGrid">
+      <div class="nt nt-new" id="ntNew">
+        <button type="button" class="nt-open" id="ntOpen"><span aria-hidden="true">+</span> New note</button>
+        <form class="nt-form" id="ntForm" hidden>
+          <label class="sr" for="ntText">Your note</label>
+          <textarea id="ntText" maxlength="240" rows="4" placeholder="Write a thought or a quote…" required></textarea>
+          <label class="sr" for="ntName">Your name</label>
+          <input id="ntName" maxlength="40" placeholder="Name (optional)">
+          <div class="nt-row"><span class="nt-left" id="ntLeft">240</span><button type="button" class="jz-btn ghost" id="ntCancel">Cancel</button><button type="submit" class="jz-btn">Post note</button></div>
+        </form>
+      </div>
+    </div>
+    ${NOTES_API?"":`<p class="nt-local">Notes are kept on this device for now.</p>`}
   </div>
 </section>
-
-<section class="wrap">
-  ${head("My approach","An eye for detail. <span class=\"grey\">A mind for people.</span>")}
-  <div class="process reveal">
-    <div class="wboard"><span class="wb-title">things i keep<br>coming back to</span><ul class="wcloud">${WORDS.map((w,i)=>`<li class="wd s${i%6}" style="--r:${[-4,3,-2,5,-3,2,4,-5,3,-2,6,-3,2,-4,3,-1][i]}deg">${w.toLowerCase()}</li>`).join("")}</ul><span class="wb-doodle a" aria-hidden="true">${FD.spark}</span><span class="wb-doodle b" aria-hidden="true">${FD.heart}</span></div>
-    <div class="stickies">${STEPS.map((s,i)=>`<div class="sticky" style="--bg:${NOTES[i]};--r:${[-2.5,2,1.5,-2][i]}deg"><span class="n">step 0${i+1}</span><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("")}</div>
-  </div>
-</section>
-
-<section class="wrap" id="sec-journal">
-  ${head("Notes &amp; ideas","The journal",`<p class="hand-aside">${POSTS.length} entries,<br>written over coffee</p>`)}
-  <div class="grid4">${POSTS.map(jcard).join("")}</div>
-</section>
-
-<section class="wrap" style="padding-bottom:24px">
-  ${head("Recommendations","What people say",`<p class="hand-aside">kind words from<br>people i've worked with</p>`)}
-  <div class="tst-row reveal" id="tRow">${TESTIMONIALS.map(tcard).join("")}</div>
-</section>
-</div>`}
+</div>`
 };
+
+/* ---------- Playground: tabs ---------- */
+function playground(){
+  const tabs=[...document.querySelectorAll(".seg [role=tab]")]; if(!tabs.length) return;
+  const show=id=>{tabs.forEach(t=>{const on=t.id==="tab-"+id; t.setAttribute("aria-selected",on); document.getElementById(t.getAttribute("aria-controls")).hidden=!on;}); if(id==="puzzle") jigsaw.fit();};
+  tabs.forEach(t=>t.addEventListener("click",()=>show(t.id.slice(4))));
+  jigsaw.init(); notesWall();
+}
+
+/* ---------- Jigsaw: 3x3 pieces with real tabs, drawn on canvas; drag them onto the board, they snap when close ---------- */
+const jigsaw=(()=>{
+  let area,src=null,cur=0,pieces=[],placed=0,moves=0,lastW=0,B=0,P=0,M=0,top=10,ox=0,oy=0,t0=0;
+  const N=3;
+  const quoteCanvas=q=>{
+    const s=720,c=document.createElement("canvas"); c.width=c.height=s; const x=c.getContext("2d");
+    const q1=q===1;
+    x.fillStyle=q1?"#F8EDD3":"#0B5470"; x.fillRect(0,0,s,s);
+    const lines=q1?[["an eye for","a"],["detail.","b"],["a mind for","a"],["people.","b"]]:[["make it","a"],["simple.","b"],["make it","a"],["kind.","b"]];
+    let y=q1?170:175;
+    x.textAlign=q1?"left":"center";
+    for(const [t,k] of lines){
+      if(k==="a"){x.font="italic 400 48px \"Libre Baskerville\", Georgia, serif"; x.fillStyle=q1?"#1D2752":"#F8EDD3"; x.fillText(t,q1?80:s/2,y); y+=118;}
+      else{x.font="700 92px \"Libre Baskerville\", Georgia, serif"; x.fillStyle=q1?(t==="people."?"#0B5470":"#1D2752"):"#FAF6EE"; x.fillText(t,q1?72:s/2,y-6); y+=96;}
+    }
+    return c;
+  };
+  const load=i=>new Promise(res=>{
+    const p=PUZZLES[i];
+    if(p.q){ const go=()=>res(quoteCanvas(p.q)); (document.fonts&&document.fonts.load)?Promise.all([document.fonts.load("700 92px \"Libre Baskerville\""),document.fonts.load("italic 400 48px \"Libre Baskerville\"")]).then(go,go):go(); return; }
+    const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=p.img;
+  });
+  /* one edge, drawn from (x0,y0) along unit u for length P; s=+1 bump out, -1 bump in, 0 flat */
+  const edge=(ctx,x0,y0,ux,uy,s)=>{
+    const nx=uy,ny=-ux, pt=(t,h)=>[x0+ux*t*P+nx*h*P*s,y0+uy*t*P+ny*h*P*s];
+    if(!s){ctx.lineTo(x0+ux*P,y0+uy*P);return;}
+    const L=(t,h)=>ctx.lineTo(...pt(t,h)), C=(a,b,c)=>ctx.bezierCurveTo(...pt(...a),...pt(...b),...pt(...c));
+    L(.37,0); C([.41,0],[.42,.04],[.40,.09]); C([.37,.16],[.35,.26],[.50,.26]); C([.65,.26],[.63,.16],[.60,.09]); C([.58,.04],[.59,0],[.63,0]); L(1,0);
+  };
+  const outline=(ctx,e)=>{ctx.beginPath(); ctx.moveTo(M,M);
+    edge(ctx,M,M,1,0,e.t); edge(ctx,M+P,M,0,1,e.r); edge(ctx,M+P,M+P,-1,0,e.b); edge(ctx,M,M+P,0,-1,e.l); ctx.closePath();};
+  const stat=()=>{const el=document.getElementById("jzStat"); if(!el) return;
+    if(placed===N*N){const s=Math.round((performance.now()-t0)/1000); el.textContent=`Solved in ${Math.floor(s/60)}:${String(s%60).padStart(2,"0")} · ${moves} moves`; area.classList.add("done");}
+    else{el.textContent=`${placed} of 9 placed`; area.classList.remove("done");}};
+  function build(){
+    if(!area||!src) return;
+    area.innerHTML=""; pieces=[]; placed=0; moves=0; t0=performance.now(); area.classList.remove("done");
+    const W=area.clientWidth; lastW=W;
+    const side=W>=760;
+    B=Math.floor(Math.min(side?W*.5:W*.78,460)); P=B/N; M=Math.ceil(P*.3);
+    const trayH=side?B:Math.ceil(P*2.9);
+    area.style.height=(side?B+2*M:B+2*M+trayH+12)+"px";
+    ox=side?M:Math.round((W-B)/2); oy=M;
+    /* the board: faint image so people can see what they're building */
+    const board=document.createElement("div"); board.className="jz-board"; board.style.cssText=`left:${ox}px;top:${oy}px;width:${B}px;height:${B}px`;
+    const ghost=document.createElement("canvas"); const dpr=Math.min(2,devicePixelRatio||1); ghost.width=ghost.height=Math.round(B*dpr); board.appendChild(ghost);
+    const g=ghost.getContext("2d"); const sw=src.width||src.naturalWidth, sh=src.height||src.naturalHeight, sq=Math.min(sw,sh);
+    g.drawImage(src,(sw-sq)/2,(sh-sq)/2,sq,sq,0,0,ghost.width,ghost.height);
+    area.appendChild(board);
+    const done=document.createElement("p"); done.className="jz-done"; done.innerHTML=`Solved! <button type="button" class="jz-btn" id="jzNext">Try another</button>`; area.appendChild(done);
+    done.querySelector("#jzNext").addEventListener("click",()=>pick((cur+1)%PUZZLES.length));
+    const H=[...Array(N-1)].map(()=>[...Array(N)].map(()=>Math.random()<.5?1:-1));
+    const V=[...Array(N)].map(()=>[...Array(N-1)].map(()=>Math.random()<.5?1:-1));
+    const cs=Math.ceil(P+2*M);
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      const e={t:r?-H[r-1][c]:0,b:r<N-1?H[r][c]:0,l:c?-V[r][c-1]:0,r:c<N-1?V[r][c]:0};
+      const cv=document.createElement("canvas"); cv.width=cv.height=Math.round(cs*dpr); cv.className="jz-pc";
+      cv.style.width=cv.style.height=cs+"px";
+      const x=cv.getContext("2d"); x.scale(dpr,dpr); outline(x,e); x.save(); x.clip();
+      x.drawImage(src,(sw-sq)/2,(sh-sq)/2,sq,sq,M-c*P,M-r*P,B,B); x.restore();
+      outline(x,e); x.lineWidth=1.2; x.strokeStyle="rgba(29,39,82,.35)"; x.stroke();
+      const home={x:ox+c*P-M,y:oy+r*P-M};
+      let px,py;
+      if(side){px=ox+B+M+20+Math.random()*Math.max(10,W-(ox+B+M+20)-cs); py=Math.random()*(B+2*M-cs);}
+      else{px=Math.random()*Math.max(4,W-cs); py=oy+B+M+12+Math.random()*Math.max(4,trayH-cs+M);}
+      const pc={el:cv,home,x:px,y:py,ok:false,ctx:x,dpr};
+      cv.style.transform=`translate(${px}px,${py}px)`; cv.style.zIndex=++top;
+      area.appendChild(cv); pieces.push(pc); drag(pc);
+    }
+    stat();
+  }
+  const hit=(pc,cx,cy)=>{const r=pc.el.getBoundingClientRect(); const x=Math.floor((cx-r.left)*pc.dpr), y=Math.floor((cy-r.top)*pc.dpr);
+    try{return pc.ctx.getImageData(x,y,1,1).data[3]>10}catch(e){return true}};
+  function drag(pc){
+    let on=false,sx=0,sy=0;
+    pc.el.addEventListener("pointerdown",e=>{
+      if(pc.ok) return;
+      if(!hit(pc,e.clientX,e.clientY)){ /* clicked the empty corner around a tab: hand it to the piece underneath */
+        const under=pieces.filter(q=>q!==pc&&!q.ok&&q.el.style.zIndex<pc.el.style.zIndex).sort((a,b)=>b.el.style.zIndex-a.el.style.zIndex).find(q=>{const r=q.el.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom&&hit(q,e.clientX,e.clientY)});
+        if(under){under.el.dispatchEvent(new PointerEvent("pointerdown",e));} return; }
+      e.preventDefault(); on=true; sx=e.clientX-pc.x; sy=e.clientY-pc.y; try{pc.el.setPointerCapture(e.pointerId)}catch(_){} pc.el.style.zIndex=++top; pc.el.classList.add("lift");
+    });
+    pc.el.addEventListener("pointermove",e=>{ if(!on) return; const W=area.clientWidth, Hh=area.clientHeight, cs=pc.el.offsetWidth;
+      pc.x=Math.min(W-cs*.4,Math.max(-cs*.6,e.clientX-sx)); pc.y=Math.min(Hh-cs*.4,Math.max(-cs*.6,e.clientY-sy));
+      pc.el.style.transform=`translate(${pc.x}px,${pc.y}px)`; });
+    const end=()=>{ if(!on) return; on=false; pc.el.classList.remove("lift"); moves++;
+      if(Math.hypot(pc.x-pc.home.x,pc.y-pc.home.y)<P*.2){ pc.x=pc.home.x; pc.y=pc.home.y; pc.ok=true; placed++;
+        pc.el.style.transform=`translate(${pc.x}px,${pc.y}px)`; pc.el.style.zIndex=1; pc.el.classList.add("ok"); }
+      stat(); };
+    pc.el.addEventListener("pointerup",end); pc.el.addEventListener("pointercancel",end);
+  }
+  async function pick(i){
+    cur=i; document.querySelectorAll(".jz-th").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i));
+    src=await load(i); build();
+  }
+  return {
+    init(){ area=document.getElementById("jzArea"); if(!area) return; src=null;
+      document.querySelectorAll(".jz-th").forEach(b=>b.addEventListener("click",()=>pick(+b.dataset.i)));
+      document.getElementById("jzShuffle").addEventListener("click",build);
+      pick(0); },
+    fit(){ if(area&&area.isConnected&&area.clientWidth&&area.clientWidth!==lastW) build(); }
+  };
+})();
+addEventListener("resize",()=>{clearTimeout(jigsaw._t); jigsaw._t=setTimeout(()=>jigsaw.fit(),200);});
+
+/* ---------- Notes wall ---------- */
+function notesWall(){
+  const grid=document.getElementById("ntGrid"); if(!grid) return;
+  const KEY="dv-notes", form=document.getElementById("ntForm"), open=document.getElementById("ntOpen"), txt=document.getElementById("ntText"), nm=document.getElementById("ntName"), left=document.getElementById("ntLeft");
+  const fmt=d=>new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"}).format(new Date(d));
+  const card=n=>{const a=document.createElement("article"); a.className="nt";
+    const q=document.createElement("p"); q.className="nt-q"; q.textContent=n.text;
+    const f=document.createElement("p"); f.className="nt-by"; const b=document.createElement("span"); b.textContent=n.name||"anonymous"; const d=document.createElement("span"); d.textContent=fmt(n.at); f.append(b,d);
+    a.append(q,f); return a;};
+  const readLocal=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return []}};
+  const writeLocal=l=>{try{localStorage.setItem(KEY,JSON.stringify(l.slice(0,200)))}catch(e){}};
+  const fetchAll=()=>NOTES_API?fetch(NOTES_API).then(r=>r.json()).catch(()=>[]):Promise.resolve(readLocal());
+  const save=n=>NOTES_API?fetch(NOTES_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(n)}).catch(()=>{}):Promise.resolve(writeLocal([n,...readLocal()]));
+  const render=l=>{grid.querySelectorAll(".nt:not(.nt-new)").forEach(x=>x.remove()); l.sort((a,b)=>new Date(b.at)-new Date(a.at)).forEach(n=>grid.appendChild(card(n)));
+    if(!l.length){const e=document.createElement("p"); e.className="nt nt-empty"; e.textContent="No notes yet. Be the first to leave one."; grid.appendChild(e);}};
+  fetchAll().then(render);
+  const toggle=on=>{form.hidden=!on; open.hidden=on; if(on) txt.focus();};
+  open.addEventListener("click",()=>toggle(true));
+  document.getElementById("ntCancel").addEventListener("click",()=>{form.reset(); left.textContent="240"; toggle(false);});
+  txt.addEventListener("input",()=>left.textContent=240-txt.value.length);
+  form.addEventListener("submit",e=>{e.preventDefault(); const text=txt.value.trim(); if(!text) return;
+    const n={text,name:nm.value.trim().slice(0,40),at:new Date().toISOString()};
+    save(n).then(()=>fetchAll().then(render)); form.reset(); left.textContent="240"; toggle(false);});
+}
+
+/* ---------- Dock: macOS-style magnification on hover; active page gets a dot ---------- */
+function dock(){ return; /* pill nav has no magnification */
+  const d=document.querySelector(".dock"); if(!d||reduce||!matchMedia("(hover:hover)").matches) return;
+  const items=[...d.querySelectorAll(".dk")];
+  d.addEventListener("mousemove",e=>{ for(const it of items){ const r=it.getBoundingClientRect(); const dist=Math.abs(e.clientX-(r.left+r.width/2));
+    it.style.setProperty("--s",(1+.42*Math.max(0,1-dist/120)).toFixed(3)); } });
+  d.addEventListener("mouseleave",()=>items.forEach(it=>it.style.setProperty("--s",1)));
+}
 
 
 function renderPost(slug){
   const p=POSTMAP[slug], i=POSTS.indexOf(p), nx=POSTS[(i+1)%POSTS.length];
   const blk=b=>b[0]==="h"?`<h2>${b[1]}</h2>`:b[0]==="q"?`<blockquote>${b[1]}</blockquote>`:b[0]==="lead"?`<p class="lead">${b[1]}</p>`:b[0]==="ul"?`<ul>${b[1].map(x=>`<li>${x}</li>`).join("")}</ul>`:`<p>${b[1]}</p>`;
-  return `<div class="page">
-<div class="wrap cs-top"><a class="link-arrow" href="#journal"><span style="transform:none">←</span> Journal</a><span class="label">${p.cat} · ${readTime(p)} min read</span></div>
-<article class="wrap post">
-  <div class="post-head" style="--tint:${p.tint}"><span class="label">${p.cat}</span><h1>${p.t}</h1><p>${p.d}</p><div class="by"><span class="av"><img src="${IMG_AVATAR}" alt=""></span><span>Devanshi · UI/UX designer</span></div></div>
-  <div class="post-body reveal">${p.body.map(blk).join("")}</div>
-</article>
-<div class="wrap" style="padding-bottom:24px"><a class="cs-next reveal" href="#${nx.slug}" style="background:${nx.tint}"><div><span class="label">Next entry</span><h2 style="font-size:clamp(1.6rem,3.4vw,2.6rem)">${nx.t}</h2><p class="muted" style="margin-top:8px;max-width:52ch">${nx.d}</p></div><span class="arr" aria-hidden="true">→</span></a></div>
+  /* Same frame as the case study pages (fx-*), at her request (Nov 2026): rule + back link, big title, meta beside the intro,
+     full-width cover, then ruled rows (small label left, content right), then the next entry. */
+  const rows=[]; let cur={h:"",b:[]};
+  p.body.forEach(b=>{ if(b[0]==="h"){ if(cur.h||cur.b.length) rows.push(cur); cur={h:b[1],b:[]}; } else cur.b.push(b); });
+  rows.push(cur);
+  const meta=[["Type",p.cat.charAt(0)+p.cat.slice(1).toLowerCase()],["Reading time",readTime(p)+" min"],["Written by","Devanshi Sharma"],["Written","Over coffee"]];
+  return `<div class="page vt fx jp">
+<section class="fx-top"><div class="wrap">
+  <div class="fx-bar"><a class="fx-back" href="#journal">← Journal</a><span>${p.cat} · ${readTime(p)} min read</span></div>
+  <h1 class="fx-title">${p.t}</h1>
+  <div class="fx-head">
+    <dl class="fx-meta">${meta.map(m=>`<div><dt>${m[0]}</dt><dd>${m[1]}</dd></div>`).join("")}</dl>
+    <p class="fx-intro">${p.d}</p>
+  </div>
+</div></section>
+<div class="wrap"><figure class="vt-cover fx-cover jp-cover" style="--tint:${p.tint}"><span class="jt-cat">${p.cat}</span><span class="jp-cover-t">${p.t}</span></figure></div>
+${rows.map((r,k)=>`<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">${k===0&&!r.h?"Intro":""}</span><div class="fx-main">${r.h?`<h2 class="fx-h">${r.h}</h2>`:""}<div class="jp-text">${r.b.map(blk).join("")}</div></div></div></div></section>`).join("")}
+<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next entry</span><a class="fx-next" href="#${nx.slug}"><span>Up next →</span><b>${nx.t}</b><em>${nx.d}</em></a></div></div></section>
 </div>`;
 }
 const app=document.getElementById("app");
 let shown="";
 function route(){
-  let h=(location.hash||"#home").slice(1);
+  let h=(location.hash||"#work").slice(1)||"work";
   if(h==="veritas-research"){ h="syndicate-research"; history.replaceState(null,"","#"+h); }
   if(h==="top-brass"){ h="signal-intelligence"; history.replaceState(null,"","#"+h); }
-  const secs=["work","about","journal","contact"];
-  let view="home";
+  if(h==="home") h="work";
+  let view=TOP.includes(h)?h:"work";
   if(CASES[h]) view="case:"+h; else if(POSTMAP[h]) view="post:"+h;
-  document.getElementById("navLinks").classList.remove("open");
-  document.getElementById("menuBtn").setAttribute("aria-expanded","false");
-  document.querySelectorAll(".links a[data-r]").forEach(a=>a.classList.toggle("active",a.dataset.r===h||(view.startsWith("case")&&a.dataset.r==="work")||(view.startsWith("post")&&a.dataset.r==="journal")));
+  const tab=view.startsWith("case")?"work":view.startsWith("post")?"journal":view;
+  document.querySelectorAll(".dock a[data-r]").forEach(a=>{const on=a.dataset.r===tab; a.classList.toggle("active",on); if(on) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");});
   if(view!==shown){
-    app.innerHTML=view.startsWith("case:")?renderCase(h):view.startsWith("post:")?renderPost(h):PAGES.home();
+    app.innerHTML=view.startsWith("case:")?renderCase(h):view.startsWith("post:")?renderPost(h):PAGES[view]();
     shown=view; window.scrollTo({top:0,behavior:"instant"}); wire();
   }
-  if(view==="home") setTimeout(spy,60);
-  if(view==="home"&&secs.includes(h)){const el=document.getElementById("sec-"+h); if(el) setTimeout(()=>el.scrollIntoView({behavior:shown===view&&document.readyState==="complete"?"smooth":"instant",block:"start"}),30);}
-  else if(view==="home"&&h==="home") window.scrollTo({top:0,behavior:"smooth"});
+  if(h==="contact") setTimeout(()=>document.getElementById("sec-contact").scrollIntoView({behavior:"smooth"}),30);
 }
 addEventListener("hashchange",route);
-/* Scroll spy: on the home page, highlight the nav link for the section in view */
-let spyTick=false;
-function spy(){
-  spyTick=false;
-  if(shown!=="home") return;
-  const line=innerHeight*0.4; let cur="";
-  ["work","about","journal","contact"].forEach(id=>{const el=document.getElementById("sec-"+id); if(el&&el.getBoundingClientRect().top<=line) cur=id;});
-  if(innerHeight+scrollY>=document.documentElement.scrollHeight-4) cur="contact";
-  document.querySelectorAll(".links a[data-r]").forEach(a=>a.classList.toggle("active",a.dataset.r===cur));
-}
-addEventListener("scroll",()=>{if(!spyTick){spyTick=true;requestAnimationFrame(spy);}},{passive:true});
-addEventListener("resize",spy);
+
 /* safety net for big jumps (nav links, scrollbar drags): anything on screen or already passed shows up */
 let revTick=false;
 addEventListener("scroll",()=>{if(revTick) return; revTick=true; requestAnimationFrame(()=>{revTick=false;
   document.querySelectorAll(".reveal.pre").forEach(el=>{if(el.getBoundingClientRect().top<innerHeight*.94){el.classList.remove("pre");if(io) io.unobserve(el)}})})},{passive:true});
 
-const REVEAL=["#app .sec-head","#app .stickies>.sticky","#app .wboard","#app .collage>.pcard","#app .grid4>*","#app .cs-hero>*","#app .cs-cover",".ft .postcard",".ft .ft-word"].join(",");
+const REVEAL=["#app .wk-grid>*","#app .s-head","#app .likes>*","#app .ph","#app .sec-head","#app .stickies>.sticky","#app .wboard","#app .collage>.pcard","#app .grid4>*","#app .cs-hero>*","#app .cs-cover",".ft .postcard",".ft .ft-word",
+  /* Nov 2026 pages: more things rise in as you scroll */
+  "#app .wk-meta>div","#app .sk-filters","#app .sk-list","#app .tst-row","#app .ph-grid>*","#app .ph-h","#app .seg","#app .pg-lead","#app .jz-pick","#app .nt-row","#app .nt-grid>*","#app .fx-cover",".ft .fd-brand",".ft .fd-cols>*",".ft .ft-base"].join(",");
 let io,raf1=0,raf2=0,raf3=0,raf5=0;const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function wire(){
   if(io) io.disconnect();
@@ -717,7 +884,7 @@ function wire(){
       el.classList.add("pre");el.style.transitionDelay=Math.min(sib,5)*90+"ms";io.observe(el)}});
   }
   cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); cancelAnimationFrame(raf3);
-  parallax(); meChar(); wallDrag(); skillFilter(); fitMega(); coverParallax();
+  parallax(); meChar(); wallDrag(); skillFilter(); fitMega(); coverParallax(); playground();
   /* Recommendations: slow continuous auto-scroll (pauses on hover, focus or touch; arrows still step) */
   const tRow=document.getElementById("tRow"); cancelAnimationFrame(raf5);
   if(tRow){
@@ -730,7 +897,7 @@ function wire(){
     tRow.addEventListener("focusin",()=>paused=true); tRow.addEventListener("focusout",()=>paused=false);
     tRow.addEventListener("touchstart",()=>hold=performance.now()+3000,{passive:true});
     tRow.addEventListener("wheel",()=>hold=performance.now()+1600,{passive:true});
-    const tick=()=>{ if(shown!=="home"||!tRow.isConnected) return;
+    const tick=()=>{ if(!tRow.isConnected) return;
       if(paused||performance.now()<hold||reduce){ pos=tRow.scrollLeft; }
       else { pos+=0.35; if(pos>=half()) pos-=half(); tRow.scrollLeft=pos; }
       raf5=requestAnimationFrame(tick); };
@@ -919,14 +1086,11 @@ function copyText(t,btn){
 }
 /* footer: wordmark letters + live Noida time */
 /* handwritten wordmark, same as the nav logo: sparkle + letters that hop on hover */
-document.querySelector(".ft-word").innerHTML=CUTE_STAR("ft-star cute-star")+"Devanshi".split("").map((c,i)=>`<span style="--r:${[-3,2,-2,3,-1,2,-3,1][i]}deg">${c}</span>`).join("")+`<svg class="ft-squig" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 C40 4 70 22 110 12 S180 4 220 14 S280 20 296 8"/></svg>`;
+if(document.querySelector(".ft-word")) document.querySelector(".ft-word").innerHTML=CUTE_STAR("ft-star cute-star")+"Devanshi".split("").map((c,i)=>`<span style="--r:${[-3,2,-2,3,-1,2,-3,1][i]}deg">${c}</span>`).join("")+`<svg class="ft-squig" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 C40 4 70 22 110 12 S180 4 220 14 S280 20 296 8"/></svg>`;
 document.querySelectorAll(".ft [data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(b.dataset.copy,b)));
 const clock=()=>{try{document.getElementById("clock").textContent=new Intl.DateTimeFormat("en-IN",{hour:"numeric",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"}).format(new Date())}catch(e){}};
 clock(); setInterval(clock,15000);
-document.getElementById("menuBtn").addEventListener("click",e=>{const o=document.getElementById("navLinks").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)});
-/* top bar: blends into the page at the top, gets its outline once you scroll */
-const hdrState=()=>document.getElementById("hdr").classList.toggle("scrolled",scrollY>10);
-addEventListener("scroll",hdrState,{passive:true}); hdrState();
+dock();
 addEventListener("resize",fitMega);
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitMega);
 route();
