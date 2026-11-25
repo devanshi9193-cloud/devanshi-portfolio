@@ -1363,3 +1363,6 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 }
 .fx .vt-card a{color:var(--royal);text-decoration:underline;text-underline-offset:3px}
 .fx .vt-cards+.comp-take{margin-top:20px}
+
+/* Footer bottom line sits above the fixed Resume button so it never covers the text */
+.ft-base{padding-bottom:100px}

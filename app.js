@@ -924,7 +924,6 @@ document.querySelectorAll(".ft [data-copy]").forEach(b=>b.addEventListener("clic
 const clock=()=>{try{document.getElementById("clock").textContent=new Intl.DateTimeFormat("en-IN",{hour:"numeric",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"}).format(new Date())}catch(e){}};
 clock(); setInterval(clock,15000);
 document.getElementById("menuBtn").addEventListener("click",e=>{const o=document.getElementById("navLinks").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)});
-document.getElementById("toTop").addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
 /* top bar: blends into the page at the top, gets its outline once you scroll */
 const hdrState=()=>document.getElementById("hdr").classList.toggle("scrolled",scrollY>10);
 addEventListener("scroll",hdrState,{passive:true}); hdrState();
