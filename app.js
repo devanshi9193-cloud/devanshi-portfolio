@@ -571,8 +571,8 @@ ${vsec("In one line","",`<q class="fx-quote">${c.quote}</q>`)}
 const TOP=["work","about","playground","journal"];
 const projMeta=p=>{const c=CASES[slugOf(p.name)]||{}; return [(c.kicker||"").split(" · ")[0],c.year].filter(Boolean).join(" · ");};
 /* captions describe the project instead of naming it (no "Jasper Colin", "Runway"...) */
-const wcard=p=>{const d=p.line.replace(/\.$/,""); return `<a class="wcard" href="#${slugOf(p.name)}" aria-label="${d}, case study"><div class="wc-art"><img src="${p.card||p.img}" alt="" loading="lazy" decoding="async"></div><p class="wc-cap"><b>${d}</b><span class="sl">/</span><span>${projMeta(p)}</span></p></a>`;};
-const jtile=p=>`<a class="wcard jtile" href="#${p.slug}"><div class="wc-art jt-art" style="--tint:${p.tint}"><span class="jt-cat">${p.cat}</span><h3>${p.t}</h3><p>${p.d}</p></div><p class="wc-cap"><b>${p.cat.charAt(0)+p.cat.slice(1).toLowerCase()}</b><span class="sl">/</span><span>${readTime(p)} min read</span></p></a>`;
+const wcard=p=>{const d=p.line.replace(/\.$/,""); return `<a class="wcard" href="#${slugOf(p.name)}" aria-label="${d}, case study"><div class="wc-art"><img src="${p.card||p.img}" alt="" loading="lazy" decoding="async"><span class="wc-hover" aria-hidden="true"><span>View case study <i>→</i></span></span></div><p class="wc-cap"><b>${d}</b><span class="sl">/</span><span>${projMeta(p)}</span></p></a>`;};
+const jtile=p=>`<a class="wcard jtile" href="#${p.slug}"><div class="wc-art jt-art" style="--tint:${p.tint}"><span class="jt-cat">${p.cat}</span><h3>${p.t}</h3><p>${p.d}</p><span class="wc-hover" aria-hidden="true"><span>Read entry <i>→</i></span></span></div><p class="wc-cap"><b>${p.cat.charAt(0)+p.cat.slice(1).toLowerCase()}</b><span class="sl">/</span><span>${readTime(p)} min read</span></p></a>`;
 const ptop=(h,sub)=>`<section class="wrap pg-top"><h1 class="pg-h">${h}</h1>${sub?`<p class="pg-sub">${sub}</p>`:""}</section>`;
 const shead=(h,sub)=>`<div class="s-head"><h2>${h}</h2>${sub?`<p>${sub}</p>`:""}</div>`;
 /* About: photos of Devanshi at the end, in small groups with a heading over each group (no numbers) */
@@ -671,7 +671,7 @@ ${ptop("Playground","Two small things to play with while you're here.")}
         </form>
       </div>
     </div>
-    <p class="nt-local" id="ntMsg">${NOTES_API?"New notes show up here once Devanshi approves them.":"Notes are kept on this device for now."}</p>
+    <p class="nt-local" id="ntMsg">${NOTES_API?"Thank you for your kind words!":"Notes are kept on this device for now."}</p>
   </div>
 </section>
 </div>`

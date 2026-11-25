@@ -769,3 +769,23 @@ body:has(#jzArea) .ft.field{margin-top:clamp(40px,6vw,96px)}
 /* notes waiting for approval (only the sender sees these) */
 .nt.nt-pend{opacity:.7;outline:1.5px dashed var(--royal-mist);outline-offset:-1.5px}
 .nt.nt-pend .nt-by span:last-child{color:var(--royal)}
+
+/* ===== WORK CARD hover (her request, Nov 2026): no lift or zoom; the card turns sky blue with "View case study" ===== */
+.wcard:not(.jtile):hover .wc-art,.wk-grid>.wcard:not(.jtile):nth-child(even):hover .wc-art{transform:none;rotate:0deg;box-shadow:none}
+.wcard:not(.jtile):hover .wc-art img{transform:none}
+.wc-hover{position:absolute;inset:0;display:grid;place-items:center;background:var(--royal);color:#fff;opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
+.wc-hover>span{display:inline-flex;align-items:center;gap:10px;font:500 clamp(1rem,1.4vw,1.15rem) var(--f-sans);translate:0 10px;transition:translate .4s var(--ease)}
+.wc-hover i{font-style:normal;transition:translate .4s var(--ease)}
+.wcard:hover .wc-hover,.wcard:focus-visible .wc-hover{opacity:1}
+.wcard:hover .wc-hover>span,.wcard:focus-visible .wc-hover>span{translate:0 0}
+.wcard:hover .wc-hover i{translate:4px 0}
+@media (hover:none){.wc-hover{display:none}}
+@media (prefers-reduced-motion:reduce){.wc-hover,.wc-hover>span,.wc-hover i{transition:none}}
+/* card hover: translucent sky-blue glass instead of solid blue */
+.wc-hover{background:linear-gradient(160deg,rgba(11,84,112,.42),rgba(11,84,112,.28));-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28),inset 0 1px 0 rgba(255,255,255,.45)}
+.wc-hover>span{padding:11px 20px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 24px rgba(10,61,82,.25);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);text-shadow:0 1px 2px rgba(10,61,82,.35)}
+/* journal cards: same glass hover as work cards (no lift, glow or tint change) */
+.jt-art{position:relative;overflow:hidden}
+.wk-grid .wcard.jtile:hover .wc-art,.wk-grid>.wcard.jtile:nth-child(even):hover .wc-art{transform:none;rotate:0deg;box-shadow:none}
+.wk-grid .wcard.jtile:hover .wc-art.jt-art,.wk-grid>.wcard.jtile:nth-child(4n+1):hover .wc-art.jt-art,.wk-grid>.wcard.jtile:nth-child(4n):hover .wc-art.jt-art{background-color:var(--royal-soft)!important}
+.wk-grid>.wcard.jtile:nth-child(4n+2):hover .wc-art.jt-art,.wk-grid>.wcard.jtile:nth-child(4n+3):hover .wc-art.jt-art{background-color:var(--red-soft)!important}
