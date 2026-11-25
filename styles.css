@@ -1204,3 +1204,9 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),textarea,[
 .notebook .nb-page{background:none;border:0;border-radius:0;box-shadow:none}
 .notebook .nb-left{padding-bottom:0}
 .notebook .nb-right{padding-top:32px}
+
+/* Case study story (Nov 2026): each decision card carries its reason */
+.vt-why{margin-top:14px!important;padding-top:12px;border-top:1px dashed var(--line);color:var(--ink)!important}
+.vt-why b{display:block;margin-bottom:4px;font:500 .7rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.vt-after{margin-top:16px;width:100%}
+.vt-stats+.vt-after{margin-top:16px}

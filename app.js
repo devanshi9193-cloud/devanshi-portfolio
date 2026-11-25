@@ -404,6 +404,27 @@ const SCREENS={
  ]
 };
 Object.keys(SCREENS).forEach(k=>{ if(CASES[k]) CASES[k].screens=SCREENS[k]; });
+/* Case study story: why = one reason per design decision (same order as decisions.items);
+   after = what happened after launch (live projects) or where a concept landed. Facts only, from her case studies and Figma files. */
+const STORY={
+"jasper-colin":{why:["Two brands for two audiences would drift apart again if each site started from a blank page.","A small in-house team had to ship quickly, so type, colour and components were agreed once and reused everywhere.","AI got drafts on the page fast, but problem framing, states, edge cases and design QA needed a designer's eye.","Both sites are public, so every screen had to hold up live in the browser, not just in Figma."],
+ after:{label:"After launch",h:"Two live sites, one visual language.",items:[["Live in public","jaspercolin.com and robinandberry.com are both live."],["Built on one system","Robin &amp; Berry was assembled from the Jasper Colin system instead of being designed from scratch."],["Consistent touchpoints","Both brands now share one visual language across their sites."]]}},
+"runway":{why:["There was no clear starting point, so the day opens with daily status before requests and company news.","Request status was invisible. A timeline shows every stage, so nobody has to chase HR for updates.","Payroll, events and newsletters were competing with daily tasks, so they got a home of their own.","People need their balance to decide, so it comes before the leave form, not after it."],
+ after:{label:"After launch",h:"Used daily by 500+ employees.",items:[["One workspace","Employees now handle attendance, leave requests and referral tracking in one place."]]}},
+"top-brass":{why:["Sessions, polls, recordings and clips all had to land in one report. A different pattern for each would mean relearning the tool every time.","Researchers clicked through layers of small popups. Most of the time they want the study they were just working in.","The same researcher moves across very different methods, so the interaction pattern has to travel with them.","Adding data used to take many clicks through nested dialogs."],
+ after:{label:"Where it landed",h:"One report builder for every method.",items:[["One modal, every source","A large fullscreen modal replaced the stack of small floating popups."],["Checked before release","Keyboard flows, focus and contrast were checked, then the flow was validated with researchers in UAT."],["Built with engineering","Paired with developers on feasibility, tokens and component behaviour."]]}},
+"user-testing":{why:["Nine test types and seven kinds of survey would feel like sixteen tools if each had its own builder.","Words like “card sort” or “SUPR-Q” make people pause. Choosing a method shouldn't need a research glossary.","Setup sprawls across screeners, tests, questions and branching. The sidebar keeps the whole study in order.","A heatmap answers a first-click test; a score answers SUS. One chart for everything would hide the answer."],
+ after:{label:"Where it landed",h:"Sixteen methods, one pattern.",items:[["One builder","Every test and survey uses the same structure, so learning one means knowing them all."],["Room to grow","Shared components for tests, questions, charts and modals let new methods slot in."],["Hours of video, summarised","AI pulls pain points, quotes and sentiment moments out of session recordings."]]}},
+"syndicate-research":{why:["Listing every approach side by side made the product feel like a catalogue, not a guide.","Teams had to weigh budget and time before committing, and the tradeoffs were hidden.","Returning teams come back to the same trackers and studies. They shouldn't have to hunt for them.","Researchers need to trust the survey they send, so every AI change can be kept, edited or undone."],
+ after:{label:"Where it landed",h:"A guided choice, on web and mobile.",items:[["Four clear modes","Tracker, Research, Quick Research and Omnibus each state their purpose, turnaround and output."],["Web and mobile","The same entry points work on a 393px screen."],["A UI kit for both","Refined UX/UI delivered with a UI kit for web and mobile."]]}},
+"navstar":{why:["People know the feeling they want, not the place, so the app asks about the trip first.","Hotels, transport and plans one after another cause decision overload. A match score narrows the choice.","Travellers jump between 7+ apps for one trip, and their saved Reels already show what they love.","Itineraries were dry PDFs and too hard to change on the go."],
+ after:{label:"What happened next",h:"A four-day concept, end to end.",items:[["Designed in four days","Onboarding, matched destinations, the AI itinerary and live trip mode, as one connected iOS flow."],["A concept","Navstar hasn't launched; it's a design concept."]]}},
+"vault":{why:["Owners need to understand in five seconds whether a property is okay, and that status sat too deep.","Records were scattered with little context, so finding a document didn't tell owners anything.","An error state without an explanation creates worry. Vault says what's happening and why it matters.","Information without a next step left owners unsure what to do."],
+ after:{label:"What happened next",h:"A three-day concept, tested against a persona.",items:[["Assumptions challenged first","Before designing, AI role-played Rajeev, a 50+ owner of four properties: 19 questions across four rounds."],["A concept","Vault hasn't launched; it's a design concept."]]}},
+"approval-workflow-builder":{why:["Separate pages lost people and one long form was hard to scan, so a guided modal won in ideation.","Priya pauses at words like “condition” or “AND/OR”, and she won't ask for help.","Rules are invisible until something breaks, so the path is shown while it's built.","Setup gets interrupted, and closing the builder could lose work."],
+ after:{label:"What happened next",h:"Delivered in five days, ready to test.",items:[["Not tested yet","A short test plan is ready; next up are the approver side and templates."],["Next time","I'd talk to users on day one."]]}}
+};
+Object.keys(STORY).forEach(k=>{ if(CASES[k]) Object.assign(CASES[k],STORY[k]); });
 /* Case study page, laid out like the VoiceToNotes case study Devanshi picked as a reference:
    big title, a meta row, the cover, then centred sections (about, challenge, process, research diagrams, decisions).
    Fewer screens: one walkthrough video at most, plus at most 3 screens, each full width between text sections. */
@@ -423,24 +444,21 @@ function renderCase(slug){
   const extra=pool.slice(0,Math.max(0,MAX_SCREENS-feats.length));
   const between=src=>`<div class="wrap vt-shot-wrap reveal">${shot(src,p.name+" screen")}</div>`;
 
-  const about=`<section class="vt-sec reveal"><div class="wrap"><div class="vt-about">
-    <span class="vt-icon" aria-hidden="true">${p.name.charAt(0)}</span>
-    <div><h2>About the project</h2><p class="vt-lead">${c.overview[0]} ${c.overview[1].replace(/<[^>]+>/g,"")}</p><div class="vt-tags">${c.chips.map(x=>`<span>${x}</span>`).join("")}</div></div>
-  </div></div></section>`;
-  const challenge=vsec("The challenge",c.problem.h,vcards(c.problem.items,c.problem.items.length===4?2:3));
-  const process=vsec("Design process","How I got there.",`<ol class="vt-process" style="--n:${c.process.length}">${c.process.map(s=>`<li class="vt-step"><b>${s[0]}</b><p>${s[1]}</p></li>`).join("")}</ol>`);
+  /* Story order she asked for (Nov 2026): the problem, my decisions and why, what happened after launch */
+  const challenge=vsec("The problem",c.problem.h,vcards(c.problem.items,c.problem.items.length===4?2:3),`${c.overview[0]} ${c.overview[1].replace(/<[^>]+>/g,"")}`);
   const research=c.blocks.filter(b=>b.type!=="media"&&b.type!=="shot").map(b=>caseBlock(b,p));
   const walk=video?vsec(video.side[0],video.side[1],shot(video.src,"",true,video.poster),video.p):"";
+  const dec=c.decisions.items, why=c.why||[];
+  const decisions=vsec("My decisions, and why",c.decisions.h,`<div class="vt-cards vt-decs" style="--cols:${dec.length===4?2:3}">${dec.map((it,i)=>`<div class="vt-card"><h3>${it[0]}</h3><p>${it[1]}</p>${why[i]?`<p class="vt-why"><b>Why</b>${why[i]}</p>`:""}</div>`).join("")}</div>`);
   const featSecs=feats.map(f=>vsec(f.side[0],f.side[1],shot(f.img,p.name+" · "+f.side[1]),f.p));
   const more=notes.length?vsec("Also inside","More of the product.",vcards(notes,notes.length===1?1:notes.length%3===0?3:2)):"";
-  const decisions=vsec("Design decisions",c.decisions.h,vcards(c.decisions.items,c.decisions.items.length===4?2:3));
-  const system=c.system?vsec("Design system","A visual language with restraint.",`<div class="vt-swatches">${c.system.colors.map(x=>`<div class="vt-sw"><i style="background:${x[1]}"></i>${x[0]}<span>${x[1]}</span></div>`).join("")}</div><p class="vt-type"><b>Aa</b> ${c.system.type}</p>`,c.system.note):"";
-  const stats=c.stats?vsec("Outcomes","What changed.",`<div class="vt-stats">${c.stats.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>`):"";
+  const af=c.after;
+  const after=af?vsec(af.label,af.h,(c.stats?`<div class="vt-stats">${c.stats.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>`:"")+(af.items.length?`<div class="vt-after">${vcards(af.items,af.items.length===1?1:af.items.length%3===0?3:2)}</div>`:"")):"";
   const learn=c.learnings&&c.learnings.length?vsec("Learnings","What I'd carry forward.",vcards(c.learnings,3)):"";
 
   /* plain screens (no text of their own) go one after each early text section */
-  const parts=[about,challenge,process,...research,walk,...featSecs,more,decisions,system,stats,learn].filter(Boolean);
-  const slotsAt=[1,2,parts.length-2];
+  const parts=[challenge,...research,walk,decisions,...featSecs,more,after,learn].filter(Boolean);
+  const slotsAt=[0,1,parts.length-2];
   let out=""; parts.forEach((s,i)=>{ out+=s; slotsAt.forEach((at,k)=>{ if(at===i&&extra[k]) out+=between(extra[k]); }); });
 
   return `<div class="page vt" style="--acc:${p.ac};--tint:${p.bg}">
@@ -468,7 +486,6 @@ home:()=>{
       <span class="hx-eyebrow">UI/UX designer · Noida, India</span>
       <h1 class="hx-title">${words("Hii, I'm Devanshi. I make")} <em>${words("complex products")}</em> ${words("feel")} <em>${words("calm &amp; simple.")}</em></h1>
       <p class="hx-sub">Research-driven designer with 4+ years across research and design, now shaping SaaS, dashboards and mobile.</p>
-      <div class="row hx-btns"><a class="btn dark" href="#work">See my work →</a></div>
       <span class="status tape-label"><i></i>available for work</span>
     </div>
     <div class="hx-art" aria-hidden="true">
