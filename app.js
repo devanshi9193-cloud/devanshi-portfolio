@@ -1,4 +1,4 @@
-const RESUME="https://drive.google.com/file/d/1FN9Q9AKOeYhH4_8-p4tU696nNeNo1049/view?usp=sharing";
+const RESUME="https://drive.google.com/file/d/1OmALQoL6WqEW7yczKFirrSRhuVQbLCXf/view?usp=sharing";
 const EMAIL="devanshi9193@gmail.com";
 
 /* Project thumbnails (from the previous portfolio) */
@@ -33,14 +33,13 @@ const PROJECTS=[
 /* Case study mockup images for the rotating cards (6 slots). */
 /* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Syndicate Research, Top Brass, Approval Workflow Builder */
 /* Skills and tools section: [name, area]. Areas are the filter buttons. */
-const SKILL_AREAS={design:"UX/UI Design",quality:"Design Systems &amp; Quality",research:"Research &amp; Analysis",product:"Product",ai:"AI",tools:"Tools"};
+const SKILL_AREAS={product:"Product",research:"Research &amp; Architecture",interaction:"Interaction &amp; Systems",collab:"Collaboration &amp; Delivery",tools:"Tools &amp; AI-assisted Workflows"};
 const SKILLS=[
- ...["UX Flows","User Flows","Interaction Design","Information Architecture","Wireframing","Prototyping","Visual Design","Responsive Design"].map(n=>[n,"design"]),
- ...["Design Systems","Reusable UI Components","Consistency","Accessibility","Inclusive Design"].map(n=>[n,"quality"]),
- ...["Human-Centered Design (HCD)","Design Thinking","User Interviews (IDIs)","Questionnaires &amp; Surveys (CATI)","Usability Testing","Qualitative &amp; Quantitative Analysis","Insight Synthesis"].map(n=>[n,"research"]),
- ...["Concept to Release","Post-Release Effectiveness Measurement","Iterative Product Improvement","Cross-Functional Collaboration"].map(n=>[n,"product"]),
- ...["AI-Assisted Design","Generative AI","Prompt Engineering","Human-in-the-Loop Review"].map(n=>[n,"ai"]),
- ...["Figma","FigJam","Figma AI plugins","Figma Make","Adobe Creative Suite","Adobe Photoshop","Adobe After Effects","Adobe XD","Claude","Claude Code","ChatGPT","Gemini","Framer","JIRA","Miro","Notion","HTML (basic)","CSS"].map(n=>[n,"tools"])];
+ ...["Product Thinking","Systems Thinking","AI Product Design","Concept to Release","Post-Release Effectiveness Measurement"].map(n=>[n,"product"]),
+ ...["UX Research","Human-Centered Design (HCD)","Design Thinking","User Interviews (IDIs)","Questionnaires &amp; Surveys (CATI)","Usability Testing","Qualitative &amp; Quantitative Analysis","Insight Synthesis","Competitive Analysis","UX Audits","Information Architecture","Journey Mapping","User Flows","UX Flows"].map(n=>[n,"research"]),
+ ...["Interaction Design","Visual Interface Design","Wireframing","Interactive Prototyping","Design Systems","Reusable UI Components","UI Consistency","Responsive Design","Mobile Product Design","Accessibility (WCAG)","Inclusive Design"].map(n=>[n,"interaction"]),
+ ...["Design Critique","Stakeholder Alignment","Cross-functional Collaboration","User Acceptance Testing (UAT)","Design QA"].map(n=>[n,"collab"]),
+ ...["Figma","FigJam","Figma Make","Adobe Creative Suite","Adobe Photoshop","Adobe After Effects","Jira","Notion","ChatGPT","Claude","Claude Code","Gemini","Miro","AI-Assisted Design","Generative AI","Prompt Engineering"].map(n=>[n,"tools"])];
 const POSTS=[
  {slug:"job-hunt-tracking",t:"The Job Hunt Has a Tracking Problem",cat:"Concept",d:"A smarter job hunt space to track applications, recruiter outreach, and follow-ups in one place.",tint:"#e4ebe0",body:[
   ["h","The problem"],
