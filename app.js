@@ -1,4 +1,4 @@
-const RESUME="https://drive.google.com/file/d/1OmALQoL6WqEW7yczKFirrSRhuVQbLCXf/view?usp=sharing";
+const RESUME="https://drive.google.com/file/d/1VrRqFKc6IPqCook7ONCt2nzTI61pbtyh/view?usp=sharing";
 const EMAIL="devanshi9193@gmail.com";
 
 /* Project thumbnails (from the previous portfolio) */

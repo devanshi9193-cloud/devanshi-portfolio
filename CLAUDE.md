@@ -51,7 +51,7 @@ This is Devanshi Sharma's (UI/UX designer, Noida) portfolio site. It's static HT
 
 ## Testing
 Serve with `python3 -m http.server` and check desktop (1440) and phone (390) widths. There should be no horizontal scroll, no console errors and no broken images.
-- Resume: no Resume button in the header or hero. A single `.resume-fab` button ("Resume ↗", solid royal blue with white text, 36px from the right and 44px from the bottom on desktop) is pinned to the bottom right of the screen on every page (in `index.html`, outside `#app`). Its link and `RESUME` in `app.js` must match (Google Drive file 1OmALQoL6WqEW7yczKFirrSRhuVQbLCXf, Nov 2026).
+- Resume: no Resume button in the header or hero. A single `.resume-fab` button ("Resume ↗", solid royal blue with white text, 36px from the right and 44px from the bottom on desktop) is pinned to the bottom right of the screen on every page (in `index.html`, outside `#app`). Its link and `RESUME` in `app.js` must match (Google Drive file 1VrRqFKc6IPqCook7ONCt2nzTI61pbtyh, Nov 2026).
 - Skills and tools follow the Skills section of her latest resume (Nov 2026: Product, Research & Architecture, Interaction & Systems, Collaboration & Delivery, Tools & AI-assisted Workflows), plus the extra tools she asked for (Claude Code, Gemini, Miro).
 
 ## Vault case study (Nov 2026)
