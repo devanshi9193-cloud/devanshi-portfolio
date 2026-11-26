@@ -738,10 +738,10 @@ ${ptop("Playground","Two small things to play with while you're here.")}
         <button type="button" class="nt-open" id="ntOpen"><span aria-hidden="true">+</span> New note</button>
         <form class="nt-form" id="ntForm" hidden>
           <label class="sr" for="ntText">Your note</label>
-          <textarea id="ntText" maxlength="240" rows="4" placeholder="Write a thought or a quote…" required></textarea>
+          <textarea id="ntText" maxlength="240" rows="3" placeholder="Write a thought or a quote…" required></textarea>
           <label class="sr" for="ntName">Your name</label>
           <input id="ntName" maxlength="40" placeholder="Name (optional)">
-          <div class="nt-row"><span class="nt-left" id="ntLeft">240</span><button type="button" class="jz-btn ghost" id="ntCancel">Cancel</button><button type="submit" class="jz-btn">Post note</button></div>
+          <div class="nt-row"><span class="nt-left" id="ntLeft">240</span><button type="button" class="jz-btn ghost" id="ntCancel">Cancel</button><button type="submit" class="jz-btn">Post</button></div>
         </form>
       </div>
     </div>
@@ -894,10 +894,30 @@ function notesWall(){
     if(today>=3) return Promise.resolve("limit");
     return fetch(NOTES_DB.url.replace(/\/$/,"")+"/rest/v1/notes",{method:"POST",headers:{...hdr,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({text:n.text,name:n.name||null})})
       .then(r=>{ if(!r.ok) return false; writePend([n,...readPend()]); return true; }).catch(()=>false); };
-  const render=l=>{grid.querySelectorAll(".nt:not(.nt-new)").forEach(x=>x.remove()); l.sort((a,b)=>new Date(b.at)-new Date(a.at)).forEach(n=>grid.appendChild(card(n)));
-    if(!l.length){const e=document.createElement("p"); e.className="nt nt-empty"; e.textContent="No notes yet. Be the first to leave one."; grid.appendChild(e);}};
+  /* Masonry (Nov 2026, her ask): slimmer cards in 4 columns (3, 2, 1 on smaller screens), filled left to right.
+     "New note" is a short bar at the top of the first column, so opening it only pushes that column down. */
+  const newBox=document.getElementById("ntNew"); let cards=[], colK=0;
+  const colsN=()=>{ const w=grid.clientWidth||innerWidth; return w>=980?4:w>=700?3:w>=440?2:1; };
+  const layout=force=>{ const k=colsN(); if(!force&&k===colK) return; colK=k; grid.style.setProperty("--k",k);
+    const cols=[...Array(k)].map(()=>{ const d=document.createElement("div"); d.className="nt-col"; return d; });
+    [newBox,...cards].forEach((c,i)=>cols[i%k].appendChild(c)); grid.replaceChildren(...cols); };
+  const render=l=>{ cards=l.sort((a,b)=>new Date(b.at)-new Date(a.at)).map(card);
+    if(!l.length){const e=document.createElement("p"); e.className="nt nt-empty"; e.textContent="No notes yet. Be the first to leave one."; cards=[e];}
+    layout(true); };
+  /* re-flow when the wall's width changes, including when the Notes tab is first opened */
+  if(window.ResizeObserver) new ResizeObserver(()=>{ if(grid.clientWidth) layout(); }).observe(grid);
+  else addEventListener("resize",()=>layout());
+  layout(true);
   fetchAll().then(render);
-  const toggle=on=>{form.hidden=!on; open.hidden=on; if(on) txt.focus();};
+  /* smooth open and close (her ask): the box eases between the short bar and the form's height, and the new
+     contents fade in after it starts moving */
+  const quiet=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const toggle=on=>{ if(form.hidden===!on) return; const h0=newBox.offsetHeight;
+    form.hidden=!on; open.hidden=on; newBox.classList.toggle("is-open",on); const h1=newBox.offsetHeight;
+    if(!quiet&&newBox.animate){ newBox.getAnimations().forEach(a=>a.cancel());
+      newBox.animate([{height:h0+"px"},{height:h1+"px"}],{duration:420,easing:"cubic-bezier(.22,.8,.24,1)"});
+      (on?form:open).animate([{opacity:0,transform:"translateY(6px)"},{opacity:1,transform:"none"}],{duration:320,delay:110,easing:"ease-out",fill:"backwards"}); }
+    if(on) txt.focus({preventScroll:true}); };
   open.addEventListener("click",()=>toggle(true));
   document.getElementById("ntCancel").addEventListener("click",()=>{form.reset(); left.textContent="240"; toggle(false);});
   txt.addEventListener("input",()=>left.textContent=240-txt.value.length);

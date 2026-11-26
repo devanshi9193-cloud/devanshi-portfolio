@@ -1421,3 +1421,33 @@ html.on-case .dock{display:none!important}
 .seg button[aria-selected="true"]::after{scale:1 1}
 .seg button:focus-visible{outline:2px solid var(--royal);outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.seg button::after{transition:none}}
+/* Notes wall, take 2 (Nov 2026, her ask): slimmer cards in a masonry of 4 columns (app.js sets --k), and
+   "New note" as a short dashed bar at the top of the first column that eases open into the form */
+.nt-grid,.pg-pane .nt-grid{display:grid;grid-template-columns:repeat(var(--k,4),minmax(0,1fr));gap:16px;align-items:start}
+.nt-col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.nt{min-height:140px;padding:18px 18px 14px;gap:18px}
+.nt-q{font-size:15px}
+.nt-by{font-size:13px}
+.nt.nt-new{min-height:0;padding:0;overflow:hidden}
+.nt-new .nt-open{min-height:52px;justify-content:flex-start;padding:0 18px;font:400 15px/1 var(--f-sans);transition:color .2s,background .2s}
+.nt-new .nt-form{padding:14px}
+.nt-empty{grid-column:auto}
+/* Open New note, minimal (Nov 2026, her ask): once open it looks like one of the notes, a plain card with no
+   dashed edge, no boxed fields and no pill button. You type straight onto the card; the name sits where a note's
+   name sits; the counter, Cancel and Post are small text along the bottom. */
+.nt.nt-new.is-open{border-color:transparent;background:var(--paper);box-shadow:0 1px 2px rgba(94,63,38,.06)}
+:root[data-theme="dark"] .nt.nt-new.is-open{background:var(--paper)}
+.nt-new .nt-form{gap:14px;padding:18px 18px 14px}
+.nt-new .nt-form textarea,.nt-new .nt-form input{padding:0;border:0;border-radius:0;background:none;box-shadow:none;outline:0;resize:none;color:var(--ink);font:400 15px/1.5 var(--f-sans)}
+.nt-new .nt-form textarea{min-height:66px}
+.nt-new .nt-form input{font-size:13px;color:var(--muted)}
+.nt-new .nt-form textarea::placeholder,.nt-new .nt-form input::placeholder{color:var(--faint);opacity:1}
+.nt-new .nt-form textarea:focus,.nt-new .nt-form input:focus{outline:0;border:0}
+.nt-new .nt-row{gap:16px;padding-top:12px;border-top:1px solid var(--line)}
+.nt-new .nt-left{font-size:13px}
+.nt-new .nt-row .jz-btn,.nt-new .nt-row .jz-btn.ghost{padding:0;border:0;border-radius:0;background:none;box-shadow:none;font:400 13px/1.2 var(--f-sans);color:var(--faint);transition:color .2s}
+.nt-new .nt-row .jz-btn:hover{color:var(--ink);background:none}
+.nt-new .nt-row .jz-btn[type="submit"]{color:var(--ink);font-weight:500}
+.nt-new .nt-row .jz-btn[type="submit"]:hover{color:var(--royal)}
+.nt-new .nt-row .jz-btn:focus-visible{outline:2px solid var(--royal);outline-offset:3px}
+.nt-new form.nt-form{background:none;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none}

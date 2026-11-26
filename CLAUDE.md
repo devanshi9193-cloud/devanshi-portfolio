@@ -107,3 +107,8 @@ Serve with `python3 -m http.server` and check desktop (1440) and phone (390) wid
 
 ## Playground tabs (Nov 2026)
 - At her request the Jigsaw puzzles / Notes wall tabs (`.seg`) are minimal: plain 15px text in the header grey (`--faint`), the chosen tab in ink with a thin ink line under it, sitting on one hairline. No pill and no blue fill. Block at the end of `desk.css`.
+
+## Notes wall, take 2 (Nov 2026)
+- At her request the notes are slimmer cards (about 235px wide, 140px min height) in a masonry: 4 columns, then 3, 2 and 1 as the wall narrows. `layout()` in `notesWall()` fills the columns left to right and re-flows when the wall's width changes (ResizeObserver).
+- "New note" is a short dashed bar (52px) at the top of the first column. Opening and closing it eases its height between the bar and the form (about 0.4s) and fades the new contents in. Only that column moves. Reduced motion skips the animation.
+- Open New note is minimal (her ask): it turns into a plain note card (`.is-open`; no dashed edge, no boxed fields, no pill button). You type straight onto it; the name line, the 240 counter, "Cancel" and "Post" are small text, with a hairline above the last row. An old global `form` rule adds a grey rounded background, so `.nt-new form.nt-form` resets it.
