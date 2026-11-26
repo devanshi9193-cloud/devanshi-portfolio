@@ -1216,17 +1216,20 @@ route();
   if(!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
   const c=document.createElement("div"); c.className="vp-cursor"; c.setAttribute("aria-hidden","true");
   c.innerHTML='<i></i><b><span>View project</span></b>'; document.body.appendChild(c);
-  const label=c.querySelector("span"); let x=0,y=0,tx=0,ty=0,on=false,raf=0;
-  const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
-  const tick=()=>{ x+=(tx-x)*(still?1:.28); y+=(ty-y)*(still?1:.28); c.style.transform=`translate3d(${x}px,${y}px,0)`;
-    raf=(on||Math.abs(tx-x)>.5||Math.abs(ty-y)>.5)?requestAnimationFrame(tick):0; };
-  addEventListener("pointermove",e=>{ tx=e.clientX; ty=e.clientY;
+  /* Smooth hand-off (her ask, Nov 2026): the square sits exactly on the pointer (no lag), so it lines up with the
+     site cursor's own square and the swap can't be seen. Entering a card, "View project" slides out from behind it;
+     leaving, the label slides back behind the square first, and only then does the square hand back to the site cursor. */
+  /* while our square is showing, the site's own cursor is hidden everywhere (html.vp-hold), so there are never two squares */
+  const label=c.querySelector("span"), root=document.documentElement; let on=false, t=0;
+  const off=()=>{ c.classList.remove("on","show"); root.classList.remove("vp-hold"); };
+  const show=()=>{ clearTimeout(t); c.classList.add("show"); root.classList.add("vp-hold"); requestAnimationFrame(()=>c.classList.add("on")); };
+  const hide=()=>{ c.classList.remove("on"); clearTimeout(t); t=setTimeout(()=>{ if(!on) off(); },460); };
+  addEventListener("pointermove",e=>{ c.style.transform=`translate3d(${e.clientX}px,${e.clientY}px,0)`;
     const card=e.target.closest&&e.target.closest(".wcard");
-    if(card&&!on){ label.textContent=card.classList.contains("jtile")?"Read entry":"View project"; c.classList.toggle("on-dark",!!card.querySelector(".wc-status")); x=tx; y=ty; }
-    if(!!card!==on){ on=!!card; c.classList.toggle("on",on); }
-    if(!raf) raf=requestAnimationFrame(tick); },{passive:true});
-  document.addEventListener("pointerleave",()=>{ on=false; c.classList.remove("on"); });
-  addEventListener("hashchange",()=>{ on=false; c.classList.remove("on"); });
+    if(card&&!on){ label.textContent=card.classList.contains("jtile")?"Read entry":"View project"; c.classList.toggle("on-dark",!!card.querySelector(".wc-status")); }
+    if(!!card!==on){ on=!!card; on?show():hide(); } },{passive:true});
+  document.addEventListener("pointerleave",()=>{ on=false; clearTimeout(t); off(); });
+  addEventListener("hashchange",()=>{ on=false; clearTimeout(t); off(); });
 })();
 
 

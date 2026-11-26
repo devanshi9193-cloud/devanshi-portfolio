@@ -1390,3 +1390,16 @@ html.on-case .dock{display:none!important}
 .cs2 .cs2-next{padding-bottom:72px}
 .cs2 .cs2-nx{display:grid;grid-template-columns:1fr;gap:0;margin-top:20px}
 .cs2 .cs2-nx>.wcard{margin:0;translate:none}
+/* Card cursor, take 5 (Nov 2026, her ask: smooth). The square shows the moment the pointer enters a card and stays
+   while the label slides; the label slides out from behind it and, on leaving, slides back behind it before the
+   square hands back to the site cursor. Same 14px #0B5470 square as the site cursor, no ring, so the swap is invisible. */
+.vp-cursor,.vp-cursor.on{opacity:0;transition:none}
+.vp-cursor.show{opacity:1}
+.vp-cursor i,:root[data-theme="dark"] .vp-cursor i{box-shadow:none}
+.vp-cursor.on-dark i{box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.vp-cursor span,.vp-cursor.on span,:root[data-theme="dark"] .vp-cursor span,.vp-cursor.on-dark span{opacity:1;translate:-105% 0;transition:translate .42s cubic-bezier(.2,.8,.2,1)}
+.vp-cursor.on span,:root[data-theme="dark"] .vp-cursor.on span,.vp-cursor.on-dark.on span{translate:0 0}
+@media (prefers-reduced-motion:reduce){.vp-cursor span{transition:none!important}}
+/* while the card square is on screen (including the moment the label slides back), hide the site cursor everywhere,
+   so only one square ever shows; it comes back in the same spot when the card square goes */
+@media (hover:hover) and (pointer:fine){html.vp-hold,html.vp-hold *{cursor:none!important}}
