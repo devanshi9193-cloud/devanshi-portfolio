@@ -2,13 +2,13 @@ const RESUME="https://drive.google.com/file/d/1OmALQoL6WqEW7yczKFirrSRhuVQbLCXf/
 const EMAIL="devanshi9193@gmail.com";
 
 /* Project thumbnails (from the previous portfolio) */
-const THUMB_JASPER_COLIN="assets/images/thumb-jasper-colin.jpg";
+const THUMB_JASPER_COLIN="assets/images/jasper-colin-hero.jpg";
 const THUMB_RUNWAY="assets/images/thumb-runway.jpg?v=2";
 const THUMB_TOP_BRASS="assets/images/thumb-top-brass.jpg?v=2";
 const THUMB_USER_TESTING="assets/images/thumb-user-testing.jpg";
-const THUMB_SYNDICATE_RESEARCH="assets/images/thumb-syndicate-research.jpg";
-const THUMB_NAVSTAR="assets/images/thumb-navstar.jpg";
-const THUMB_VAULT="assets/images/thumb-vault.jpg";
+const THUMB_SYNDICATE_RESEARCH="assets/images/syndicate-hero.webp";
+const THUMB_RAAHI="assets/images/raahi-hero.webp";
+const THUMB_VAULT="assets/images/vault-hero.webp";
 const THUMB_AWB="assets/images/thumb-awb.jpg";
 /* Hero: Devanshi's cartoon, standing in a tall photo frame. She leans toward the cursor; clicking the photo takes a picture and she changes pose. */
 const ME=`<div class="me" data-p="shy" role="img" aria-label="A cartoon of Devanshi, standing and smiling">
@@ -26,12 +26,12 @@ const PROJECTS=[
  {img:THUMB_TOP_BRASS,card:"assets/images/cards/signal-intelligence.jpg",name:"Signal Intelligence",line:"A clear, confident product experience.",kind:"mobile",bg:"#f3e9dc",ac:"#c99b6d",url:"https://www.figma.com/proto/shbnTI7CjzTks3PYA5WuaC/Case-Study---Top-Brass?node-id=8-1038&viewport=275%2C283%2C0.04&t=R0ETUvIOAq97g7IW-1&scaling=min-zoom&content-scaling=fixed&page-id=8%3A178",featured:true},
  {img:THUMB_USER_TESTING,card:"assets/images/cards/user-testing.jpg",name:"User Testing",line:"Every kind of usability test, one calm flow.",kind:"dash",bg:"#ece6fb",ac:"#6c47e8"},
  {img:THUMB_SYNDICATE_RESEARCH,card:"assets/images/cards/syndicate-research.jpg",name:"Syndicate Research",line:"Dense research data, made readable.",kind:"dash",bg:"#ece8f6",ac:"#8f80c9",url:"https://www.figma.com/proto/KfNsoV9MnCYPkGO8w3L33U/Veritas-Research?node-id=877-200656&viewport=660%2C426%2C0.04&t=I2jSdbvsvdfr9XOs-1&scaling=scale-down-width&content-scaling=fixed&page-id=618%3A88314",featured:true},
- {img:THUMB_NAVSTAR,card:"assets/images/cards/navstar.jpg",name:"Navstar",line:"An AI travel planner without the tab chaos.",kind:"mobile",bg:"#e3eef2",ac:"#6f9db0",url:"https://www.figma.com/proto/ZFHkIu2gDVVyH2KSpL3Mvg/navstar--AI-travel-application?node-id=420-30775&viewport=304%2C472%2C0.15&t=NGlJmzCJWhhzdw1T-1&scaling=scale-down-width&content-scaling=fixed&page-id=264%3A155"},
+ {img:THUMB_RAAHI,card:"assets/images/cards/navstar.jpg",name:"Raahi",line:"An AI travel planner without the tab chaos.",kind:"mobile",bg:"#e3eef2",ac:"#6f9db0",url:"https://www.figma.com/proto/ZFHkIu2gDVVyH2KSpL3Mvg/navstar--AI-travel-application?node-id=420-30775&viewport=304%2C472%2C0.15&t=NGlJmzCJWhhzdw1T-1&scaling=scale-down-width&content-scaling=fixed&page-id=264%3A155"},
  {img:THUMB_VAULT,card:"assets/images/cards/vault.jpg",name:"Vault",line:"Property management, simplified.",kind:"dash",bg:"#f4e4e0",ac:"#c98a7c",url:"https://www.figma.com/proto/xKqpw2nk5UkcsZUxn9nPmg/Vault--Manage-Property-Smartly?node-id=226-11606&viewport=-1033%2C-886%2C0.57&t=CW3L3rqSZ4wllqun-1&scaling=min-zoom&content-scaling=fixed&page-id=220%3A790"},
  {img:THUMB_AWB,card:"assets/images/cards/awb.jpg",name:"Approval Workflow Builder",line:"Complex approvals, set up in five calm steps.",kind:"flow",bg:"#e6ecf8",ac:"#4F75E8"}
 ];
 /* Case study mockup images for the rotating cards (6 slots). */
-/* Rotating mockups (built from Devanshi's Figma screens): Navstar, Runway, Vault, Syndicate Research, Top Brass, Approval Workflow Builder */
+/* Rotating mockups (built from Devanshi's Figma screens): Raahi, Runway, Vault, Syndicate Research, Top Brass, Approval Workflow Builder */
 /* Skills and tools section: [name, area]. Areas are the filter buttons. */
 const SKILL_AREAS={product:"Product",research:"Research &amp; Architecture",interaction:"Interaction &amp; Systems",collab:"Collaboration &amp; Delivery",tools:"Tools &amp; AI-assisted Workflows"};
 const SKILLS=[
@@ -225,11 +225,11 @@ const CASES={
  overview:["Two audiences, two brands, one visual language.",`<span class="grey">Jasper Colin set the system. Robin & Berry was built on top of it.</span>`],
  problem:{h:"A research group without a shared visual language.",items:[["Inconsistent touchpoints","Without an agreed brand system, every new page and product site drifted further apart."],["Two different audiences","Jasper Colin sells B2B research and analytics; Robin & Berry sells research infrastructure, audience panels and dashboards."],["Speed without a studio","Each site had to go from design to live quickly, with a small in-house team."]]},
  blocks:[{type:"media",side:["Walkthrough","Both sites, in seventeen seconds."],p:"Every screen is a capture from the live sites: the Jasper Colin corporate site first, then Robin & Berry.",items:["assets/images/jasper-colin/site-walkthrough.mp4|assets/images/jasper-colin/site-walkthrough-poster.jpg"]},
-  {type:"media",side:["Jasper Colin · 2024","The parent brand, and the language the next site inherited."],p:"The corporate site and a full brand identity refresh. Brand first: one visual language across every customer touchpoint, so the sites that followed could be assembled rather than invented.",items:["assets/images/jasper-colin/jc-hero.jpg","assets/images/jasper-colin/jc-data-to-decision.jpg"]},
-  {type:"media",side:["Robin & Berry · 2025","Better decisions begin with better data."],p:"A Jasper Colin sister company: research infrastructure, audience panels and decision dashboards. Much of the design workflow was AI-assisted; problem framing, states, edge cases and design QA stayed with the team.",items:["assets/images/jasper-colin/rb-hero.jpg","assets/images/jasper-colin/rb-cards.jpg"]}],
+  {type:"media",side:["Jasper Colin · 2024","The parent brand, and the language the next site inherited."],p:"The corporate site and a full brand identity refresh. Brand first: one visual language across every customer touchpoint, so the sites that followed could be assembled rather than invented.",items:["assets/images/jasper-colin/fig-jc-hero.jpg","assets/images/jasper-colin/jc-data-to-decision.jpg"]},
+  {type:"media",side:["Robin & Berry · 2025","Better decisions begin with better data."],p:"A Jasper Colin sister company: research infrastructure, audience panels and decision dashboards. Much of the design workflow was AI-assisted; problem framing, states, edge cases and design QA stayed with the team.",items:["assets/images/jasper-colin/fig-rb-hero.jpg","assets/images/jasper-colin/rb-cards.jpg"]}],
  process:[["Brand first","Settle the visual language before drawing a single page."],["System","Type, colour, radius and components agreed up front."],["Design & build","Pages assembled from the system, with AI-assisted drafts reviewed by the team."],["QA & launch","Design QA, states and edge cases, then handed to developers to deploy."]],
  decisions:{h:"What kept two sites consistent.",items:[["One shared language","Robin & Berry inherits Jasper Colin's system instead of starting from scratch."],["System before pages","With the system settled, page design becomes assembly, not invention."],["AI drafts, human review","AI sped up the drafts; careful review made them shippable."],["Real and public","Both sites are live, so every screen here is the real thing."]]},
- screens:["assets/images/jasper-colin/jc-homepage.webp","assets/images/jasper-colin/rb-homepage.webp"],
+ screens:["assets/images/jasper-colin/fig-jc-insights.jpg"],
  learnings:[],
  quote:"Get the brand right first, and every site after it gets faster."},
 
@@ -249,7 +249,7 @@ const CASES={
  learnings:[["A shared shell scales","Early navigation, card and status conventions kept every task space consistent."],["Status is the product","What happens after submission matters as much as the submission."],["Brand restraint builds trust","Reusing the original artwork kept the visual language honest."]],
  quote:"Scope shapes structure more than style does."},
 
-"signal-intelligence":{year:"2025",kicker:"Enterprise SaaS · Social listening",title:"One listening platform,", grey:"two ways of reading the web.",
+"signal-intelligence":{year:"2026",kicker:"Enterprise SaaS · Social listening",title:"One listening platform,", grey:"two ways of reading the web.",
  intro:"Signal Intelligence, part of the Research Intelligence Suite: a B2B listening product with two analysis tracks. Topic explains everything said about a subject; Brand measures a brand on its own and against competitors.",
  meta:[["Role","Devanshi Sharma, Junior UI/UX Designer"],["Team","Multiple designers, with a PM and engineers"],["Timeline","1 year (my time on the project)"],["Product","B2B social listening &amp; brand intelligence"],["Platform","Enterprise SaaS · desktop web"],["Status","Design stage · not built yet"]],
  mine:{h:"What I worked on, over one year.",p:"Signal Intelligence was designed by the product team, led by a senior product designer, with a PM and engineers. I joined as a Junior UI/UX Designer and worked on it for a year.",items:[["Popups and overlays","Designed the product's popups: the dialogs, drawers and confirmations that sit on top of the analysis pages."],["Dashboard screens","Designed dashboard screens, built from the shared card anatomy so every card behaves the same way."],["Two modules","Designed two of the product's modules, from layout to the cards inside them."],["User Testing","Worked on User Testing, the suite's module for usability studies. <a href=\"#user-testing\">See that case study →</a>"]],learned:"Working under a senior designer on a product this size taught me how much structure, requirements and edge cases sit behind every screen."},
@@ -331,9 +331,9 @@ const CASES={
  learnings:[["Separate the questions before designing the screens","Treating Topic and Brand as one study type with options would have mixed exploratory and evaluative analysis in every card."],["Question the pattern everyone accepts","Big tools accept that a drill-down covers the page. Two variants per widget removed that trade-off instead of living with it."],["Put AI where the question is","Tying each answer to a card or a spike makes it checkable, which matters more than making it clever."],["What we'd do differently","Reconcile with the requirements earlier and more often, and settle the Brand setup and comparison modes before designing the Brand modules, since every module card depends on them."]],
  quote:"Explore a topic, judge a brand: one product, two mindsets."},
 
-"user-testing":{year:"2025",kicker:"Top Brass · Usability research",title:"Every kind of user test,", grey:"in one calm flow.",
- intro:"A redesign of User Testing, the Top Brass module where research teams build usability studies, send them to participants and read the results, from first click to AI summary.",
- meta:[["Role","Devanshi Sharma, UI/UX Designer · redesigned the module end to end"],["Team","Part of the Top Brass product team, with a PM and engineers"],["Platform","Enterprise SaaS · desktop web"],["Domain","Usability research"]],
+"user-testing":{year:"2026",kicker:"Signal Intelligence · Usability research",title:"Every kind of user test,", grey:"in one calm flow.",
+ intro:"A redesign of User Testing, the Signal Intelligence module where research teams build usability studies, send them to participants and read the results, from first click to AI summary.",
+ meta:[["Role","Devanshi Sharma, UI/UX Designer · redesigned the module end to end"],["Team","Part of the Signal Intelligence product team, with a PM and engineers"],["Platform","Enterprise SaaS · desktop web"],["Domain","Usability research"]],
  chips:["9 tests · 7 surveys","Logic jumps","AI insights"],
  overview:["User Testing lets a researcher test anything from a Figma prototype to a live site, a mobile app or an information structure.",`<span class="grey">The redesign had to make nine test types and seven kinds of question and survey feel like one product.</span>`],
  problem:{h:"Many methods, one researcher.",items:[["Different test types","Prototype, live website, mobile app, first click, 5-second, navigation, card sort, tree and preference tests, plus five standard usability surveys."],["Setup that sprawls","Study details, participant pitch, screeners, technical needs, tests, follow-up questions and branching all had to fit one flow."],["Results in many shapes","Success rates, heatmaps, card groupings, survey scores and hours of session video all needed a readable home."]]},
@@ -357,30 +357,42 @@ const CASES={
  overview:["Syndicate brings tracking, deep research, quick answers and shared surveys together in one platform.",`<span class="grey">The interface had to answer one question first: what kind of research do I actually need?</span>`],
  problem:{h:"Many approaches under one roof felt confusing.",items:[["Different needs","Some teams need week-over-week tracking, others deep strategy, fast directional answers or low-cost validation."],["Catalogue thinking","Listing every approach side by side made the product feel like a catalogue, not a guide."],["Hidden tradeoffs","Users needed to compare approaches and understand tradeoffs before committing budget and time."]]},
  blocks:[{type:"modes",side:["Research","Understanding how people choose research."],items:[["Tracker","Continuous market monitoring over long periods, with automated reporting.","Weekly data updates"],["Research","Deep strategic insight with comprehensive surveys, custom cohorts and advanced analytics.","Detailed research report"],["Quick Research","Fast directional insight for urgent internal loops, copy tests and rapid validation.","24–72 hour turnaround"],["Omnibus","Shared-sample studies that split cost but keep high-fidelity demographic targeting.","Cost-effective validation"]]},
-  {type:"shot",img:"assets/images/screen-syndicate-research-3.jpg"},
-  {type:"cards",side:["Key screens","Every screen points to a next step."],items:[["Main screen","Clear hierarchy and the four modes up front, so people pick an approach before browsing."],["Dashboard","“What do you want to learn today?”, popular prompts for your industry and continue where you left off."],["Tracker landing","Explains continuous research at a glance: live stats, featured trackers and industries covered."],["Tracker detail","Release dates, pricing, what you get and who it's for, all before adding to cart."],["AI study builder","A chat turns plain questions into structured survey questions, with live counts and timing."],["My Library","Every purchased tracker, study and request in one place, with progress and status."]]},
-  {type:"shot",img:"assets/images/screen-syndicate-research-4.jpg"},
+  {type:"shot",img:"assets/images/syndicate/sr-modes.jpg"},
+  {type:"decisions"},
+  {type:"img",side:["Key screens","Main screen"],p:"Clear hierarchy and the four modes up front, so people pick an approach before browsing.",items:["assets/images/syndicate/sr-home.jpg"],alt:"Syndicate Research · Main screen"},
+  {type:"img",side:["","Dashboard"],p:"“What do you want to learn today?”, popular prompts for your industry and continue where you left off.",items:["assets/images/syndicate/sr-dashboard.jpg"],alt:"Syndicate Research · Dashboard"},
+  {type:"img",side:["","Tracker landing"],p:"Explains continuous research at a glance: live stats, featured trackers and industries covered.",items:["assets/images/syndicate/sr-tracker-landing.jpg"],alt:"Syndicate Research · Tracker landing"},
+  {type:"img",side:["","Tracker detail"],p:"Release dates, pricing, what you get and who it's for, all before adding to cart.",items:["assets/images/syndicate/sr-tracker.jpg"],alt:"Syndicate Research · Tracker detail"},
+  {type:"img",side:["","AI study builder"],p:"A chat turns plain questions into structured survey questions, with live counts and timing.",items:["assets/images/syndicate/sr-quick.jpg"],alt:"Syndicate Research · AI study builder"},
+  {type:"img",side:["","My Library"],p:"Every purchased tracker, study and request in one place, with progress and status.",items:["assets/images/syndicate/sr-library.jpg"],alt:"Syndicate Research · My Library"},
   {type:"cards",side:["Mobile","The same platform, in one hand."],items:[["Same four modes","Tracker, Research, Quick Research and Omnibus keep the same entry points on a 393px screen."],["Stacked, scannable cards","Stats, study cards and library counts stack into one column with clear status."],["AI study builder on the go","Omnibus and Quick Research keep the chat-led flow, sized for thumbs."],["Library and profile","Purchased research and account settings stay one tap away."]]},
-  {type:"shot",img:"assets/images/screen-syndicate-research-8.jpg"},
-  {type:"shot",img:"assets/images/screen-syndicate-research-9.jpg"}],
+  {type:"phone",side:["",""],imgs:["assets/images/syndicate/sr-m-dashboard.jpg","assets/images/syndicate/sr-m-tracker-landing.jpg","assets/images/syndicate/sr-m-tracker.jpg"]},
+  {type:"phone",side:["",""],imgs:["assets/images/syndicate/sr-m-library.jpg","assets/images/syndicate/sr-m-profile.jpg","assets/images/syndicate/sr-m-omnibus.jpg","assets/images/syndicate/sr-m-quick.jpg"]}],
  process:[["Discover","Market and competitor analysis, plus user research on how people choose research."],["Define","Key issues identified and turned into clear design goals."],["Develop","Idea generation, wireframes and prototypes for each research journey."],["Deliver","Refined UX/UI and a UI kit for web and mobile."]],
  decisions:{h:"The rules behind every screen.",items:[["Decision first, catalogue second","Users choose an approach by need and timeline before they see a single study."],["Tradeoffs in plain sight","Each mode states its purpose, turnaround and output so comparing is easy."],["Pick up where you left off","Recent studies and recommendations cut navigation for returning users."],["AI that structures, not replaces","The chat drafts survey questions; researchers keep, edit or undo every change."]]},
  system:{colors:[["Light grey","#F4F5F7"],["Blue","#2F37F5"],["Grey","#65676B"],["Black","#303237"],["White","#FFFFFF"]],type:"Inter",note:"Built for clean organisation and precise quantitative data, without extra ornament."},
  learnings:[],
  quote:"Research shouldn't feel like a catalogue. It should feel like a guided choice."},
 
-"navstar":{year:"2026",kicker:"AI product · Travel",title:"Your trip starts", grey:"with a feeling.",
+"raahi":{year:"2026",kicker:"AI product · Travel",title:"Your trip starts", grey:"with a feeling.",
  intro:"An AI travel companion that understands how you want to travel before asking where, personalised from saved Reels, vibe and preferences.",
  meta:[["Role","Product Designer"],["Timeline","4 days"],["Platform","iOS mobile app"],["Tools","Figma · Claude"]],
  chips:["92% match","AI itinerary","Group trips"],
  overview:["The trip isn't the problem.",`<span class="grey">Planning it is. Travellers jump between 7+ apps for a single trip.</span>`],
  problem:{h:"Where the friction lives.",items:[["Destination uncertainty","People know the feeling they want, not the place."],["Decision overload","Hotels, transport and plans in a row cause analysis paralysis."],["Fragmented tools","Bouncing between apps just to finish one booking."],["Group coordination","Budgets, styles and dates rarely live in one place."],["Rigid itineraries","Plans are dry PDFs or too hard to change on the go."]]},
- blocks:[{type:"flow",side:["Key insight","Flip the first question."],lanes:[["Old way",["Destination","Search","Compare","Book","Plan","Coordinate"],false],["Navstar",["Understand","Recommend","Personalise","Generate","Experience"],true]],qOld:"“Where do you want to go?”",qNew:"“What kind of trip do you want?”"},
-  {type:"persona",side:["Persona","Meet Pradyum."],initials:"PK",name:"Pradyum Kumar, 28 · Delhi",text:"Planning a 5-day mountain trip with 4 friends on ₹30,000 per person. He knows the kind of trip he wants but not where, where to stay, or what to do.",quote:"He knows the vibe, but hates the coordination."}],
+ blocks:[{type:"flow",side:["Key insight","Flip the first question."],lanes:[["Old way",["Destination","Search","Compare","Book","Plan","Coordinate"],false],["Raahi",["Understand","Recommend","Personalise","Generate","Experience"],true]],qOld:"“Where do you want to go?”",qNew:"“What kind of trip do you want?”"},
+  {type:"persona",side:["Persona","Meet Pradyum."],initials:"PK",name:"Pradyum Kumar, 28 · Delhi",text:"Planning a 5-day mountain trip with 4 friends on ₹30,000 per person. He knows the kind of trip he wants but not where, where to stay, or what to do.",quote:"He knows the vibe, but hates the coordination."},
+  {type:"decisions"},
+  {type:"phone",side:["Onboarding","Preferences before places."],imgs:["assets/images/raahi/raahi-basics.jpg","assets/images/raahi/raahi-prefs.jpg"],p:"Raahi starts by understanding the traveller: trip type, who's coming, dates, interests, pace and budget, before it ever asks where to go."},
+  {type:"phone",side:["Destinations","Places that fit your vibe."],imgs:["assets/images/raahi/raahi-picks.jpg"],p:"Recommendations come with a match score, a budget per person and whether the place fits the length of the trip, so choosing feels like narrowing down, not starting over."},
+  {type:"phone",side:["Booking","Stay and travel in one flow."],imgs:["assets/images/raahi/raahi-hotel.jpg","assets/images/raahi/raahi-flight.jpg"],p:"Hotels and travel modes are picked inside the same trip, with the trip's budget and dates already applied, instead of bouncing between apps to finish one booking."},
+  {type:"phone",side:["Personalisation","An itinerary built from your Reels."],imgs:["assets/images/raahi/raahi-insta.jpg","assets/images/raahi/raahi-itinerary.jpg"],p:"Connecting Instagram lets Raahi read saved Reels (cafés, scenic spots, food) and build them into a day-by-day itinerary that fits the budget and duration."},
+  {type:"phone",side:["AI trip chat","Change the plan by asking."],imgs:["assets/images/raahi/raahi-chat.jpg"],p:"Instead of editing a rigid plan, travellers tell Raahi what they want changed, like a more adventurous Day 2, and apply the suggestion in one tap."},
+  {type:"phone",side:["Live trip mode","The trip, while it's happening."],imgs:["assets/images/raahi/raahi-today.jpg","assets/images/raahi/raahi-trips.jpg"],p:"On the road, Raahi shows today's plan, where you are, completed stops and auto check-ins, and keeps every trip in one place afterwards.",q:"Every feature exists to reduce decision fatigue and keep the entire trip connected."}],
  process:[["Discover","Travellers, planning habits and the decisions that make trips hard."],["Define","A focused problem statement and opportunity framework."],["Ideate","Simpler, collaborative ways to discover, book and plan."],["Design","A connected mobile interface, design system and AI journey."]],
  decisions:{h:"From blank trip to ready-to-live.",items:[["Preference-first onboarding","Trip type, travellers, interests, pace and budget before any destination."],["Matched destinations","Recommendations with a match score, budget per person and fit for trip length."],["AI itinerary","Uses saved Reels, budget and duration; tweak it by chatting."],["Live trip mode","Today's plan, completed places and auto check-ins while travelling."]]},
  learnings:[],
- quote:"Navstar makes travel planning feel less like a task and more like the start of the journey."},
+ quote:"Raahi makes travel planning feel less like a task and more like the start of the journey."},
 
 "vault":{year:"2026",kicker:"Mobile · Property management",title:"Property health,", grey:"made simple.",
  intro:"A mobile property management experience for multi-property owners in India that turns scattered records into a clear view of property health.",
@@ -388,7 +400,18 @@ const CASES={
  chips:["Healthy","Needs attention","At risk"],
  overview:["Users had the information, but not the context.",`<span class="grey">Vault shifts from document-first storage to property-first health.</span>`],
  problem:{h:"The challenge.",items:[["Fragmented information","Records were spread out with little context around them."],["Document-first thinking","Finding a document didn't tell owners if the property was okay."],["Hidden health","Important status information sat too deep in the experience."],["Issues without actions","Information without a next step created uncertainty."],["Many properties","Rich context had to stay calm across multiple properties."]]},
- blocks:[{type:"health",side:["Core direction","Property health as the home experience."],items:[["Healthy","#3F735F","Green Park Residence","Delhi · Apartment · checked today"],["Needs attention","#C58A32","Noida Heights","Tax receipt needs updating"],["At risk","#B85C5C","Family Land","EC verification is outdated"]]}],
+ blocks:[{type:"health",side:["Core direction","Property health as the home experience."],p:"Vault reimagines property management by shifting the experience from document-first storage to property-first health. It surfaces property health, connects documents to their context, and guides owners toward the next action.",items:[["Healthy","#3F735F","Green Park Residence","Delhi · Apartment · checked today"],["Needs attention","#C58A32","Noida Heights","Tax receipt needs updating"],["At risk","#B85C5C","Family Land","EC verification is outdated"]]},
+  {type:"rejected",side:["Rejected designs","Exploring what Vault should show first."],p:"Before arriving at the Property Health direction, I explored two different ways of structuring the Home experience: document-first and property-first.",
+   items:[{n:"Exploration 01",h:"Document-first Home",concept:"Show the user's documents directly on the Home screen.",why:"Document-first made Vault feel like a filing cabinet. Users could find individual documents quickly, but the Home screen didn't give them an immediate understanding of which properties were healthy, which needed attention, or where risk existed. The document became the primary object instead of the property.",imgs:[["assets/images/vault/vault-rej-docfirst.jpg","Home"]]},
+    {n:"Exploration 02",h:"Property-first Home",concept:"Show only properties on Home and hide health and issues until the user opens a property.",why:"Property-first made the Home screen too passive. Users could see their properties, but couldn't understand their health or identify problems without opening each property individually. The important status information was hidden one level too deep.",imgs:[["assets/images/vault/vault-rej-propfirst-1.jpg","Home"],["assets/images/vault/vault-rej-propfirst-2.jpg","Property detail"]]}],
+   compare:[["Document-first","Fast document discovery.","Feels like a filing cabinet.","It prioritises documents over property health."],["Property-first","Clear overview of owned properties.","Issues are hidden inside each property.","It adds an unnecessary step before users can understand what needs attention."]],
+   q:"Are my properties okay?",flow:["Property","Health","Issue","Action","Documents"],end:"This led to the final Vault direction: Property Health first."},
+  {type:"decisions"},
+  {type:"phone",side:["The solution","Property health first."],img:"assets/images/vault/vault-home.jpg",p:"Vault starts with the health of the property rather than the documents inside it. Owners can immediately see whether a property is Healthy, Needs attention or At risk, at a glance and without opening individual documents."},
+  {type:"phone",side:["Property detail","One property, complete context."],img:"assets/images/vault/vault-property.jpg",p:"The Property Detail experience brings the scattered pieces together: property information, ownership, location, acquisition history, health, risk, issues, documents and recent activity.",q:"One property. One complete picture."},
+  {type:"phone",side:["Resolve an issue","Turn issues into actions."],img:"assets/images/vault/vault-resolve.jpg",p:"Instead of simply showing that a document needs attention, Vault explains what's happening, why it matters, what the owner needs and what to do next. The issue screen reduces uncertainty with clear actions."},
+  {type:"phone",side:["Vault AI","Guidance with context."],img:"assets/images/vault/vault-ai.jpg",p:"Vault AI turns complex property and document questions into clear, actionable guidance. Because the assistant already understands the property, document and issue, owners can ask naturally without explaining their situation from scratch.",q:"From “What does this mean?” to “What should I do next?”"},
+  {type:"phone",side:["Find a document","Documents with context."],img:"assets/images/vault/vault-docs.jpg",p:"A document means more when owners know which property it belongs to and what it means for that property. Find Document connects each document to its property, location, ownership and health.",q:"Don't just find the document. Understand the property around it."}],
  process:[["Understand","User context and the existing experience."],["Explore","Information architecture and product directions."],["Define","Property health as the core experience."],["Design","UI system and the core mobile experience."]],
  decisions:{h:"Principles that guided the solution.",items:[["Status before detail","Show overall property health the second the app opens."],["Context before complexity","Connect documents to their property, ownership and history."],["Explain before asking","When something is wrong, explain why it matters."],["Action over anxiety","Every issue routes to a clear, single-tap next step, with AI guidance."]]},
  system:{colors:[["Primary","#0064DD"],["Primary light","#E8F1FF"],["Healthy","#3F735F"],["Warning","#C58A32"],["Error","#B85C5C"],["Text","#18252B"]],type:"Inter",note:"Semantic colours show property and document states without relying on colour alone."},
@@ -432,6 +455,12 @@ function blockBody(b){
   if(b.type==="insights") body=`<div class="insights">${b.items.map(x=>`<div class="ins"><span>${x[0]}</span><span class="ar">→</span><b>${x[1]}</b></div>`).join("")}</div>`;
   if(b.type==="competitors") body=`<h3 class="comp-h">Competitor snapshot</h3><div class="comp">${b.items.map(c=>`<article class="comp-card"><h3><span aria-hidden="true">${c[0].charAt(0)}</span>${c[0]}</h3><dl>${["Core","Built for","Strength","Weakness"].map((k,i)=>`<div class="${i===3?"weak":i===2?"strong":""}"><dt>${k}</dt><dd>${c[i+1]}</dd></div>`).join("")}</dl></article>`).join("")}</div>${b.note?`<p class="comp-note">${b.note}</p>`:""}${b.pains?`<h3 class="comp-h pain-h">Pain points an interface can answer</h3><div class="pain-wrap"><table class="pain"><thead><tr><th scope="col">Pain point</th>${b.tools.map(t=>`<th scope="col">${t}</th>`).join("")}<th scope="col" class="resp">Design response</th></tr></thead><tbody>${b.pains.map(r=>`<tr><th scope="row">${r[0]}</th>${r[1].map((v,i)=>`<td data-tool="${b.tools[i]}"><i class="dot${v?" on":""}" role="img" aria-label="${v?"Applies":"Doesn't apply"}"></i></td>`).join("")}<td class="resp">${r[2]} <span class="st ${r[3]==="Designed"?"ok":r[3]==="Open"?"open":"part"}">${r[3]}</span></td></tr>`).join("")}</tbody></table></div><p class="pain-key"><span><i class="dot on"></i>The pain point applies to that tool</span><span><i class="dot"></i>Doesn't apply</span></p>`:""}${b.quote?`<blockquote class="comp-quote"><p>“${b.quote}”</p>${b.take?`<span>${b.take}</span>`:""}</blockquote>`:b.take?`<p class="comp-take">${b.take}</p>`:""}`;
   if(b.type==="health") body=`<div class="health">${b.items.map(h=>`<div class="hcard"><span class="st" style="color:${h[1]}"><i style="background:${h[1]}"></i>${h[0]}</span><b>${h[2]}</b><span>${h[3]}</span></div>`).join("")}</div>`;
+  /* Vault (Nov 2026): mobile screens sit inside a drawn phone frame so nothing is cut at the edges */
+  const phone=(src,alt)=>`<figure class="phone"><img src="${src}" alt="${alt||""}" loading="lazy" decoding="async"></figure>`;
+  if(b.type==="phone") body=`<div class="ph-stage${(b.imgs||[]).length>1?" ph-two ph-n"+b.imgs.length:""}">${(b.imgs||[b.img]).map(x=>phone(x,b.side[1])).join("")}</div>${b.q?`<q class="ph-q">${b.q}</q>`:""}`;
+  if(b.type==="rejected") body=`<div class="rj">${b.items.map(x=>`<article class="rj-ex"><span class="rj-n">${x.n}</span><h3>${x.h}</h3><div class="ph-stage rj-stage">${x.imgs.map(m=>`<div class="rj-ph">${phone(m[0],x.h+" · "+m[1])}<span>${m[1]}</span></div>`).join("")}</div><dl class="rj-dl"><div><dt>Concept</dt><dd>${x.concept}</dd></div><div class="weak"><dt>Why it was rejected</dt><dd>${x.why}</dd></div></dl></article>`).join("")}</div>
+<div class="comp rj-comp">${b.compare.map(c=>`<article class="comp-card"><h3>${c[0]}</h3><dl><div class="strong"><dt>Strength</dt><dd>${c[1]}</dd></div><div class="weak"><dt>Problem</dt><dd>${c[2]}</dd></div><div><dt>Rejected because</dt><dd>${c[3]}</dd></div></dl></article>`).join("")}</div>
+<div class="rj-end"><p class="fx-subp">The Home screen needed to answer one question immediately:</p><q class="ph-q">${b.q}</q><ol class="chain">${b.flow.map(x=>`<li><b>${x}</b></li>`).join('<li class="ar" aria-hidden="true">→</li>')}</ol><p class="fx-subp">${b.end}</p></div>`;
   /* added for the full Top Brass case study (Nov 2026) */
   const tag=t=>{ const k=/^(done|designed)/i.test(t)?"ok":/^(open|out)/i.test(t)?"open":"part"; return `<span class="st ${k}">${t}</span>`; };
   if(b.type==="text") body=`<p class="fx-subp">${b.p}</p>`;
@@ -453,34 +482,20 @@ function caseBlock(b,p){ if(!b.side) return ""; return vsec(b.side[0],b.side[1],
 /* Case study screens (from Devanshi's Figma files) */
 const SCREENS={
  "runway": [
-  "assets/images/screen-runway-1.jpg",
-  "assets/images/screen-runway-2.jpg",
-  "assets/images/screen-runway-3.jpg",
+  "assets/images/screen-runway-1-crop.jpg",
+  "assets/images/screen-runway-2-crop.jpg",
+  "assets/images/screen-runway-3-crop.jpg",
   "assets/images/screen-runway-4.jpg"
  ],
  "top-brass": [],
  "user-testing": [],
- "syndicate-research": [
-  "assets/images/screen-syndicate-research-1.jpg",
-  "assets/images/screen-syndicate-research-2.jpg",
-  "assets/images/screen-syndicate-research-7.jpg",
-  "assets/images/screen-syndicate-research-5.jpg",
-  "assets/images/screen-syndicate-research-6.jpg"
- ],
- "navstar": [
-  "assets/images/screen-navstar-1.jpg",
-  "assets/images/screen-navstar-2.jpg",
-  "assets/images/screen-navstar-3.jpg",
-  "assets/images/screen-navstar-4.jpg"
- ],
- "vault": [
-  "assets/images/screen-vault-1.jpg",
-  "assets/images/screen-vault-2.jpg"
- ],
+ "syndicate-research": [],
+ "raahi": [],
+ "vault": [],
  "approval-workflow-builder": [
-  "assets/images/screen-approval-workflow-builder-1.jpg",
-  "assets/images/screen-approval-workflow-builder-2.jpg",
-  "assets/images/screen-approval-workflow-builder-3.jpg",
+  "assets/images/screen-approval-workflow-builder-1-crop.jpg",
+  "assets/images/screen-approval-workflow-builder-2-crop.jpg",
+  "assets/images/screen-approval-workflow-builder-3-crop.jpg",
   "assets/images/screen-approval-workflow-builder-4.jpg",
   "assets/images/screen-approval-workflow-builder-5.jpg"
  ]
@@ -499,8 +514,8 @@ const STORY={
  after:{label:"Where it landed",h:"Sixteen methods, one pattern.",items:[["One builder","Every test and survey uses the same structure, so learning one means knowing them all."],["Room to grow","Shared components for tests, questions, charts and modals let new methods slot in."],["Hours of video, summarised","AI pulls pain points, quotes and sentiment moments out of session recordings."]]}},
 "syndicate-research":{why:["Listing every approach side by side made the product feel like a catalogue, not a guide.","Teams had to weigh budget and time before committing, and the tradeoffs were hidden.","Returning teams come back to the same trackers and studies. They shouldn't have to hunt for them.","Researchers need to trust the survey they send, so every AI change can be kept, edited or undone."],
  after:{label:"Where it landed",h:"A guided choice, on web and mobile.",items:[["Four clear modes","Tracker, Research, Quick Research and Omnibus each state their purpose, turnaround and output."],["Web and mobile","The same entry points work on a 393px screen."],["A UI kit for both","Refined UX/UI delivered with a UI kit for web and mobile."]]}},
-"navstar":{why:["People know the feeling they want, not the place, so the app asks about the trip first.","Hotels, transport and plans one after another cause decision overload. A match score narrows the choice.","Travellers jump between 7+ apps for one trip, and their saved Reels already show what they love.","Itineraries were dry PDFs and too hard to change on the go."],
- after:{label:"What happened next",h:"A four-day concept, end to end.",items:[["Designed in four days","Onboarding, matched destinations, the AI itinerary and live trip mode, as one connected iOS flow."],["A concept","Navstar hasn't launched; it's a design concept."]]}},
+"raahi":{why:["People know the feeling they want, not the place, so the app asks about the trip first.","Hotels, transport and plans one after another cause decision overload. A match score narrows the choice.","Travellers jump between 7+ apps for one trip, and their saved Reels already show what they love.","Itineraries were dry PDFs and too hard to change on the go."],
+ after:{label:"What happened next",h:"A four-day concept, end to end.",items:[["Designed in four days","Onboarding, matched destinations, the AI itinerary and live trip mode, as one connected iOS flow."],["A concept","Raahi hasn't launched; it's a design concept."]]}},
 "vault":{why:["Owners need to understand in five seconds whether a property is okay, and that status sat too deep.","Records were scattered with little context, so finding a document didn't tell owners anything.","An error state without an explanation creates worry. Vault says what's happening and why it matters.","Information without a next step left owners unsure what to do."],
  after:{label:"What happened next",h:"A three-day concept, tested against a persona.",items:[["Assumptions challenged first","Before designing, AI role-played Rajeev, a 50+ owner of four properties: 19 questions across four rounds."],["A concept","Vault hasn't launched; it's a design concept."]]}},
 "approval-workflow-builder":{why:["Separate pages lost people and one long form was hard to scan, so a guided modal won in ideation.","Priya pauses at words like “condition” or “AND/OR”, and she won't ask for help.","Rules are invisible until something breaks, so the path is shown while it's built.","Setup gets interrupted, and closing the builder could lose work."],
@@ -574,8 +589,43 @@ ${vsec("In one line","",`<q class="fx-quote">${c.quote}</q>`)}
 const TOP=["work","about","playground","journal"];
 const projMeta=p=>{const c=CASES[slugOf(p.name)]||{}; return [(c.kicker||"").split(" · ")[0],c.year].filter(Boolean).join(" · ");};
 /* captions describe the project instead of naming it (no "Jasper Colin", "Runway"...) */
-const wcard=p=>{const d=p.line.replace(/\.$/,""); return `<a class="wcard" href="#${slugOf(p.name)}" aria-label="${d}, case study"><div class="wc-art"><img src="${p.card||p.img}" alt="" loading="lazy" decoding="async"><span class="wc-hover" aria-hidden="true"><span>View case study <i>→</i></span></span></div><p class="wc-cap"><b>${d}</b><span class="sl">/</span><span>${projMeta(p)}</span></p></a>`;};
-const jtile=p=>`<a class="wcard jtile" href="#${p.slug}"><div class="wc-art jt-art" style="--tint:${p.tint}"><span class="jt-cat">${p.cat}</span><h3>${p.t}</h3><p>${p.d}</p><span class="wc-hover" aria-hidden="true"><span>Read entry <i>→</i></span></span></div><p class="wc-cap"><b>${p.cat.charAt(0)+p.cat.slice(1).toLowerCase()}</b><span class="sl">/</span><span>${readTime(p)} min read</span></p></a>`;
+/* Work card banners (Nov 2026 redesign, at her request): a soft tinted field (blue / yellow, checkerboard like the journal tiles)
+   with one clean product screen rising from the bottom right; phone projects show their phones centred. No text on the banner. */
+/* Work card banners (Nov 2026, from the reference she sent): each project gets one of six quiet styles, so the grid has variety
+   without loud colour. grad = soft gradient + name; screen = product screen running off the right and bottom; feat = white card
+   with an icon and a big line; mark = wordmark on a dotted texture; rise = phones rising from the bottom on a soft tone; dark = the same on a dark card. */
+const CI={
+ signal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12a7 7 0 0 1 14 0M8.5 12a3.5 3.5 0 0 1 7 0"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><path d="M12 13.5V20"/></svg>',
+ flow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="5" rx="1.5"/><rect x="14" y="15" width="7" height="5" rx="1.5"/><path d="M6.5 9v3.5a2 2 0 0 0 2 2h9v.5"/><path d="m15.5 12.5 2 2-2 2"/></svg>',
+ test:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M8.5 11l1.8 1.8 3.4-3.6"/></svg>'};
+const CARD_ART={
+ "jasper-colin":{t:"grad",title:"Two brands.<br>One visual language."},
+ "runway":{t:"track",title:"Runway",tag:"Leave request",steps:["Submitted","Manager","HR","Approved"]},
+ "signal-intelligence":{t:"feat",ic:"signal",title:"Signal<br>intelligence"},
+ "user-testing":{t:"mark",ic:"test",title:"User Testing"},
+ "syndicate-research":{t:"tiles",title:"What do you need to learn?",items:["Tracker","Research","Quick Research","Omnibus"]},
+ "raahi":{t:"ticket",title:"Raahi",from:"Delhi",to:"Mussoorie",meta:["12 – 17 Aug","Friends · 5"],badge:"92% match"},
+ "vault":{t:"status",items:[["Healthy","#5E9C82","Green Park Residence"],["Needs attention","#D9A24C","Noida Heights"],["At risk","#D07A7A","Family Land"]]},
+ "approval-workflow-builder":{t:"feat",ic:"flow",title:"Approvals in<br>five calm steps",tone:"sun"}};
+const cardArt=a=>a.t==="grad"?`<span class="wc-gt">${a.title}</span>`
+  :a.t==="feat"?`<span class="wc-fc wc-ic-${a.ic}"><span class="wc-fi">${CI[a.ic]}</span><span class="wc-ft">${a.title}</span></span>`
+  :a.t==="mark"?`<span class="wc-mk"><span class="wc-mi">${CI[a.ic]}</span>${a.title}</span>`
+  /* Nov 2026: banners for the projects that used screens, drawn from each product's own idea instead of a screenshot */
+  :a.t==="track"?`<span class="wc-tk"><span class="wc-tk-top"><b>${a.title}</b><em>${a.tag}</em></span><span class="wc-tk-line">${a.steps.map((x,i)=>`<span class="wc-tk-st${i<2?" on":""}"><i></i>${x}</span>`).join("")}</span></span>`
+  :a.t==="tiles"?`<span class="wc-tl"><span class="wc-tl-q">${a.title}</span><span class="wc-tl-g">${a.items.map((x,i)=>`<span class="wc-tl-i${i===0?" on":""}"><i></i>${x}</span>`).join("")}</span></span>`
+  :a.t==="ticket"?`<span class="wc-tt"><span class="wc-tt-a"><span class="wc-tt-k">${a.title}</span><span class="wc-tt-r"><b>${a.from}</b><span class="wc-tt-p" aria-hidden="true"><i></i></span><b>${a.to}</b></span><span class="wc-tt-m">${a.meta.map(x=>`<span>${x}</span>`).join("")}</span></span><span class="wc-tt-b"><em>${a.badge}</em></span></span>`
+  :a.t==="status"?`<span class="wc-ss">${a.items.map(x=>`<span class="wc-ss-r" style="--c:${x[1]}"><i></i><span><b>${x[2]}</b><em>${x[0]}</em></span></span>`).join("")}</span>`
+  :a.ph?`<span class="wc-phs">${a.ph.map(x=>`<span class="phone"><img src="${x}" alt="" loading="lazy" decoding="async"></span>`).join("")}</span>`
+  :`<img class="wc-shot" src="${a.img}" alt="" loading="lazy" decoding="async">`;
+const wcard=p=>{const d=p.line.replace(/\.$/,""), art=CARD_ART[slugOf(p.name)]; return `<a class="wcard" href="#${slugOf(p.name)}" aria-label="${d}, case study"><div class="wc-art${art?` wc-v wc-${art.t}${art.bg?" wc-bg-"+art.bg:""}${art.tone?" wc-tone-"+art.tone:""}`:""}">${art?cardArt(art):`<img src="${p.card||p.img}" alt="" loading="lazy" decoding="async">`}<span class="wc-hover" aria-hidden="true"><span>View case study <i>→</i></span></span></div><p class="wc-cap"><b>${d}</b><span class="sl">/</span><span>${projMeta(p)}</span></p></a>`;};
+/* Journal tiles (Nov 2026 redesign): same feel as the project cards. A quiet tinted banner with a small drawn,
+   moving object from the entry's idea, a category tag, and the title + reading time underneath. */
+const JART={
+ "job-hunt-tracking":`<span class="ja-board">${[["Applied",["UX designer"]],["Interview",["UI designer"]],["Offer",[]]].map(c=>`<span class="ja-col"><em>${c[0]}</em><span class="ja-slot"></span>${c[1].map(x=>`<span class="ja-chip">${x}</span>`).join("")}</span>`).join("")}<span class="ja-chip ja-move">Product designer</span></span>`,
+ "blinkit-room":`<span class="ja-cart"><span class="ja-cart-h"><b>Shared cart</b><span class="ja-avs"><i>A</i><i>R</i><i>S</i></span></span><span class="ja-items">${["Milk","Bread","Coffee"].map((x,i)=>`<span class="ja-it" style="--i:${i}"><span>${x}</span><i></i></span>`).join("")}</span><span class="ja-split"><span>Split 3 ways</span><span class="ja-bar"><i></i><i></i><i></i></span></span></span>`,
+ "feature-trap":`<span class="ja-tool"><span class="ja-tool-bar"><span class="ja-core">Send</span>${["Filters","AI","Themes","Stickers","Polls","Boost"].map((x,i)=>`<span class="ja-f" style="--i:${i}">${x}</span>`).join("")}</span><span class="ja-tool-n">Features <b>+6</b> · Clarity <b class="ja-down">↓</b></span></span>`,
+ "good-vs-addictive-ux":`<span class="ja-scale"><span class="ja-q">Helpful or addictive?</span><span class="ja-track"><span class="ja-knob"></span></span><span class="ja-ends"><span>Helpful</span><span>Addictive</span></span></span>`};
+const jtile=p=>`<a class="wcard jtile" href="#${p.slug}" aria-label="${p.t.replace(/"/g,"&quot;")}, journal entry"><div class="wc-art wc-v jt-v" style="--tint:${p.tint}"><span class="jt-tag">${p.cat}</span>${JART[p.slug]||`<span class="ja-fallback">${p.t}</span>`}<span class="wc-hover" aria-hidden="true"><span>Read entry <i>→</i></span></span></div><p class="wc-cap"><b>${p.t}</b><span class="sl">/</span><span>${p.cat.charAt(0)+p.cat.slice(1).toLowerCase()} · ${readTime(p)} min read</span></p></a>`;
 const ptop=(h,sub)=>`<section class="wrap pg-top"><h1 class="pg-h">${h}</h1>${sub?`<p class="pg-sub">${sub}</p>`:""}</section>`;
 const shead=(h,sub)=>`<div class="s-head"><h2>${h}</h2>${sub?`<p>${sub}</p>`:""}</div>`;
 /* About: photos of Devanshi at the end, in small groups with a heading over each group (no numbers) */
@@ -885,6 +935,7 @@ let shown="";
 function route(){
   let h=(location.hash||"#work").slice(1)||"work";
   if(h==="veritas-research"){ h="syndicate-research"; history.replaceState(null,"","#"+h); }
+  if(h==="navstar"){ h="raahi"; history.replaceState(null,"","#"+h); }
   if(h==="top-brass"){ h="signal-intelligence"; history.replaceState(null,"","#"+h); }
   if(h==="home") h="work";
   let view=TOP.includes(h)?h:"work";
@@ -1139,3 +1190,22 @@ dock();
 addEventListener("resize",fitMega);
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitMega);
 route();
+
+/* Card cursor (Nov 2026, her reference): over a project card the pointer becomes a small blue square with a small "View project" label beside it
+   (journal tiles say "Read entry"). Mouse and trackpad only; touch screens keep the normal tap. */
+(function(){
+  if(!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  const c=document.createElement("div"); c.className="vp-cursor"; c.setAttribute("aria-hidden","true");
+  c.innerHTML='<i></i><b><span>View project</span></b>'; document.body.appendChild(c);
+  const label=c.querySelector("span"); let x=0,y=0,tx=0,ty=0,on=false,raf=0;
+  const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const tick=()=>{ x+=(tx-x)*(still?1:.28); y+=(ty-y)*(still?1:.28); c.style.transform=`translate3d(${x}px,${y}px,0)`;
+    raf=(on||Math.abs(tx-x)>.5||Math.abs(ty-y)>.5)?requestAnimationFrame(tick):0; };
+  addEventListener("pointermove",e=>{ tx=e.clientX; ty=e.clientY;
+    const card=e.target.closest&&e.target.closest(".wcard");
+    if(card&&!on){ label.textContent=card.classList.contains("jtile")?"Read entry":"View project"; c.classList.toggle("on-dark",!!card.querySelector(".wc-status")); x=tx; y=ty; }
+    if(!!card!==on){ on=!!card; c.classList.toggle("on",on); }
+    if(!raf) raf=requestAnimationFrame(tick); },{passive:true});
+  document.addEventListener("pointerleave",()=>{ on=false; c.classList.remove("on"); });
+  addEventListener("hashchange",()=>{ on=false; c.classList.remove("on"); });
+})();

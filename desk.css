@@ -893,3 +893,425 @@ body:has(#jzArea) .ft.field{margin-top:clamp(40px,6vw,96px)}
 .topbar{background:linear-gradient(180deg,var(--desk) 0,var(--desk) 68%,color-mix(in srgb,var(--desk) 0%,transparent) 100%)}
 /* more room at the sides on every page (Nov 2026, at her request) */
 .wrap{--gut:clamp(24px,6vw,88px);padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px))}
+/* Work card banners, Nov 2026 redesign: soft tint + one product screen */
+.wk-grid .wc-art.wc-min{background:var(--royal-soft)}
+.wk-grid>*:nth-child(4n+2) .wc-art.wc-min,.wk-grid>*:nth-child(4n+3) .wc-art.wc-min{background:var(--red-soft)}
+.wc-art.wc-min img.wc-shot{position:absolute;height:auto;object-fit:initial;max-width:none;box-shadow:0 0 0 1px rgba(20,28,79,.06),0 24px 48px -18px rgba(20,28,79,.32)}
+.wc-art.wc-desk img.wc-shot{left:50%;top:50%;width:76%;translate:-50% -50%;border-radius:8px}
+.wc-art.wc-phone img.wc-shot{left:50%;top:52%;width:100%;translate:-50% -50%;border-radius:0;box-shadow:none}
+:root[data-theme="dark"] .wc-art.wc-min img.wc-shot{box-shadow:0 0 0 1px rgba(255,255,255,.06),0 24px 48px -18px rgba(0,0,0,.6)}
+:root[data-theme="dark"] .wc-art.wc-phone img.wc-shot{box-shadow:none}
+/* Work card banners, take 2 (Nov 2026, her reference): one quiet neutral tone for every card, fine grain,
+   square corners, the screen inset from the top-left and running off the right and bottom edges */
+:root{--thumb:#ECEDE9}
+:root[data-theme="dark"]{--thumb:#1B1E22}
+.wk-grid .wc-art.wc-min,.wk-grid>*:nth-child(4n+2) .wc-art.wc-min,.wk-grid>*:nth-child(4n+3) .wc-art.wc-min{background-color:var(--thumb);background-image:var(--paper-grain),radial-gradient(120% 90% at 85% 10%,rgba(255,255,255,.55),transparent 60%);background-size:220px 220px,100% 100%;border-radius:0}
+:root[data-theme="dark"] .wk-grid .wc-art.wc-min{background-image:var(--paper-grain),radial-gradient(120% 90% at 85% 10%,rgba(255,255,255,.04),transparent 60%)}
+.wc-art.wc-desk img.wc-shot{left:9%;top:12%;width:106%;translate:none;border-radius:6px 0 0 0}
+.wc-art.wc-phone img.wc-shot{left:50%;top:15%;width:118%;translate:-50% 0}
+/* Work card banners, take 3 (Nov 2026, her reference): six quiet styles, one per project (CARD_ART in app.js) */
+.wk-grid .wc-art.wc-v{border-radius:0;display:grid;place-items:center;background-color:var(--thumb);background-image:var(--paper-grain);background-size:220px 220px}
+.wc-art.wc-v img.wc-shot{position:absolute;height:auto;max-width:none;object-fit:initial}
+/* screen running off the right and bottom */
+.wc-art.wc-screen img.wc-shot{left:9%;top:12%;width:106%;border-radius:6px 0 0 0;box-shadow:0 0 0 1px rgba(20,28,79,.06),0 24px 48px -18px rgba(20,28,79,.3)}
+.wk-grid .wc-art.wc-bg-sky{background-image:var(--paper-grain),radial-gradient(60% 80% at 15% 10%,#B9D3DF 0,transparent 70%),radial-gradient(70% 70% at 90% 85%,#E7DCC2 0,transparent 70%),linear-gradient(160deg,#D3E3EA,#E9ECEA);background-size:220px 220px,100% 100%,100% 100%,100% 100%}
+/* soft gradient with the name */
+.wk-grid .wc-art.wc-grad{background-image:var(--paper-grain),radial-gradient(55% 70% at 18% 22%,#E9C779 0,transparent 70%),radial-gradient(60% 70% at 85% 20%,#A9CADA 0,transparent 70%),radial-gradient(70% 80% at 65% 100%,#2F7896 0,transparent 75%),linear-gradient(135deg,#D9B56A,#6FA4BD);background-size:220px 220px,100% 100%,100% 100%,100% 100%,100% 100%}
+.wc-gt{position:relative;color:#fff;font:500 clamp(1.25rem,2.5vw,2.05rem)/1.1 var(--f-sans);letter-spacing:-.02em;text-align:center;padding:0 8%;text-shadow:0 1px 18px rgba(11,40,60,.25)}
+.wc-gt i{font-style:normal;opacity:.75;margin:0 .1em}
+/* white feature card with an icon and a big line */
+.wk-grid .wc-art.wc-feat{background-color:#E2E8E3}
+.wk-grid .wc-art.wc-feat.wc-tone-sun{background-color:#EFE9DB}
+.wc-fc{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,22px);width:52%;padding:clamp(16px,2.4vw,30px);border-radius:clamp(14px,1.8vw,24px);background:rgba(255,255,255,.78);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 18px 40px -24px rgba(20,28,79,.25)}
+.wc-fi{display:grid;place-items:center;width:clamp(34px,3.6vw,48px);height:clamp(34px,3.6vw,48px);border-radius:50%;background:#BFD9C6;color:#1F3A2A}
+.wc-tone-sun .wc-fi{background:#EBD7A3;color:#5C4612}
+.wc-fi svg{width:56%;height:56%}
+.wc-ft{font:600 clamp(1.1rem,2.1vw,1.85rem)/1.12 var(--f-sans);letter-spacing:-.02em;color:#2A2D31}
+/* wordmark on a dotted texture */
+.wk-grid .wc-art.wc-mark{background-color:#ECEBE7}
+.wc-art.wc-mark::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(20,24,30,.22) 1px,transparent 1.5px) 0 0/13px 13px;-webkit-mask:radial-gradient(70% 70% at 50% 50%,transparent 35%,#000 80%);mask:radial-gradient(70% 70% at 50% 50%,transparent 35%,#000 80%)}
+.wc-mk{position:relative;display:inline-flex;align-items:center;gap:.22em;font:700 clamp(1.6rem,3.6vw,2.9rem)/1 var(--f-sans);letter-spacing:-.045em;color:#17191C}
+.wc-mi{display:inline-grid;width:1em;height:1em;color:var(--royal)}
+.wc-mi svg{width:100%;height:100%}
+/* phones rising from the bottom */
+.wk-grid .wc-art.wc-rise{background-image:var(--paper-grain),radial-gradient(80% 70% at 50% 0,#F2F6F8 0,transparent 70%),linear-gradient(#D6E6ED,#C9DDE6);background-size:220px 220px,100% 100%,100% 100%}
+.wk-grid .wc-art.wc-dark{background-image:var(--paper-grain),radial-gradient(70% 80% at 50% 110%,rgba(74,156,192,.45) 0,transparent 70%),linear-gradient(#0E141B,#121C25);background-size:220px 220px,100% 100%,100% 100%}
+.wc-art.wc-rise img.wc-shot,.wc-art.wc-dark img.wc-shot{left:50%;top:16%;width:118%;translate:-50% 0}
+.wc-art.wc-dark img.wc-shot{filter:drop-shadow(0 20px 40px rgba(0,0,0,.45))}
+/* dark theme */
+:root[data-theme="dark"] .wk-grid .wc-art.wc-feat{background-color:#1D2421}
+:root[data-theme="dark"] .wk-grid .wc-art.wc-feat.wc-tone-sun{background-color:#25221B}
+:root[data-theme="dark"] .wc-fc{background:rgba(255,255,255,.06);box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+:root[data-theme="dark"] .wc-ft{color:#ECE9E3}
+:root[data-theme="dark"] .wk-grid .wc-art.wc-mark{background-color:#1B1E22}
+:root[data-theme="dark"] .wc-art.wc-mark::before{background-image:radial-gradient(circle,rgba(255,255,255,.16) 1px,transparent 1.5px)}
+:root[data-theme="dark"] .wc-mk{color:#ECE9E3}
+:root[data-theme="dark"] .wc-mi{color:#4A9CC0}
+:root[data-theme="dark"] .wk-grid .wc-art.wc-bg-sky{background-image:var(--paper-grain),radial-gradient(60% 80% at 15% 10%,#1E3A47 0,transparent 70%),linear-gradient(160deg,#16252D,#1A1E22);background-size:220px 220px,100% 100%,100% 100%}
+:root[data-theme="dark"] .wk-grid .wc-art.wc-rise{background-image:var(--paper-grain),linear-gradient(#18303B,#142730);background-size:220px 220px,100% 100%}
+:root[data-theme="dark"] .wc-art.wc-screen img.wc-shot{box-shadow:0 0 0 1px rgba(255,255,255,.06),0 24px 48px -18px rgba(0,0,0,.6)}
+
+/* Vault (Nov 2026): mobile screens shown inside a drawn phone frame, so the screen's own edges are never cut */
+.phone{position:relative;display:block;margin:0;width:var(--phw,300px);max-width:100%;padding:9px;border-radius:calc(var(--phw,300px)*.15);background:#16181B;box-shadow:inset 0 0 0 1.5px #3A3D42,0 0 0 1px rgba(0,0,0,.08),0 30px 60px -24px rgba(16,24,32,.45)}
+.phone::before{content:"";position:absolute;top:calc(9px + var(--phw,300px)*.028);left:50%;translate:-50% 0;width:28%;height:calc(var(--phw,300px)*.082);border-radius:99px;background:#000;z-index:1}
+.phone img{display:block;width:100%;height:auto;border-radius:calc(var(--phw,300px)*.125);background:#fff}
+.ph-stage{display:flex;justify-content:center;align-items:flex-start;gap:clamp(16px,3vw,36px);padding:clamp(32px,5vw,64px) 16px;border-radius:10px;background-color:var(--thumb);background-image:var(--paper-grain);background-size:220px 220px}
+.ph-q{display:block;margin:28px 0 0;font:500 clamp(1.25rem,2vw,1.6rem)/1.3 var(--f-display);letter-spacing:-.02em;color:var(--ink);max-width:32ch;quotes:"“" "”"}
+.rj{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.rj-ex{display:flex;flex-direction:column;gap:12px}
+.rj-ex:nth-child(2){grid-column:auto}
+.rj-n{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#6B7075)}
+.rj-ex h3{margin:0;font-size:20px}
+.rj-stage{--phw:200px;padding:32px 12px}
+.rj-ph{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0;flex:0 1 var(--phw)}
+.rj-ph>span{font-size:13px;color:var(--muted,#6B7075)}
+.rj-dl{margin:4px 0 0;display:grid;gap:12px}
+.rj-dl dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#6B7075);margin-bottom:4px}
+.rj-dl dd{margin:0;line-height:1.55}
+.rj-dl .weak dt{color:#B85C5C}
+.rj-comp{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rj-end{margin-top:36px;display:grid;gap:16px}
+.rj-end .ph-q{margin:0}
+@media (max-width:860px){.rj,.rj-comp{grid-template-columns:1fr}}
+@media (max-width:600px){.phone{--phw:min(260px,70vw)}.rj-stage{--phw:min(150px,38vw)}.ph-stage{padding:28px 10px}}
+:root[data-theme="dark"] .phone{background:#0B0C0E;box-shadow:inset 0 0 0 1.5px #4A4E55,0 30px 60px -24px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .rj-dl .weak dt{color:#D88A8A}
+/* Vault work card: two framed phones on the dark field */
+.wc-phs{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start;gap:5%;padding-top:12%}
+.wc-phs .phone{--phw:34%;width:34%;padding:4px;border-radius:18px;box-shadow:inset 0 0 0 1px #3A3D42,0 20px 40px rgba(0,0,0,.45)}
+.wc-phs .phone::before{display:none}
+.wc-phs .phone img{border-radius:14px}
+.wc-phs .phone:first-child{margin-top:8%}
+/* rejected explorations: one under the other so both phone sets keep a steady size */
+.rj{grid-template-columns:minmax(0,1fr);gap:48px}
+.rj-stage{--phw:220px}
+.rj-dl{grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:24px}
+@media (max-width:860px){.rj-dl{grid-template-columns:minmax(0,1fr)}}
+.rj-end .chain li{flex:0 1 auto;min-width:0}
+@media (max-width:600px){.ph-stage{--phw:min(260px,70vw)}.ph-stage.rj-stage{--phw:min(150px,38vw)}.ph-stage .phone{--phw:inherit}}
+/* two framed phones side by side (Raahi) */
+.ph-stage.ph-two{--phw:260px}
+@media (max-width:600px){.ph-stage.ph-two{--phw:min(150px,40vw)}}
+/* three or four framed phones in a row (Syndicate Research mobile) */
+.ph-stage.ph-n3{--phw:clamp(120px,15vw,220px)}
+.ph-stage.ph-n4{--phw:clamp(110px,11.5vw,170px);flex-wrap:wrap}
+@media (max-width:600px){.ph-stage.ph-n3,.ph-stage.ph-n4{--phw:min(140px,38vw);flex-wrap:wrap;row-gap:20px}}
+/* rows of 3-4 phones: an even grid that always fits the column */
+.ph-stage.ph-n3,.ph-stage.ph-n4{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:clamp(12px,2vw,24px);padding-left:clamp(16px,3vw,40px);padding-right:clamp(16px,3vw,40px)}
+.ph-stage.ph-n3{--n:3;--phw:150px}.ph-stage.ph-n4{--n:4;--phw:120px}
+.ph-stage.ph-n3 .phone,.ph-stage.ph-n4 .phone{width:100%;padding:6px}
+@media (max-width:600px){.ph-stage.ph-n4{--n:2;--phw:140px}.ph-stage.ph-n3{--n:3;--phw:96px}.ph-stage.ph-n3 .phone{padding:4px}}
+
+/* Work card banners, take 4 (Nov 2026): no screenshots. Runway, Syndicate, Raahi and Vault get small drawn objects
+   from their own product idea. Sizes use container units so the art scales with the card. */
+.wk-grid .wc-art.wc-v{container-type:inline-size}
+.wc-tk,.wc-tl,.wc-tt,.wc-ss{position:relative;font-family:var(--f-sans);color:#2A2D31;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+/* Runway: a request moving through its stages */
+.wk-grid .wc-art.wc-track{background-image:var(--paper-grain),radial-gradient(60% 80% at 15% 10%,#B9D3DF 0,transparent 70%),radial-gradient(70% 70% at 90% 85%,#E7DCC2 0,transparent 70%),linear-gradient(160deg,#D3E3EA,#E9ECEA);background-size:220px 220px,100% 100%,100% 100%,100% 100%}
+.wc-tk{width:70cqw;padding:5cqw 5.5cqw;border-radius:3.4cqw;background:rgba(255,255,255,.82);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 18px 40px -24px rgba(20,40,60,.45);display:grid;gap:6cqw}
+.wc-tk-top{display:flex;justify-content:space-between;align-items:baseline;gap:3cqw}
+.wc-tk-top b{font-size:5.4cqw;font-weight:600;letter-spacing:-.02em}
+.wc-tk-top em{font-style:normal;font-size:2.5cqw;padding:.9cqw 2cqw;border-radius:99px;background:#E4EEF2;color:#2A2D31}
+.wc-tk-line{position:relative;display:grid;grid-template-columns:repeat(4,1fr)}
+.wc-tk-line::before,.wc-tk-line::after{content:"";position:absolute;left:12.5%;top:1.15cqw;height:.45cqw;border-radius:99px}
+.wc-tk-line::before{right:12.5%;background:#D5DEE2}
+.wc-tk-line::after{width:25%;background:var(--royal);transition:width .7s var(--ease)}
+.wc-tk-st{position:relative;display:grid;justify-items:center;gap:2cqw;font-size:2.4cqw;color:#5A6066}
+.wc-tk-st i{width:2.7cqw;height:2.7cqw;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 .45cqw #C9D4D9;transition:box-shadow .4s var(--ease),background .4s var(--ease)}
+.wc-tk-st.on i{background:var(--royal);box-shadow:0 0 0 .9cqw rgba(11,84,112,.14)}
+.wc-tk-st.on{color:#2A2D31}
+/* Syndicate Research: the four ways to research, one picked */
+.wk-grid .wc-art.wc-tiles{background-color:#E7E4F0}
+.wc-tl{width:66cqw;display:grid;gap:3.4cqw}
+.wc-tl-q{font-size:4.4cqw;font-weight:600;letter-spacing:-.02em;text-align:center}
+.wc-tl-g{display:grid;grid-template-columns:1fr 1fr;gap:2.4cqw}
+.wc-tl-i{display:flex;align-items:center;gap:2cqw;padding:3.2cqw 3.4cqw;border-radius:2.6cqw;background:rgba(255,255,255,.8);font-size:3cqw;font-weight:500;box-shadow:0 14px 30px -22px rgba(40,30,90,.45);transition:background .4s var(--ease),box-shadow .4s var(--ease),transform .4s var(--ease)}
+.wc-tl-i i{flex:none;width:2.4cqw;height:2.4cqw;border-radius:50%;box-shadow:inset 0 0 0 .4cqw #B9B3D2;transition:inherit}
+.wc-tl-i.on{box-shadow:0 0 0 .4cqw #2F37F5,0 14px 30px -18px rgba(47,55,245,.45)}
+.wc-tl-i.on i{background:#2F37F5;box-shadow:inset 0 0 0 .7cqw #fff,0 0 0 .4cqw #2F37F5}
+/* Raahi: a trip ticket */
+.wk-grid .wc-art.wc-ticket{background-color:#EFE6D2}
+.wc-tt{display:flex;width:72cqw;filter:drop-shadow(0 18px 26px rgba(90,60,10,.18))}
+.wc-tt-a,.wc-tt-b{background:#FFFDF8}
+.wc-tt-a{flex:1;display:grid;gap:3.4cqw;padding:5cqw;border-radius:3cqw 0 0 3cqw;-webkit-mask:radial-gradient(circle 2.2cqw at 100% 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 2.2cqw at 100% 100%,transparent 98%,#000) bottom/100% 51% no-repeat;mask:radial-gradient(circle 2.2cqw at 100% 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 2.2cqw at 100% 100%,transparent 98%,#000) bottom/100% 51% no-repeat}
+.wc-tt-b{width:19cqw;display:grid;place-items:center;border-radius:0 3cqw 3cqw 0;border-left:.35cqw dashed #E2D6BC;-webkit-mask:radial-gradient(circle 2.2cqw at 0 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 2.2cqw at 0 100%,transparent 98%,#000) bottom/100% 51% no-repeat;mask:radial-gradient(circle 2.2cqw at 0 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 2.2cqw at 0 100%,transparent 98%,#000) bottom/100% 51% no-repeat}
+.wc-tt-b em{font-style:normal;font-size:2.5cqw;font-weight:600;writing-mode:vertical-rl;rotate:180deg;letter-spacing:.04em;padding:2cqw 1.1cqw;border-radius:99px;background:#F6E3AE;color:#2A2D31}
+.wc-tt-k{font-size:2.4cqw;letter-spacing:.14em;text-transform:uppercase;color:#7A6F5A}
+.wc-tt-r{display:flex;align-items:center;gap:2.4cqw}
+.wc-tt-r b{font-size:5cqw;font-weight:600;letter-spacing:-.02em}
+.wc-tt-p{position:relative;flex:1;height:2.4cqw;background:radial-gradient(circle,#CDBF9F .35cqw,transparent .45cqw) 0 50%/1.8cqw 100% repeat-x}
+.wc-tt-p i{position:absolute;top:50%;left:8%;width:2.4cqw;height:2.4cqw;translate:0 -50%;border-radius:50%;background:#E2BC69;box-shadow:0 0 0 .8cqw rgba(226,188,105,.25);transition:left .8s var(--ease)}
+.wc-tt-m{display:flex;gap:1.6cqw}
+.wc-tt-m span{font-size:2.5cqw;padding:.9cqw 2cqw;border-radius:99px;background:#F3EDE0;color:#4A4337}
+/* Vault: property health at a glance */
+.wk-grid .wc-art.wc-status{background-image:var(--paper-grain),radial-gradient(70% 80% at 50% 110%,rgba(74,156,192,.4) 0,transparent 70%),linear-gradient(#0E141B,#121C25);background-size:220px 220px,100% 100%,100% 100%}
+.wc-ss{width:60cqw;display:grid;gap:2.2cqw;color:#ECE9E3}
+.wc-ss-r{display:flex;align-items:center;gap:3cqw;padding:3.2cqw 3.8cqw;border-radius:2.8cqw;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);transition:transform .5s var(--ease),background .4s var(--ease)}
+.wc-ss-r:nth-child(2){translate:4cqw 0}.wc-ss-r:nth-child(3){translate:8cqw 0}
+.wc-ss-r i{flex:none;width:2.6cqw;height:2.6cqw;border-radius:50%;background:var(--c);box-shadow:0 0 0 .9cqw color-mix(in srgb,var(--c) 22%,transparent)}
+.wc-ss-r>span{display:grid;gap:.6cqw}
+.wc-ss-r b{font-size:3.3cqw;font-weight:500;letter-spacing:-.01em}
+.wc-ss-r em{font-style:normal;font-size:2.4cqw;color:rgba(236,233,227,.62)}
+/* dark theme */
+:root[data-theme="dark"] .wk-grid .wc-art.wc-track{background-image:var(--paper-grain),radial-gradient(60% 80% at 15% 10%,#1E3A47 0,transparent 70%),linear-gradient(160deg,#16252D,#1A1E22);background-size:220px 220px,100% 100%,100% 100%}
+:root[data-theme="dark"] .wk-grid .wc-art.wc-tiles{background-color:#1E1C27}
+:root[data-theme="dark"] .wk-grid .wc-art.wc-ticket{background-color:#25221B}
+:root[data-theme="dark"] .wc-tk,:root[data-theme="dark"] .wc-tl-i{background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+:root[data-theme="dark"] .wc-tk,:root[data-theme="dark"] .wc-tl,:root[data-theme="dark"] .wc-tk-st.on{color:#ECE9E3}
+:root[data-theme="dark"] .wc-tk-st{color:#9AA3A8}
+:root[data-theme="dark"] .wc-tk-top em{background:rgba(255,255,255,.1);color:#ECE9E3}
+:root[data-theme="dark"] .wc-tk-line::before{background:#33414A}
+:root[data-theme="dark"] .wc-tk-st i{background:#1A2227;box-shadow:inset 0 0 0 .45cqw #3D4B54}
+:root[data-theme="dark"] .wc-tk-st.on i,:root[data-theme="dark"] .wc-tk-line::after{background:#4A9CC0}
+:root[data-theme="dark"] .wc-tl-i.on{box-shadow:0 0 0 .4cqw #7C82FF}
+:root[data-theme="dark"] .wc-tl-i.on i{background:#7C82FF;box-shadow:inset 0 0 0 .7cqw #1E1C27,0 0 0 .4cqw #7C82FF}
+
+/* Card hover, reworked (Nov 2026): no tinted glass over the art. The card lifts, the drawn object comes alive
+   (the request moves a step, the picked tile changes, the trip dot travels, the health rows line up),
+   and a small "View case study" pill rises in the corner. */
+.wc-hover,.wc-hover>span{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;border:0}
+.wc-hover{inset:auto auto 4.4cqw 4.4cqw;display:block;opacity:0;translate:0 10px;transition:opacity .35s var(--ease),translate .45s var(--ease)}
+.wc-hover>span{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;background:#fff;color:#17191C;font:500 14px/1 var(--f-sans);translate:none;box-shadow:0 10px 24px -10px rgba(16,24,32,.45)}
+.wc-hover i{font-style:normal;display:inline-block;transition:translate .4s var(--ease)}
+.wcard:hover .wc-hover,.wcard:focus-visible .wc-hover{opacity:1;translate:0 0}
+.wcard:hover .wc-hover i{translate:3px 0}
+:root[data-theme="dark"] .wc-hover>span{background:#ECE9E3;color:#14171A}
+.wcard:hover .wc-art,.wk-grid>*:nth-child(even):hover .wc-art{transform:translateY(-4px);box-shadow:0 22px 44px -22px rgba(16,40,56,.45)}
+.wcard:hover .wc-art img{transform:none}
+.wcard:hover .wc-fc,.wcard:hover .wc-tk,.wcard:hover .wc-tt{transform:translateY(-3%) scale(1.03)}
+.wcard:hover .wc-gt,.wcard:hover .wc-mk{transform:scale(1.04)}
+.wc-gt,.wc-mk,.wc-fc{transition:transform .5s var(--ease)}
+.wc-ss-r{transition:translate .55s var(--ease),background .4s var(--ease)}
+@media (hover:none){.wc-hover{display:none}}
+@media (prefers-reduced-motion:reduce){.wcard .wc-art *,.wcard .wc-art{transition:none!important}}
+.wc-tl-i{white-space:nowrap;padding:3.2cqw 3cqw;font-size:2.8cqw}
+.wc-tt-p{background:repeating-linear-gradient(90deg,#CDBF9F 0 1cqw,transparent 1cqw 2cqw) 0 50%/100% .35cqw no-repeat}
+:root[data-theme="dark"] .wc-tt-a,:root[data-theme="dark"] .wc-tt-b{background:#2F2B22}
+:root[data-theme="dark"] .wc-tt{color:#ECE9E3}
+:root[data-theme="dark"] .wc-tt-b{border-left-color:#4A4335}
+:root[data-theme="dark"] .wc-tt-m span{background:rgba(255,255,255,.08);color:#D9D3C6}
+:root[data-theme="dark"] .wc-tt-k{color:#A99E88}
+:root[data-theme="dark"] .wc-tt-b em{background:#5A4A22;color:#F6E3AE}
+:root[data-theme="dark"] .wc-tt-a,:root[data-theme="dark"] .wc-tt-b{background:#3A352B}
+
+/* Jasper Colin card (Nov 2026): the same gradient colours, slowly drifting and turning so the banner feels alive */
+@property --g1x{syntax:"<percentage>";inherits:false;initial-value:18%}
+@property --g1y{syntax:"<percentage>";inherits:false;initial-value:22%}
+@property --g2x{syntax:"<percentage>";inherits:false;initial-value:85%}
+@property --g2y{syntax:"<percentage>";inherits:false;initial-value:20%}
+@property --g3x{syntax:"<percentage>";inherits:false;initial-value:65%}
+@property --g3y{syntax:"<percentage>";inherits:false;initial-value:100%}
+@property --ga{syntax:"<angle>";inherits:false;initial-value:135deg}
+.wk-grid .wc-art.wc-grad{background-image:var(--paper-grain),radial-gradient(55% 70% at var(--g1x) var(--g1y),#E9C779 0,transparent 70%),radial-gradient(60% 70% at var(--g2x) var(--g2y),#A9CADA 0,transparent 70%),radial-gradient(70% 80% at var(--g3x) var(--g3y),#2F7896 0,transparent 75%),linear-gradient(var(--ga),#D9B56A,#6FA4BD);animation:wcGradDrift 22s ease-in-out infinite alternate}
+@keyframes wcGradDrift{
+  0%{--g1x:18%;--g1y:22%;--g2x:85%;--g2y:20%;--g3x:65%;--g3y:100%;--ga:135deg}
+  33%{--g1x:28%;--g1y:36%;--g2x:76%;--g2y:12%;--g3x:52%;--g3y:92%;--ga:155deg}
+  66%{--g1x:24%;--g1y:14%;--g2x:88%;--g2y:34%;--g3x:74%;--g3y:88%;--ga:118deg}
+  100%{--g1x:12%;--g1y:30%;--g2x:80%;--g2y:26%;--g3x:60%;--g3y:96%;--ga:145deg}}
+@media (prefers-reduced-motion:reduce){.wk-grid .wc-art.wc-grad{animation:none}}
+
+/* Hover pill, softened (Nov 2026): a little translucent, white glass in light mode, dark glass in dark mode */
+.wc-hover>span{background:rgba(255,255,255,.66);color:#17191C;border:1px solid rgba(255,255,255,.7);-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 10px 24px -12px rgba(16,24,32,.4)}
+:root[data-theme="dark"] .wc-hover>span{background:rgba(18,21,24,.56);color:#ECE9E3;border-color:rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 24px -12px rgba(0,0,0,.6)}
+
+/* Living cards (Nov 2026): each banner moves in its own way, slowly, always on */
+/* Runway: the request walks Submitted → Manager → HR → Approved, then starts again */
+.wc-tk-line::after{animation:tkLine 9s var(--ease) infinite}
+@keyframes tkLine{0%,20%{width:0}25%,45%{width:25%}50%,70%{width:50%}75%,94%{width:75%}100%{width:0}}
+.wc-tk-st i,.wc-tk-st{animation-duration:9s;animation-iteration-count:infinite;animation-timing-function:var(--ease)}
+.wc-tk-st:nth-child(1) i{animation-name:tkOn1}.wc-tk-st:nth-child(2) i{animation-name:tkOn2}.wc-tk-st:nth-child(3) i{animation-name:tkOn3}.wc-tk-st:nth-child(4) i{animation-name:tkOn4}
+@keyframes tkOn1{0%,96%{background:var(--tk-on);box-shadow:0 0 0 .9cqw var(--tk-ring)}100%{background:var(--tk-on);box-shadow:0 0 0 .9cqw var(--tk-ring)}}
+@keyframes tkOn2{0%,23%{background:var(--tk-off);box-shadow:inset 0 0 0 .45cqw var(--tk-off-r)}27%,96%{background:var(--tk-on);box-shadow:0 0 0 .9cqw var(--tk-ring)}100%{background:var(--tk-off);box-shadow:inset 0 0 0 .45cqw var(--tk-off-r)}}
+@keyframes tkOn3{0%,48%{background:var(--tk-off);box-shadow:inset 0 0 0 .45cqw var(--tk-off-r)}52%,96%{background:var(--tk-on);box-shadow:0 0 0 .9cqw var(--tk-ring)}100%{background:var(--tk-off);box-shadow:inset 0 0 0 .45cqw var(--tk-off-r)}}
+@keyframes tkOn4{0%,73%{background:var(--tk-off);box-shadow:inset 0 0 0 .45cqw var(--tk-off-r)}77%,96%{background:#3F8F6B;box-shadow:0 0 0 .9cqw rgba(63,143,107,.18)}100%{background:var(--tk-off);box-shadow:inset 0 0 0 .45cqw var(--tk-off-r)}}
+.wc-tk{--tk-on:var(--royal);--tk-ring:rgba(11,84,112,.14);--tk-off:#fff;--tk-off-r:#C9D4D9}
+:root[data-theme="dark"] .wc-tk{--tk-on:#4A9CC0;--tk-ring:rgba(74,156,192,.2);--tk-off:#1A2227;--tk-off-r:#3D4B54}
+.wc-tk-st{color:#5A6066}
+:root[data-theme="dark"] .wc-tk-st{color:#9AA3A8}
+/* Syndicate Research: the picked research mode moves from tile to tile */
+.wc-tl-i,.wc-tl-i i{animation:10s var(--ease) infinite}
+.wc-tl-i{animation-name:tlPick}.wc-tl-i i{animation-name:tlDot}
+.wc-tl-i:nth-child(2),.wc-tl-i:nth-child(2) i{animation-delay:-7.5s}
+.wc-tl-i:nth-child(3),.wc-tl-i:nth-child(3) i{animation-delay:-5s}
+.wc-tl-i:nth-child(4),.wc-tl-i:nth-child(4) i{animation-delay:-2.5s}
+.wc-tl{--tl-on:#2F37F5;--tl-off:#B9B3D2;--tl-bg:#fff}
+:root[data-theme="dark"] .wc-tl{--tl-on:#7C82FF;--tl-off:#4A4760;--tl-bg:#1E1C27}
+@keyframes tlPick{0%,22%{box-shadow:0 0 0 .4cqw var(--tl-on),0 14px 30px -18px rgba(47,55,245,.45);transform:translateY(-3%)}27%,100%{box-shadow:0 14px 30px -22px rgba(40,30,90,.45);transform:none}}
+@keyframes tlDot{0%,22%{background:var(--tl-on);box-shadow:inset 0 0 0 .7cqw var(--tl-bg),0 0 0 .4cqw var(--tl-on)}27%,100%{background:transparent;box-shadow:inset 0 0 0 .4cqw var(--tl-off)}}
+/* Raahi: the trip dot travels from Delhi to Mussoorie */
+.wc-tt-p i{animation:ttGo 6s var(--ease) infinite}
+@keyframes ttGo{0%{left:0;opacity:0}10%{opacity:1}75%{left:calc(100% - 2.4cqw);opacity:1}88%,100%{left:calc(100% - 2.4cqw);opacity:0}}
+.wc-tt-b em{animation:ttBadge 6s ease-in-out infinite}
+@keyframes ttBadge{0%,70%{scale:1}80%{scale:1.08}90%,100%{scale:1}}
+/* Vault: each property's health light pulses, one after another */
+.wc-ss-r i{animation:ssPulse 3.6s ease-out infinite}
+.wc-ss-r:nth-child(2) i{animation-delay:1.2s}.wc-ss-r:nth-child(3) i{animation-delay:2.4s}
+@keyframes ssPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 55%,transparent)}70%,100%{box-shadow:0 0 0 2.4cqw color-mix(in srgb,var(--c) 0%,transparent)}}
+.wc-ss{animation:ssFloat 8s ease-in-out infinite alternate}
+@keyframes ssFloat{from{translate:0 -1.5%}to{translate:0 1.5%}}
+/* Signal intelligence: the signal sends out rings */
+.wc-ic-signal .wc-fi{position:relative}
+.wc-ic-signal .wc-fi::before,.wc-ic-signal .wc-fi::after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid #7FB394;animation:sgRing 3.2s ease-out infinite;pointer-events:none}
+.wc-ic-signal .wc-fi::after{animation-delay:1.6s}
+@keyframes sgRing{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+/* Approvals: the connection between the two steps draws itself, again and again */
+.wc-ic-flow .wc-fi path{stroke-dasharray:22;animation:flDraw 4s var(--ease) infinite}
+.wc-ic-flow .wc-fi path:last-child{animation-delay:.5s}
+@keyframes flDraw{0%{stroke-dashoffset:22}45%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-22}}
+.wc-feat .wc-fc{animation:fcFloat 7s ease-in-out infinite alternate}
+.wc-feat.wc-tone-sun .wc-fc{animation-delay:-3.5s}
+@keyframes fcFloat{from{translate:0 -2%}to{translate:0 2%}}
+/* User Testing: the magnifier scans the dotted field */
+.wc-mi{animation:mkScan 6s ease-in-out infinite}
+@keyframes mkScan{0%,100%{translate:0 0;rotate:0deg}25%{translate:-6% -8%;rotate:-8deg}50%{translate:4% -2%;rotate:0deg}75%{translate:-2% 6%;rotate:6deg}}
+.wc-art.wc-mark::before{animation:mkDots 30s linear infinite}
+@keyframes mkDots{to{background-position:130px 65px}}
+@media (prefers-reduced-motion:reduce){.wk-grid .wc-art *,.wk-grid .wc-art::before{animation:none!important}}
+
+/* Card hover, take 3 (Nov 2026): the card softly blurs and the pointer becomes "■ View project" (app.js .vp-cursor) */
+.wc-hover{inset:0;display:block;opacity:0;translate:none;background:rgba(255,255,255,.1);-webkit-backdrop-filter:blur(5px) saturate(115%);backdrop-filter:blur(5px) saturate(115%);transition:opacity .35s var(--ease)}
+.wc-hover>span{display:none}
+.wcard:hover .wc-hover,.wcard:focus-visible .wc-hover{opacity:1;translate:none}
+:root[data-theme="dark"] .wc-hover{background:rgba(0,0,0,.14)}
+@media (hover:hover) and (pointer:fine){.wcard,.wcard *{cursor:none}}
+.vp-cursor{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;display:flex;align-items:center;gap:12px;margin:-7px 0 0 -7px;opacity:0;transition:opacity .2s ease}
+.vp-cursor i{flex:none;width:14px;height:14px;background:var(--royal);scale:.4;transition:scale .3s var(--ease)}
+.vp-cursor span{font:500 21px/1 var(--f-sans);letter-spacing:-.01em;color:var(--royal);white-space:nowrap;text-shadow:0 0 14px rgba(255,255,255,.85),0 0 2px rgba(255,255,255,.9);translate:-6px 0;opacity:0;transition:translate .3s var(--ease),opacity .25s ease}
+.vp-cursor.on{opacity:1}
+.vp-cursor.on i{scale:1}
+.vp-cursor.on span{translate:0 0;opacity:1}
+:root[data-theme="dark"] .vp-cursor i{background:#6FB6D6}
+:root[data-theme="dark"] .vp-cursor span{color:#8CC8E2;text-shadow:0 0 14px rgba(0,0,0,.75),0 0 2px rgba(0,0,0,.8)}
+@media (hover:none),(pointer:coarse){.vp-cursor{display:none}}
+
+/* Cursor, take 2: no square, the pointer is just the "View project" label, centred on the pointer */
+.vp-cursor{margin:0;gap:0}
+.vp-cursor span{translate:-50% -50%;scale:.85;padding:10px 18px;border-radius:999px;font-size:17px;color:var(--royal);text-shadow:none;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.8);-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);box-shadow:0 10px 28px -12px rgba(16,40,56,.45);transition:scale .25s var(--ease),opacity .2s ease}
+.vp-cursor.on span{translate:-50% -50%;scale:1}
+:root[data-theme="dark"] .vp-cursor span{color:#8CC8E2;text-shadow:none;background:rgba(18,21,24,.62);border-color:rgba(255,255,255,.14);box-shadow:0 10px 28px -12px rgba(0,0,0,.6)}
+
+/* Jasper Colin card, take 2: the colours themselves now trade places as the glows travel and the angle turns */
+@property --gc1{syntax:"<color>";inherits:false;initial-value:#E9C779}
+@property --gc2{syntax:"<color>";inherits:false;initial-value:#A9CADA}
+@property --gc3{syntax:"<color>";inherits:false;initial-value:#2F7896}
+.wk-grid .wc-art.wc-grad{background-image:var(--paper-grain),radial-gradient(60% 75% at var(--g1x) var(--g1y),var(--gc1) 0,transparent 70%),radial-gradient(60% 75% at var(--g2x) var(--g2y),var(--gc2) 0,transparent 70%),radial-gradient(75% 85% at var(--g3x) var(--g3y),var(--gc3) 0,transparent 75%),linear-gradient(var(--ga),#D9B56A,#6FA4BD);animation:wcGradLive 12s ease-in-out infinite alternate}
+@keyframes wcGradLive{
+  0%{--g1x:15%;--g1y:20%;--g2x:88%;--g2y:18%;--g3x:65%;--g3y:100%;--ga:135deg;--gc1:#E9C779;--gc2:#A9CADA;--gc3:#2F7896}
+  33%{--g1x:45%;--g1y:75%;--g2x:65%;--g2y:5%;--g3x:15%;--g3y:70%;--ga:200deg;--gc1:#A9CADA;--gc2:#2F7896;--gc3:#E9C779}
+  66%{--g1x:85%;--g1y:40%;--g2x:15%;--g2y:30%;--g3x:70%;--g3y:20%;--ga:270deg;--gc1:#2F7896;--gc2:#E9C779;--gc3:#A9CADA}
+  100%{--g1x:30%;--g1y:10%;--g2x:80%;--g2y:85%;--g3x:35%;--g3y:95%;--ga:330deg;--gc1:#E9C779;--gc2:#A9CADA;--gc3:#2F7896}}
+
+/* Every card, livelier (Nov 2026): faster loops and bigger movement */
+.wc-tk-line::after,.wc-tk-st i,.wc-tk-st{animation-duration:6s}
+.wc-tl-i,.wc-tl-i i{animation-duration:6s}
+.wc-tl-i:nth-child(2),.wc-tl-i:nth-child(2) i{animation-delay:-4.5s}
+.wc-tl-i:nth-child(3),.wc-tl-i:nth-child(3) i{animation-delay:-3s}
+.wc-tl-i:nth-child(4),.wc-tl-i:nth-child(4) i{animation-delay:-1.5s}
+@keyframes tlPick{0%,22%{box-shadow:0 0 0 .5cqw var(--tl-on),0 18px 34px -16px rgba(47,55,245,.55);transform:translateY(-8%) scale(1.04)}27%,100%{box-shadow:0 14px 30px -22px rgba(40,30,90,.45);transform:none}}
+.wc-tt-p i{animation-duration:3.6s}.wc-tt-b em{animation-duration:3.6s}
+@keyframes ttBadge{0%,70%{scale:1}80%{scale:1.18}90%,100%{scale:1}}
+.wc-ss-r i{animation-duration:2.4s}.wc-ss-r:nth-child(2) i{animation-delay:.8s}.wc-ss-r:nth-child(3) i{animation-delay:1.6s}
+@keyframes ssPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 70%,transparent)}70%,100%{box-shadow:0 0 0 4cqw color-mix(in srgb,var(--c) 0%,transparent)}}
+.wc-ss{animation-duration:4s}
+@keyframes ssFloat{from{translate:0 -4%}to{translate:0 4%}}
+.wc-ss-r{animation:ssSlide 6s ease-in-out infinite}
+.wc-ss-r:nth-child(2){animation-delay:-2s}.wc-ss-r:nth-child(3){animation-delay:-4s}
+@keyframes ssSlide{0%,100%{background:rgba(255,255,255,.07)}15%,30%{background:rgba(255,255,255,.16)}}
+.wc-ic-signal .wc-fi::before,.wc-ic-signal .wc-fi::after{animation-duration:2.2s;border-width:2px}
+.wc-ic-signal .wc-fi::after{animation-delay:1.1s}
+@keyframes sgRing{0%{transform:scale(1);opacity:.9}100%{transform:scale(3);opacity:0}}
+.wc-ic-flow .wc-fi path{animation-duration:2.6s}
+.wc-feat .wc-fc{animation-duration:4s}
+@keyframes fcFloat{from{translate:0 -5%;rotate:-1deg}to{translate:0 5%;rotate:1deg}}
+.wc-mi{animation-duration:4s}
+@keyframes mkScan{0%,100%{translate:0 0;rotate:0deg}25%{translate:-18% -20%;rotate:-14deg}50%{translate:14% -6%;rotate:0deg}75%{translate:-8% 16%;rotate:12deg}}
+.wc-art.wc-mark::before{animation-duration:12s}
+
+/* Cursor, take 3 (her pick): a small solid square at the pointer, a small plain "View project" label beside it, site blue */
+.vp-cursor{gap:9px;margin:-5px 0 0 -5px}
+.vp-cursor i{display:block;width:10px;height:10px;border-radius:0;rotate:0deg;background:var(--royal);scale:1;transition:none}
+.vp-cursor span,.vp-cursor.on span{translate:0 0;scale:1;padding:0;border:0;border-radius:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;font:500 15px/1 var(--f-sans);letter-spacing:0;color:var(--royal);text-shadow:0 0 10px rgba(255,255,255,.9),0 0 2px rgba(255,255,255,.9);transition:opacity .2s ease}
+:root[data-theme="dark"] .vp-cursor i,.vp-cursor.on-dark i{background:#7CC3E0}
+:root[data-theme="dark"] .vp-cursor span,:root[data-theme="dark"] .vp-cursor.on span,.vp-cursor.on-dark span,.vp-cursor.on-dark.on span{color:#9AD0E8;background:none;border:0;box-shadow:none;text-shadow:0 0 10px rgba(0,0,0,.7),0 0 2px rgba(0,0,0,.8)}
+/* the site cursor turns into a diamond over clickable things; on project cards hide it so only "■ View project" shows */
+@media (hover:hover) and (pointer:fine){.wk-grid .wcard,.wk-grid .wcard *,a.wcard,a.wcard *{cursor:none!important}}
+/* Cursor, take 4: the square is the site cursor's own square (14px, centred on the pointer), and "View project"
+   slides out from behind it when the pointer enters a card */
+.vp-cursor{gap:0;margin:-7px 0 0 -7px;align-items:center}
+.vp-cursor i{position:relative;z-index:1;width:14px;height:14px;background:#0B5470}
+.vp-cursor b{display:block;overflow:hidden;padding:4px 4px 4px 0;margin-left:-2px}
+.vp-cursor span,.vp-cursor.on span{display:block;padding-left:10px;opacity:0;translate:-105% 0;transition:translate .45s cubic-bezier(.2,.8,.2,1),opacity .2s ease}
+.vp-cursor.on span{opacity:1;translate:0 0}
+:root[data-theme="dark"] .vp-cursor i{background:#7CC3E0}
+:root[data-theme="dark"] .vp-cursor span,:root[data-theme="dark"] .vp-cursor.on span{translate:-105% 0}
+:root[data-theme="dark"] .vp-cursor.on span,.vp-cursor.on-dark.on span{translate:0 0}
+.vp-cursor.on-dark span{translate:-105% 0}
+/* the square always matches the site cursor exactly (same blue in both themes), and appears instantly */
+.vp-cursor{transition:none}
+.vp-cursor i,:root[data-theme="dark"] .vp-cursor i,.vp-cursor.on-dark i{background:#0B5470;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+
+/* Journal tiles, redesigned (Nov 2026) to match the project cards: tinted banner + drawn moving object + tag; title below */
+.wk-grid .wc-art.jt-v{background-color:var(--tint);background-image:var(--paper-grain);background-size:220px 220px}
+.jt-tag{position:absolute;left:4.4cqw;top:4.4cqw;font:600 2.1cqw/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:#2A2D31;padding:1.4cqw 2.2cqw;border-radius:99px;background:rgba(255,255,255,.66)}
+.jtile .wc-cap b{font-weight:500}
+.ja-board,.ja-cart,.ja-scale{position:relative;font-family:var(--f-sans);color:#2A2D31}
+/* job hunt: an application moves Applied → Interview → Offer */
+.ja-board{width:72cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw}
+.ja-col{display:flex;flex-direction:column;gap:1.6cqw;min-height:30cqw;padding:2.2cqw;border-radius:2.6cqw;background:rgba(255,255,255,.55)}
+.ja-col em{font:500 2.4cqw/1 var(--f-sans);font-style:normal;color:#5A6066}
+.ja-slot{height:6.4cqw}
+.ja-chip{display:block;padding:1.8cqw 2cqw;border-radius:1.8cqw;background:#fff;font-size:2.3cqw;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 8px 18px -12px rgba(30,50,40,.35)}
+.ja-move{position:absolute;top:8.2cqw;left:2.2cqw;width:calc((72cqw - 4cqw)/3 - 4.4cqw);box-shadow:0 0 0 .4cqw #6E9A7E,0 12px 24px -12px rgba(30,50,40,.45);animation:jaMove 7.5s var(--ease) infinite}
+@keyframes jaMove{0%,18%{translate:0 0}30%,52%{translate:calc((72cqw - 4cqw)/3 + 2cqw) 0}64%,88%{translate:calc(((72cqw - 4cqw)/3 + 2cqw)*2) 0;box-shadow:0 0 0 .4cqw #3F8F6B,0 12px 24px -12px rgba(30,50,40,.45)}100%{translate:0 0}}
+/* shared cart: items drop in, then the bill splits three ways */
+.ja-cart{width:62cqw;display:grid;gap:3cqw;padding:4.4cqw;border-radius:3.4cqw;background:rgba(255,255,255,.8);box-shadow:0 18px 40px -24px rgba(80,55,20,.45)}
+.ja-cart-h{display:flex;justify-content:space-between;align-items:center}
+.ja-cart-h b{font-size:4.2cqw;font-weight:600;letter-spacing:-.02em}
+.ja-avs{display:flex}
+.ja-avs i{display:grid;place-items:center;width:5cqw;height:5cqw;margin-left:-1.2cqw;border-radius:50%;font:600 2.2cqw/1 var(--f-sans);font-style:normal;color:#2A2D31;background:#F1DDBA;box-shadow:0 0 0 .5cqw #fff}
+.ja-avs i:nth-child(2){background:#D9E6DA}.ja-avs i:nth-child(3){background:#DCE6F1}
+.ja-items{display:grid;gap:1.4cqw}
+.ja-it{display:flex;justify-content:space-between;align-items:center;font-size:2.8cqw;padding:1.6cqw 0;border-bottom:1px solid rgba(42,45,49,.08);animation:jaIn 6s var(--ease) infinite;animation-delay:calc(var(--i)*.35s)}
+.ja-it i{width:6cqw;height:1.2cqw;border-radius:99px;background:#E9E1D2}
+@keyframes jaIn{0%,4%{opacity:0;translate:0 -30%}12%,86%{opacity:1;translate:0 0}96%,100%{opacity:0;translate:0 0}}
+.ja-split{display:flex;justify-content:space-between;align-items:center;gap:3cqw;font-size:2.5cqw;color:#5A6066}
+.ja-bar{flex:1;display:flex;gap:.8cqw;height:1.6cqw}
+.ja-bar i{flex:1;border-radius:99px;background:#E9E1D2;animation:jaBar 6s var(--ease) infinite}
+.ja-bar i:nth-child(1){--b:#E2BC69}.ja-bar i:nth-child(2){--b:#8FB59A;animation-delay:.25s}.ja-bar i:nth-child(3){--b:#7FA6C9;animation-delay:.5s}
+@keyframes jaBar{0%,40%{background:#E9E1D2}52%,86%{background:var(--b)}96%,100%{background:#E9E1D2}}
+/* good vs addictive: the knob keeps swinging between the two ends */
+.ja-scale{width:64cqw;display:grid;gap:3.4cqw;padding:5cqw;border-radius:3.4cqw;background:rgba(255,255,255,.8);box-shadow:0 18px 40px -24px rgba(50,40,100,.4)}
+.ja-q{font-size:4.2cqw;font-weight:600;letter-spacing:-.02em;text-align:center}
+.ja-track{position:relative;height:1.8cqw;border-radius:99px;background:linear-gradient(90deg,#9CC3A8,#E7D9F2 50%,#D99A9A)}
+.ja-knob{position:absolute;top:50%;left:0;width:5.4cqw;height:5.4cqw;translate:-50% -50%;border-radius:50%;background:#fff;box-shadow:0 0 0 .5cqw #6B5FB5,0 8px 18px -8px rgba(50,40,100,.5);animation:jaSwing 5s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes jaSwing{0%{left:10%;box-shadow:0 0 0 .5cqw #5E9C82,0 8px 18px -8px rgba(30,70,50,.5)}50%{left:50%;box-shadow:0 0 0 .5cqw #6B5FB5,0 8px 18px -8px rgba(50,40,100,.5)}100%{left:90%;box-shadow:0 0 0 .5cqw #C26B6B,0 8px 18px -8px rgba(110,40,40,.5)}}
+.ja-ends{display:flex;justify-content:space-between;font-size:2.6cqw;color:#5A6066}
+/* same hover as the project cards: lift + blur, the cursor says "Read entry" */
+.wk-grid .wcard.jtile:hover .wc-art,.wk-grid>.wcard.jtile:nth-child(even):hover .wc-art{transform:translateY(-4px);box-shadow:0 22px 44px -22px rgba(16,40,56,.45)}
+.wk-grid .wcard.jtile:hover .wc-art.jt-v{background-color:var(--tint)!important}
+/* dark theme */
+:root[data-theme="dark"] .wk-grid .wc-art.jt-v{background-color:color-mix(in srgb,var(--tint) 24%,#17191C)}
+:root[data-theme="dark"] .wk-grid .wcard.jtile:hover .wc-art.jt-v{background-color:color-mix(in srgb,var(--tint) 24%,#17191C)!important}
+:root[data-theme="dark"] .jt-tag{background:rgba(255,255,255,.1);color:#ECE9E3}
+:root[data-theme="dark"] .ja-board,:root[data-theme="dark"] .ja-cart,:root[data-theme="dark"] .ja-scale{color:#ECE9E3}
+:root[data-theme="dark"] .ja-col{background:rgba(255,255,255,.05)}
+:root[data-theme="dark"] .ja-chip,:root[data-theme="dark"] .ja-cart,:root[data-theme="dark"] .ja-scale{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+:root[data-theme="dark"] .ja-move{background:#2A332E}
+:root[data-theme="dark"] .ja-col em,:root[data-theme="dark"] .ja-split,:root[data-theme="dark"] .ja-ends{color:#9AA3A8}
+:root[data-theme="dark"] .ja-it{border-color:rgba(255,255,255,.08)}
+:root[data-theme="dark"] .ja-it i,:root[data-theme="dark"] .ja-bar i{background:rgba(255,255,255,.1)}
+:root[data-theme="dark"] .ja-avs i{color:#17191C;box-shadow:0 0 0 .5cqw #26282B}
+:root[data-theme="dark"] .ja-knob{background:#26282B}
+@media (prefers-reduced-motion:reduce){.jt-v *{animation:none!important}}
+/* feature trap: extra features keep piling onto the toolbar and squeeze the one core action */
+.ja-tool{position:relative;width:70cqw;display:grid;gap:3.4cqw;padding:4.4cqw;border-radius:3.4cqw;background:rgba(255,255,255,.8);box-shadow:0 18px 40px -24px rgba(20,60,80,.4);font-family:var(--f-sans);color:#2A2D31}
+.ja-tool-bar{display:flex;flex-wrap:wrap;gap:1.4cqw;align-items:center;min-height:15cqw;align-content:flex-start}
+.ja-core{padding:2cqw 3.4cqw;border-radius:99px;background:#0B5470;color:#fff;font-size:2.8cqw;font-weight:600;animation:jaCore 8s var(--ease) infinite}
+.ja-f{padding:1.8cqw 2.4cqw;border-radius:99px;background:#EAF1F4;font-size:2.4cqw;color:#3D4A52;animation:jaAdd 8s var(--ease) infinite;animation-delay:calc(var(--i)*.45s)}
+@keyframes jaAdd{0%,6%{opacity:0;scale:.6}14%,84%{opacity:1;scale:1}94%,100%{opacity:0;scale:.6}}
+@keyframes jaCore{0%,20%{scale:1;opacity:1}55%,84%{scale:.82;opacity:.55}100%{scale:1;opacity:1}}
+.ja-tool-n{font-size:2.5cqw;color:#5A6066}.ja-tool-n b{color:#2A2D31;font-weight:600}.ja-tool-n .ja-down{color:#C26B6B}
+:root[data-theme="dark"] .ja-tool{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);color:#ECE9E3}
+:root[data-theme="dark"] .ja-f{background:rgba(255,255,255,.1);color:#C9D0D4}
+:root[data-theme="dark"] .ja-tool-n{color:#9AA3A8}:root[data-theme="dark"] .ja-tool-n b{color:#ECE9E3}
+:root[data-theme="dark"] .ja-core{background:#3F8FB0}
