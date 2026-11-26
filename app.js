@@ -871,7 +871,7 @@ function notesWall(){
   const fmt=d=>new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"}).format(new Date(d));
   const card=n=>{const a=document.createElement("article"); a.className="nt";
     const q=document.createElement("p"); q.className="nt-q"; q.textContent=n.text;
-    const f=document.createElement("p"); f.className="nt-by"; const b=document.createElement("span"); b.textContent=n.name||"anonymous"; const d=document.createElement("span"); d.textContent=n.pending?"Waiting for approval":fmt(n.at); f.append(b,d);
+    const f=document.createElement("p"); f.className="nt-by"; const b=document.createElement("span"); b.textContent=n.name||"anonymous"; f.append(b); if(n.pending){ const d=document.createElement("span"); d.textContent="Waiting for approval"; f.append(d); } /* no dates on notes (her ask, Nov 2026) */
     if(n.pending) a.classList.add("nt-pend");
     a.append(q,f); return a;};
   const readLocal=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return []}};
@@ -900,9 +900,10 @@ function notesWall(){
   const colsN=()=>{ const w=grid.clientWidth||innerWidth; return w>=980?4:w>=700?3:w>=440?2:1; };
   const layout=force=>{ const k=colsN(); if(!force&&k===colK) return; colK=k; grid.style.setProperty("--k",k);
     const cols=[...Array(k)].map(()=>{ const d=document.createElement("div"); d.className="nt-col"; return d; });
-    [newBox,...cards].forEach((c,i)=>cols[i%k].appendChild(c)); grid.replaceChildren(...cols); };
+    [newBox,...cards,pin].forEach((c,i)=>cols[i%k].appendChild(c)); grid.replaceChildren(...cols); };
+  /* her own note (Nov 2026, her ask): always the last note on the wall; written here, not in the database */
+  const pin=card({text:"hey there! feel free to leave a note :)",name:"Devanshi"}); pin.classList.add("nt-pin");
   const render=l=>{ cards=l.sort((a,b)=>new Date(b.at)-new Date(a.at)).map(card);
-    if(!l.length){const e=document.createElement("p"); e.className="nt nt-empty"; e.textContent="No notes yet. Be the first to leave one."; cards=[e];}
     layout(true); };
   /* re-flow when the wall's width changes, including when the Notes tab is first opened */
   if(window.ResizeObserver) new ResizeObserver(()=>{ if(grid.clientWidth) layout(); }).observe(grid);
