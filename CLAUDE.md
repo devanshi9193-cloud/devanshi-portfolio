@@ -88,12 +88,9 @@ Serve with `python3 -m http.server` and check desktop (1440) and phone (390) wid
 - On hover they behave exactly like the project cards (card stays put, drawing rises and scales 1.03, blur), and the square cursor says "Read entry". In dark mode the tint is mixed 24% into #17191C. Reduced motion stops everything.
 - A new post with no `JART` entry falls back to its title in the banner. Add a drawn object for it.
 
-## Opening intro (Nov 2026)
-- Style (take 4): an ORIGINAL pretty, stylish cartoon GIRL in pen-and-ink line art (her ask: "make it a girl"). Keep her elegant and confident, never sexualised; this is a professional portfolio. She has a long swinging ponytail (`.in-pony`), almond eyes with a lash flick, hoop earrings, a fitted belted sweater, a hatched A-line skirt and heeled ankle boots. Never Mario or the man in her reference.
-  - Lines use `var(--ink)` on the site's paper, so dark mode becomes chalk on slate.
-  - The lines "boil" slightly: the `inBoil` keyframes swap the SVG displacement filters `#inkA` and `#inkB`.
-- Scene: the shutter is the site's paper with faint hairlines and a pale sketched rock and two birds. The road is drawn in JS as broken, wobbly pen lines with grass tufts.
-- Quote: "Welcome to my little corner of the creative universe." in upright Libre Baskerville, in ink, ON THE ROAD at the bottom (her ask: "come out of him on the bottom"). Each word appears just behind him as he walks. On a phone it wraps, so the words appear in reading order as he walks.
-- He walks to the BOTTOM-RIGHT corner and lifts the shutter from there, right side first. He waves, then the road and the character slide away. The whole intro takes about 8s.
-- Testing: the pane's screenshots lag and headless Chrome mis-times the transitions. To capture a real frame, call `document.getAnimations().forEach(a=>a.pause())` mid-walk, then take the screenshot.
-- When it plays: once per visit (sessionStorage `dv-intro`). The inline script in the index.html head adds `html.intro`, which hides the site until the shutter lifts, so the site never flashes first. Esc or the "Skip intro" button skips it. Reduced motion means no intro.
+## Opening splash (Nov 2026)
+- The cartoon intro was REPLACED at her request with a typing splash. Don't bring the cartoon back unless she asks.
+- On the site's paper (`--desk` + grain), "{ Welcome to my little corner of the creative universe. }" types out in the middle on ONE small line, in the same font and colour as the header name (`.tb-name`: Figtree 400, 1rem, `var(--faint)`). The braces and the square cursor are the same colour, with no blue highlight. The closing brace follows the cursor. On a phone the text shrinks (`min(1rem,3.3vw)`) to stay on one line.
+- Typing sound: soft keyboard clicks made with Web Audio in app.js (no audio file). Browsers block sound until the visitor clicks or presses a key, so the clicks start the moment they do, or when they tap the "Sound on" pill. That pill reads "Mute" while sound is on. Where the browser already allows sound, it plays from the start.
+- When it plays: once per visit (sessionStorage `dv-intro`). The inline script in the index.html head adds `html.intro`, which hides the site until the splash fades out, so the site never flashes first. It takes about 5s. Esc or "Skip intro" skips it. Reduced motion means no splash.
+- Known, older than the splash: styles.css asks for `assets/fonts/twk-lausanne-400/500.woff2`, which don't exist (404). The fallback font shows instead.

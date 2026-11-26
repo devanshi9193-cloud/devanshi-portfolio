@@ -1211,92 +1211,53 @@ route();
 })();
 
 
-/* Opening intro (Nov 2026, her idea + her ink-cartoon reference): a pretty, stylish original cartoon girl, drawn like a pen-and-ink comic,
-   walks along a hand-drawn road; the line "Welcome to my little corner of the creative universe." comes out behind him along the road;
-   at the bottom-right corner he lifts the "shutter" (the site's own paper) to reveal the site. Once per visit, skippable, off for reduced motion. */
+/* Opening splash (Nov 2026, her ask): on the site's paper, "{ Welcome to my little corner of the creative universe. }" types out in the middle
+   with a blinking cursor and soft keyboard clicks (made with Web Audio, no file). Browsers block sound until the visitor clicks or presses a key,
+   so the clicks start the moment they do (or tap "Sound on"). Once per visit, skippable, off for reduced motion. */
 (function(){
   const root=document.documentElement;
   if(!root.classList.contains("intro")) return;
   const MSG="Welcome to my little corner of the creative universe.";
-  const CHAR=`<svg class="in-svg in-ink" viewBox="0 0 100 150" aria-hidden="true">
-    <ellipse class="kf in-shadow" cx="54" cy="145" rx="24" ry="3.4"/>
-    <g class="in-leg in-leg-b"><rect x="43" y="98" width="8" height="30" rx="4" class="k"/><path d="M42 124 h9 v8 q9 0 11 5 v2 h-21 q-1 -9 1 -15Z" class="kf"/></g>
-    <g class="in-leg in-leg-f"><rect x="51" y="98" width="8" height="30" rx="4" class="k"/><path d="M50 124 h9 v8 q9 0 11 5 v2 h-21 q-1 -9 1 -15Z" class="kf"/><path d="M62 133 q4 0 6 2" class="kl in-shine"/></g>
-    <g class="in-arm in-arm-b"><rect x="40" y="61" width="9" height="28" rx="4.5" class="k"/><circle cx="44.5" cy="92" r="4.5" class="k"/></g>
-    <path d="M36 84 L64 84 L73 108 Q53 115 27 108Z" class="kh"/>
-    <path d="M38 63 Q38 56 50 56 Q62 56 62 63 L60 86 Q50 89 40 86Z" class="k"/>
-    <path d="M39 84 h22" class="kl kl2"/><path d="M45 57 q5 6 10 0" class="kl"/>
-    <path d="M47.5 58 v-7 h6 v7" class="k"/>
-    <g class="in-arm in-arm-f"><rect x="53" y="61" width="9" height="28" rx="4.5" class="k"/><path d="M53.5 84 h8" class="kl"/><circle cx="57.5" cy="92" r="4.5" class="k"/></g>
-    <g class="in-pony"><path d="M40 17 C25 14 18 30 21 46 C23 57 17 63 12 68 C27 66 33 53 32 42 C32 32 34 25 41 21Z" class="kf"/><path d="M24 30 q-2 12 2 22 M28 26 q-3 14 1 24" class="kl in-shine"/></g>
-    <circle cx="54" cy="32" r="20.5" class="k"/>
-    <path d="M35 36 Q32 12 55 12 Q73 12 74 29 Q67 19 57 21 Q52 30 41 30 Q37 33 35 36Z" class="kf"/>
-    <path d="M44 18 q8 -4 16 -2 M48 23 q6 -5 14 -4" class="kl in-shine"/>
-    <circle cx="40" cy="17" r="3.2" class="k"/>
-    <path d="M44 46 v3" class="kl"/><circle cx="44" cy="52" r="2.6" class="kl"/>
-    <g class="in-eyes"><ellipse cx="59.5" cy="36" rx="2.4" ry="3.3" class="kf"/><ellipse cx="68.8" cy="36.4" rx="2.2" ry="3.1" class="kf"/>
-      <circle cx="60.3" cy="35" r=".8" class="in-glint"/><circle cx="69.5" cy="35.4" r=".75" class="in-glint"/></g>
-    <path d="M56.6 33.4 q3 -1.8 6 .2 l1.6 -1.2 M66 33.8 q2.8 -1.6 5.6 .2 l1.6 -1.1" class="kl"/>
-    <path d="M56 28.6 q3.5 -3.2 7.5 -1.2 M66.2 29 q3 -2.6 6 -.6" class="kl"/>
-    <path d="M73.5 38 q4 4 .5 6.5" class="kl"/>
-    <path d="M61.5 46 q5.5 5 11 -.6" class="kl kl2"/><path d="M64.5 49.6 q3 1.4 5.4 -.4" class="kl"/>
-    
-  </svg>`;
-  /* hand-drawn lines: slightly wobbly, broken strokes, like pen on paper */
-  let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; };
-  const line=(x0,x1,y,amp)=>{ let d="", x=x0; while(x<x1){ const len=120+rnd()*260, e=Math.min(x1,x+len); d+=`M${x.toFixed(1)} ${(y+(rnd()-.5)*amp).toFixed(1)}`;
-      for(let s=x+30;s<e;s+=30) d+=` L${s.toFixed(1)} ${(y+(rnd()-.5)*amp).toFixed(1)}`; d+=` L${e.toFixed(1)} ${(y+(rnd()-.5)*amp).toFixed(1)}`; x=e+6+rnd()*18; } return d; };
-  const tufts=(x0,x1,y)=>{ let d="", x=x0+40+rnd()*80; while(x<x1-20){ d+=`M${x} ${y} l-4 -8 M${x+4} ${y} l0 -10 M${x+8} ${y} l4 -7 `; x+=130+rnd()*220; } return d; };
-  const W=innerWidth, H=innerHeight;
   const el=document.createElement("div");
-  el.className="intro-scene"; el.setAttribute("role","dialog"); el.setAttribute("aria-label",MSG);
-  el.innerHTML=`<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <defs><filter id="inkA"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
-      <filter id="inkB"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
-      <pattern id="inHatch" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="4.5" height="4.5" class="in-hbg"/><line x1="0" y1="0" x2="0" y2="4.5" class="in-hl"/></pattern></defs></svg>
-    <div class="in-shwrap"><div class="in-shutter">
-      <svg class="in-sketch in-ink" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M${W*.66} ${H} C${W*.69} ${H*.8} ${W*.72} ${H*.74} ${W*.75} ${H*.64} C${W*.77} ${H*.57} ${W*.79} ${H*.6} ${W*.81} ${H*.54} C${W*.83} ${H*.5} ${W*.86} ${H*.55} ${W*.88} ${H*.62} C${W*.92} ${H*.72} ${W*.96} ${H*.72} ${W+4} ${H*.76}"/>
-        <path d="M${W*.76} ${H*.66} c8 12 2 22 12 34 M${W*.83} ${H*.56} c-5 14 6 20 1 34" class="thin"/>
-        <path d="M${W*.18} ${H*.2} q8 -8 16 0 q8 -8 16 0 M${W*.24} ${H*.26} q6 -6 12 0 q6 -6 12 0" class="thin"/>
-      </svg>
-      <span class="in-handle"></span></div></div>
-    <div class="in-road">
-      <svg class="in-roadart in-ink" viewBox="0 0 ${W} 120" preserveAspectRatio="none" aria-hidden="true">
-        <path d="${line(-10,W+10,14,2.4)}"/><path d="${line(-10,W+10,104,2.4)}"/><path d="${tufts(0,W,104)}" class="thin"/><path d="${tufts(0,W,14)}" class="thin"/>
-      </svg>
-      <p class="in-quote" aria-hidden="true">${MSG.split(" ").map(w=>`<span>${w}</span>`).join(" ")}</p>
-    </div>
-    <div class="in-char"><div class="in-flip">${CHAR}</div></div>
-    <button class="in-skip" type="button">Skip intro</button>`;
+  el.className="intro-splash"; el.setAttribute("role","dialog"); el.setAttribute("aria-label",MSG);
+  el.innerHTML=`<p class="sp-line" aria-hidden="true"><span class="sp-ghost">{ ${MSG} }</span><span class="sp-typed">{ <span class="sp-t"></span><i class="sp-caret"></i> }</span></p>
+    <div class="sp-ctrls"><button class="sp-sound" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="sp-w" d="M15.5 9.2a4 4 0 0 1 0 5.6M18 7a7 7 0 0 1 0 10"/><path class="sp-x" d="M16 10l4 4M20 10l-4 4"/></svg><span>Sound on</span></button><button class="sp-skip" type="button">Skip intro</button></div>`;
   document.body.appendChild(el);
-  const ch=el.querySelector(".in-char"), words=[...el.querySelectorAll(".in-quote span")];
-  let done=false;
+  const out=el.querySelector(".sp-t"), sbtn=el.querySelector(".sp-sound");
+  let done=false, ac=null, soundOn=false;
   const wait=ms=>new Promise(r=>setTimeout(r,ms));
-  const moveTo=(x,ms)=>{ ch.style.transitionDuration=ms+"ms"; ch.style.transform=`translateX(${x}px)`; return wait(ms); };
+  /* a soft mechanical key: a short filtered noise "tick" plus a low "thock"; space is deeper */
+  const click=ch=>{ if(!soundOn||!ac||ac.state!=="running") return;
+    const t=ac.currentTime, len=.05, buf=ac.createBuffer(1,Math.floor(ac.sampleRate*len),ac.sampleRate), d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,5);
+    const n=ac.createBufferSource(); n.buffer=buf;
+    const bp=ac.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=(ch===" "?1500:2600)+Math.random()*900; bp.Q.value=1.1;
+    const g=ac.createGain(); g.gain.value=ch===" "?.22:.16+Math.random()*.06;
+    n.connect(bp).connect(g).connect(ac.destination); n.start(t);
+    const o=ac.createOscillator(), og=ac.createGain(); o.type="triangle"; o.frequency.setValueAtTime(ch===" "?120:170+Math.random()*40,t); o.frequency.exponentialRampToValueAtTime(60,t+.06);
+    og.gain.setValueAtTime(ch===" "?.16:.09,t); og.gain.exponentialRampToValueAtTime(.0001,t+.07);
+    o.connect(og).connect(ac.destination); o.start(t); o.stop(t+.08); };
+  const enable=()=>{ if(soundOn) return; try{ ac=ac||new (window.AudioContext||window.webkitAudioContext)(); ac.resume(); }catch(e){ return; }
+    soundOn=true; sbtn.setAttribute("aria-pressed","true"); sbtn.classList.add("on"); sbtn.querySelector("span").textContent="Mute"; };
+  const disable=()=>{ soundOn=false; sbtn.setAttribute("aria-pressed","false"); sbtn.classList.remove("on"); sbtn.querySelector("span").textContent="Sound on"; };
+  /* try straight away (works where the browser already allows sound), otherwise wait for the first click or key */
+  try{ ac=new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==="running"){ soundOn=true; sbtn.classList.add("on"); sbtn.setAttribute("aria-pressed","true"); sbtn.querySelector("span").textContent="Mute"; } }catch(e){}
   const remember=()=>{ try{sessionStorage.setItem("dv-intro","1")}catch(e){} };
-  const finish=()=>{ if(done) return; done=true; remember(); root.classList.remove("intro"); el.classList.add("in-out"); setTimeout(()=>el.remove(),520); removeEventListener("keydown",onKey); };
-  const onKey=e=>{ if(e.key==="Escape") finish(); };
-  addEventListener("keydown",onKey);
-  el.querySelector(".in-skip").addEventListener("click",finish);
-  /* each word comes out just behind him as he walks past (in reading order when the line wraps on a phone) */
-  let watching=false, oneLine=true, x1=1;
-  const watch=()=>{ const x=ch.getBoundingClientRect().left+ch.offsetWidth*.3;
-    words.forEach((w,i)=>{ if(w.classList.contains("on")) return; const r=w.getBoundingClientRect();
-      if(oneLine ? r.left+r.width*.5<x : x/x1>(i+.5)/words.length) w.classList.add("on"); });
-    if(watching) requestAnimationFrame(watch); };
+  const cleanup=()=>{ removeEventListener("keydown",onKey); removeEventListener("pointerdown",onFirst,true); setTimeout(()=>{ try{ac&&ac.close()}catch(e){} },400); };
+  const finish=()=>{ if(done) return; done=true; remember(); root.classList.remove("intro"); el.classList.add("sp-out"); setTimeout(()=>el.remove(),700); cleanup(); };
+  const onKey=e=>{ if(e.key==="Escape") return finish(); enable(); };
+  const onFirst=e=>{ if(e.target.closest&&e.target.closest(".sp-sound,.sp-skip")) return; enable(); };
+  addEventListener("keydown",onKey); addEventListener("pointerdown",onFirst,true);
+  sbtn.addEventListener("click",()=>{ soundOn?disable():enable(); });
+  el.querySelector(".sp-skip").addEventListener("click",finish);
   (async()=>{
-    const cw=ch.offsetWidth, end=Math.round(W-cw-Math.max(10,W*.03));
-    ch.style.transitionDuration="0ms"; ch.style.transform=`translateX(${-cw-20}px)`;
-    await wait(350); if(done) return;
-    oneLine=new Set(words.map(w=>w.offsetTop)).size===1; x1=end+cw*.3;
-    ch.classList.add("walk"); watching=true; requestAnimationFrame(watch);
-    await moveTo(end, Math.round(Math.min(4400,Math.max(2800,(end+cw)*3.2)))); watching=false; ch.classList.remove("walk"); if(done) return;
-    words.forEach(w=>w.classList.add("on")); await wait(900); if(done) return;
-    ch.classList.add("grab"); await wait(380); if(done) return;
-    root.classList.remove("intro"); ch.classList.add("lift"); el.classList.add("open"); await wait(1500); if(done) return;
-    ch.classList.remove("grab","lift"); ch.classList.add("wave"); await wait(900); if(done) return;
-    el.classList.add("leave"); await wait(650);
-    if(!done){ done=true; remember(); removeEventListener("keydown",onKey); el.remove(); }
+    await wait(650); if(done) return;
+    el.classList.add("typing");
+    for(let i=0;i<MSG.length;i++){ if(done) return;
+      const ch=MSG[i]; out.textContent=MSG.slice(0,i+1); click(ch);
+      await wait(ch===" "?95+Math.random()*60 : ch==="."?160 : 48+Math.random()*58);
+    }
+    el.classList.remove("typing"); await wait(1300); if(done) return;
+    finish();
   })();
 })();
