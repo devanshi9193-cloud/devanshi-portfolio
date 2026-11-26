@@ -1369,7 +1369,7 @@ html.intro .frame,html.intro .topbar,html.intro .dock,html.intro .explore,html.i
 .cs2 .fx-p,.cs2 .fx-subp{margin-top:14px;font-size:15px;line-height:1.55;color:var(--muted);max-width:none}
 .cs2 .vt-body{margin-top:24px}
 .cs2 .fx-quote{font-size:24px}
-.cs2 .cs-next{padding-bottom:40px}
+
 .cs2 .cs-toc{position:fixed;left:24px;top:240px;z-index:5;display:flex;flex-direction:column;align-items:flex-start;gap:12px;max-width:190px;transition:opacity .35s var(--ease)}
 .cs2 .cs-toc.off{opacity:0;pointer-events:none}
 .cs2 .cs-toc button{position:relative;padding:0;border:0;background:none;text-align:left;font:400 15px/1.2 var(--f-sans);color:var(--faint);opacity:.75;cursor:pointer;transition:color .25s,opacity .25s}
@@ -1385,3 +1385,8 @@ html.intro .frame,html.intro .topbar,html.intro .dock,html.intro .explore,html.i
 .cs2 .cs-toc button.on::before{left:-11px}
 /* no bottom nav pill on project detail pages (Nov 2026, her ask); the top bar's "← Work" leads back */
 html.on-case .dock{display:none!important}
+/* Next project on a case study (Nov 2026, her ask: match the portfolio): the same card as on the Work page,
+   banner art and "line / kind · year", with the same hover and "View project" cursor */
+.cs2 .cs2-next{padding-bottom:72px}
+.cs2 .cs2-nx{display:grid;grid-template-columns:1fr;gap:0;margin-top:20px}
+.cs2 .cs2-nx>.wcard{margin:0;translate:none}

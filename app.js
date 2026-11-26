@@ -586,7 +586,7 @@ function renderCase(slug){
   </div>
 </div></section>
 ${body}
-<section class="fx-row reveal cs-next"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next project</span><a class="fx-next" href="#${nx}"><span>Up next →</span><b>${np.name}</b><em>${np.line}</em></a></div></div></section>
+<section class="fx-row reveal cs2-next"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next project</span><div class="wk-grid cs2-nx">${wcard(np)}</div></div></div></section>
 </div>`;
 }
 /* contents list on a case study: jumps to a section (buttons, since the site routes on the #hash), marks the section

@@ -101,3 +101,5 @@ Serve with `python3 -m http.server` and check desktop (1440) and phone (390) wid
 - A contents list (`.cs-toc`) is fixed on the left from 1280px wide. It lists Overview plus every section label, marks the section being read in brand blue with a small dot, scrolls itself when the list is long (Signal Intelligence), and fades out when the footer comes into view. It's hidden on smaller screens. Items are buttons, not #links, because the site routes on the hash (`csToc()` in app.js, called from `route()`).
 - Section ids are added in `renderCase` from each label (`cs-<label>`). "Next project" isn't in the list. Styles are in the "Case study layout, take 2" block at the end of `desk.css` (`.cs2`).
 - The bottom nav pill (`.dock`) is hidden on project detail pages (her ask, Nov 2026): `route()` sets `html.on-case`. Journal posts and the top pages still show it.
+
+- Next project (end of each case study) is the same card as on the Work page (`wcard(np)` inside `.cs2-nx`), under a small "Next project" label. Don't use the class `cs-next`: an old scrapbook rule in styles.css gives it a dashed, tilted paper card.
