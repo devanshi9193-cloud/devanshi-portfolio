@@ -198,14 +198,17 @@ const TALKS=[
   url:"https://www.linkedin.com/feed/update/urn:li:activity:7461337312694759424/",essay:"good-vs-addictive-ux",
   ph:[["ux-stage.jpg","The Good UX vs Addictive UX title slide at the Friday Design Workshop","wide"],["ux-good.jpg","Devanshi presenting the Good UX slide"],["ux-profile.jpg","Devanshi listening during the workshop discussion"]]},
 ];
-const talk=(w,i)=>`<article class="tk reveal${i%2?" flip":""}">
-  <div class="tk-note"><span class="tape-label">${w.date}</span>
-    <span class="label">${w.kind}</span><h3>${w.t}</h3><p>${w.p}</p>
-    <dl class="tk-meta">${w.meta.map(m=>`<div><dt>${m[0]}</dt><dd>${m[1]}</dd></div>`).join("")}</dl>
-    <p class="tk-hand">${w.note}</p>
-    <div class="tk-links"><a class="link-arrow" href="${w.url}" target="_blank" rel="noopener">View on LinkedIn <span>↗</span></a>${w.essay?`<a class="link-arrow" href="#${w.essay}">Read my essay on it <span>→</span></a>`:""}</div>
+/* Workshops & speaking (Nov 2026 redesign, at her request): ruled rows like the case study pages. Date and kind on the left,
+   write-up, meta and takeaway on the right, then a straight photo strip where every photo keeps its own shape at one height. */
+const TALK_RATIO={"research-poster.jpg":"800/1071","research-room.jpg":"4/3","research-talk.jpg":"4/3","ux-stage.jpg":"4/3","ux-good.jpg":"3/4","ux-profile.jpg":"3/4"};
+const talk=w=>`<article class="tk2 reveal">
+  <div class="tk2-side"><span class="tk2-date">${w.date}</span><span class="tk2-kind">${w.kind}</span></div>
+  <div class="tk2-main">
+    <h3>${w.t}</h3><p class="tk2-p">${w.p}</p>
+    <dl class="tk2-meta">${w.meta.map(m=>`<div><dt>${m[0]}</dt><dd>${m[1]}</dd></div>`).join("")}<div class="tk2-take"><dt>What I took away</dt><dd>${w.note.charAt(0).toUpperCase()+w.note.slice(1)}.</dd></div></dl>
+    <div class="tk2-links"><a class="link-arrow" href="${w.url}" target="_blank" rel="noopener">View on LinkedIn <span>↗</span></a>${w.essay?`<a class="link-arrow" href="#${w.essay}">Read my essay on it <span>→</span></a>`:""}</div>
   </div>
-  <div class="tk-ph">${w.ph.map((p,j)=>`<figure class="tk-print${p[2]?" "+p[2]:""}" style="--r:${[[-2,2.5,-1.5],[1.5,-2.5,2]][i%2][j]}deg"><img src="assets/images/talks/${p[0]}" alt="${p[1]}" loading="lazy" decoding="async"></figure>`).join("")}</div>
+  <div class="tk2-ph">${w.ph.map(p=>{const r=TALK_RATIO[p[0]]||"4/3",[x,y]=r.split("/");return `<figure style="aspect-ratio:${r};flex:${(x/y).toFixed(3)}"><img src="assets/images/talks/${p[0]}" alt="${p[1]}" loading="lazy" decoding="async"></figure>`}).join("")}</div>
 </article>`;
 const jcard=p=>`<a class="jcard reveal" href="#${p.slug}"><span class="label">${p.cat}</span><h3>${p.t}</h3><p class="jd">${p.d}</p><span class="go">Read · ${readTime(p)} min ↗</span></a>`;
 const readTime=p=>Math.max(1,Math.round(p.body.map(b=>Array.isArray(b[1])?b[1].join(" "):b[1]).join(" ").split(/\s+/).length/200));
@@ -617,10 +620,12 @@ ${ptop("Journal",`${POSTS.length} entries, written over coffee.`)}
 about:()=>`<div class="page">
 <section class="wrap pg-top ab-top">
   <h1 class="pg-h">I start with people, <span class="grey">then design products that are useful, calm and easy to love.</span></h1>
-  <div class="wk-meta">
-    <div><span>About</span><p>I'm Devanshi, a UX researcher and designer with 4+ years of experience: over two years in primary research, interviewing respondents and turning their answers into insights, then two years designing SaaS, dashboards and mobile.</p></div>
-    <div><span>Why it shows</span><p>That's why my designs start with people and end simple and intuitive. Off the screen, I fill sketchbooks.</p></div>
-  </div>
+  <div class="wk-meta ab-bio"><div>
+    <p>I'm a product designer with a researcher's lens, most interested in tools that help people make clearer decisions.</p>
+    <p>I started out in user research, running interviews, writing surveys and digging through data, before moving into design. These days I take products from rough UX flows to final UI, and I still begin every project by finding out what's actually getting in people's way. I especially enjoy untangling messy information architecture and building systems that stay consistent as they grow.</p>
+    <p>Outside of designing, I draw, travel, hike, and hunt for yummy food.</p>
+    <p>I'm on the lookout for full-time roles. Reach out if you wanna be friends or colleagues!</p>
+  </div></div>
 </section>
 
 <section class="wrap ab-sec" id="sec-skills">
@@ -631,7 +636,7 @@ about:()=>`<div class="page">
 
 <section class="wrap ab-sec" id="sec-talks">
   ${shead("Workshops &amp; speaking","Sharing what I know. Learning even more.")}
-  <div class="tk-list">${TALKS.map(talk).join("")}</div>
+  <div class="tk2-list">${TALKS.map(talk).join("")}</div>
 </section>
 
 <section class="wrap ab-sec">
