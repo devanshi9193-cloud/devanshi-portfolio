@@ -104,3 +104,6 @@ Serve with `python3 -m http.server` and check desktop (1440) and phone (390) wid
 
 - Next project (end of each case study) is the same card as on the Work page (`wcard(np)` inside `.cs2-nx`), under a small "Next project" label. Don't use the class `cs-next`: an old scrapbook rule in styles.css gives it a dashed, tilted paper card.
 - Journal post pages (`renderPost`) use the same layout (her ask, Nov 2026; classes `cs2 jp`). The cover is the entry's drawn, moving banner from its journal tile (`JART`, 16:9, in a plain `figure.cs2-pfig`; not `vt-cover`, which adds padding and a background). The contents list shows Overview plus each part's heading ("Intro" for an opening part with no heading). "Next entry" is the same journal card as on the Journal page (`jtile(nx)`). The bottom nav pill is hidden on posts too (`html.on-case` is set for both kinds of detail page).
+
+## Playground tabs (Nov 2026)
+- At her request the Jigsaw puzzles / Notes wall tabs (`.seg`) are minimal: plain 15px text in the header grey (`--faint`), the chosen tab in ink with a thin ink line under it, sitting on one hairline. No pill and no blue fill. Block at the end of `desk.css`.

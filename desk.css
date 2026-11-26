@@ -1411,3 +1411,13 @@ html.on-case .dock{display:none!important}
 .cs2.jp .fx-main>.jp-text:first-child{margin-top:0}
 .cs2.jp .jp-text .lead{font-size:18px;line-height:1.55}
 .cs2.jp .jp-text blockquote{font-size:20px}
+/* Playground tabs, minimal (Nov 2026, her ask): no pill, no fill. Plain text in the header grey; the chosen tab is
+   ink with a thin line under it. */
+.seg{display:flex;gap:28px;padding:0;border:0;border-radius:0;background:none;border-bottom:1px solid var(--line)}
+.seg button,.seg button[aria-selected="true"]{position:relative;padding:0 0 12px;margin-bottom:-1px;border-radius:0;background:none;box-shadow:none;font:400 15px/1.2 var(--f-sans);color:var(--faint);transition:color .2s}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-selected="true"]{color:var(--ink)}
+.seg button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);scale:0 1;transform-origin:left;transition:scale .3s var(--ease)}
+.seg button[aria-selected="true"]::after{scale:1 1}
+.seg button:focus-visible{outline:2px solid var(--royal);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){.seg button::after{transition:none}}
