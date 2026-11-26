@@ -1451,3 +1451,11 @@ html.on-case .dock{display:none!important}
 .nt-new .nt-row .jz-btn[type="submit"]:hover{color:var(--royal)}
 .nt-new .nt-row .jz-btn:focus-visible{outline:2px solid var(--royal);outline-offset:3px}
 .nt-new form.nt-form{background:none;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none}
+/* Pong (Nov 2026, her ask): the court is a plain paper panel with a hairline edge, square corners like the cards */
+.pg-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.pg-score{font:400 15px/1.2 var(--f-sans);color:var(--faint)}
+.pg-stage{max-width:960px}
+.pg-stage canvas{display:block;width:100%;aspect-ratio:16/10;background:var(--paper);border:1px solid var(--line);touch-action:none;cursor:none}
+.pg-stage canvas:focus-visible{outline:2px solid var(--royal);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){.pg-stage canvas{cursor:none!important}}
+.pg-bar{justify-content:flex-end}

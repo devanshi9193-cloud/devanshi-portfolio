@@ -719,10 +719,11 @@ about:()=>`<div class="page">
 </div>`,
 
 playground:()=>`<div class="page">
-${ptop("Playground","Two small things to play with while you're here.")}
+${ptop("Playground","Three small things to play with while you're here.")}
 <section class="wrap pg-wrap">
   <div class="seg" role="tablist" aria-label="Playground">
     <button type="button" role="tab" id="tab-puzzle" aria-controls="pg-puzzle" aria-selected="true">Jigsaw puzzles</button>
+    <button type="button" role="tab" id="tab-pong" aria-controls="pg-pong" aria-selected="false">Pong</button>
     <button type="button" role="tab" id="tab-notes" aria-controls="pg-notes" aria-selected="false">Notes wall</button>
   </div>
   <div class="pg-pane" id="pg-puzzle" role="tabpanel" aria-labelledby="tab-puzzle">
@@ -730,6 +731,11 @@ ${ptop("Playground","Two small things to play with while you're here.")}
     <div class="jz-pick" role="group" aria-label="Choose a puzzle">${PUZZLES.map((p,i)=>`<button type="button" class="jz-th${p.q?" q q"+p.q:""}" data-i="${i}" aria-pressed="${i===0}" aria-label="${p.q?p.label:"Painting "+p.id.slice(1)}">${p.img?`<img src="${p.img}" alt="" loading="lazy">`:`<span>${p.q===1?"detail.":"simple."}</span>`}</button>`).join("")}</div>
     <div class="jz-bar"><span class="jz-stat" id="jzStat" aria-live="polite">0 of 9 placed</span><button type="button" class="jz-btn" id="jzShuffle">Shuffle again</button></div>
     <div class="jz-area" id="jzArea"></div>
+  </div>
+  <div class="pg-pane" id="pg-pong" role="tabpanel" aria-labelledby="tab-pong" hidden>
+    <p class="pg-lead">Move your mouse or finger (or press ↑ ↓) to move your paddle. First to 5 wins.</p>
+    <div class="pg-bar"><span class="sr" id="pgScore" aria-live="polite">You 0 · 0 Computer</span><button type="button" class="jz-btn ghost" id="pgRestart">Restart</button></div>
+    <div class="pg-stage"><canvas id="pgCanvas" aria-label="Pong game. You are the left paddle; the computer is the right paddle." role="img"></canvas></div>
   </div>
   <div class="pg-pane" id="pg-notes" role="tabpanel" aria-labelledby="tab-notes" hidden>
     <p class="pg-lead">Leave a thought, a quote or just a hello. No sign-in, just a note.</p>
@@ -754,10 +760,79 @@ ${ptop("Playground","Two small things to play with while you're here.")}
 /* ---------- Playground: tabs ---------- */
 function playground(){
   const tabs=[...document.querySelectorAll(".seg [role=tab]")]; if(!tabs.length) return;
-  const show=id=>{tabs.forEach(t=>{const on=t.id==="tab-"+id; t.setAttribute("aria-selected",on); document.getElementById(t.getAttribute("aria-controls")).hidden=!on;}); if(id==="puzzle") jigsaw.fit();};
+  const show=id=>{tabs.forEach(t=>{const on=t.id==="tab-"+id; t.setAttribute("aria-selected",on); document.getElementById(t.getAttribute("aria-controls")).hidden=!on;}); if(id==="puzzle") jigsaw.fit(); if(id==="pong") pong.show(); else pong.hide();};
   tabs.forEach(t=>t.addEventListener("click",()=>show(t.id.slice(4))));
-  jigsaw.init(); notesWall();
+  jigsaw.init(); notesWall(); pong.init();
 }
+
+/* ---------- Pong (Nov 2026, her ask): a small game of Pong in the site's look. The paper is the court, a hairline
+   dashed net, navy paddles and the site cursor's blue square as the ball. You're the left paddle (mouse, finger
+   or the arrow keys); the computer plays the right one. First to 5 wins. Plays only while its tab is open. ---------- */
+const pong=(()=>{
+  const W=800,H=500,PW=10,PH=88,PX=28,B=14,WIN=5;
+  let cv,ctx,ro,raf=0,last=0,visible=false,state="ready",wait=0,keys={up:false,down:false};
+  let you,cpu,ball,score;
+  const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const reset=()=>{ you={y:H/2-PH/2,ty:H/2-PH/2}; cpu={y:H/2-PH/2}; score=[0,0]; serve(Math.random()<.5?1:-1); state="ready"; label(); };
+  const serve=dir=>{ const a=(Math.random()*.6-.3); ball={x:W/2-B/2,y:H/2-B/2,vx:dir*340*Math.cos(a),vy:340*Math.sin(a)}; };
+  const label=()=>{ const el=document.getElementById("pgScore"); if(el) el.textContent=`You ${score[0]} · ${score[1]} Computer`; };
+  const size=()=>{ if(!cv) return; const r=cv.getBoundingClientRect(); if(!r.width) return; const d=Math.min(2,devicePixelRatio||1);
+    cv.width=Math.round(r.width*d); cv.height=Math.round(r.width*H/W*d); ctx.setTransform(cv.width/W,0,0,cv.height/H,0,0); draw(); };
+  const toY=e=>{ const r=cv.getBoundingClientRect(); return (e.clientY-r.top)/r.height*H; };
+  const start=()=>{ if(state==="ready"||state==="over"){ if(state==="over") reset(); state="play"; last=0; loop(); } };
+  const step=dt=>{
+    /* your paddle: follows the pointer, or the arrow keys */
+    if(keys.up) you.ty-=520*dt; if(keys.down) you.ty+=520*dt;
+    you.ty=Math.max(0,Math.min(H-PH,you.ty)); you.y+=(you.ty-you.y)*Math.min(1,dt*18);
+    /* computer: chases the ball when it's coming, drifts home when it isn't, and isn't perfect */
+    const aim=ball.vx>0?ball.y+B/2-PH/2+Math.sin(ball.x/90)*18:H/2-PH/2, sp=(ball.vx>0?300:160)*dt;
+    cpu.y+=Math.max(-sp,Math.min(sp,aim-cpu.y)); cpu.y=Math.max(0,Math.min(H-PH,cpu.y));
+    if(state!=="play"){ if(state==="point"&&(wait-=dt)<=0) state="play"; return; }
+    ball.x+=ball.vx*dt; ball.y+=ball.vy*dt;
+    if(ball.y<0){ ball.y=0; ball.vy=Math.abs(ball.vy); } if(ball.y>H-B){ ball.y=H-B; ball.vy=-Math.abs(ball.vy); }
+    const hit=(p,px,dir)=>{ if(ball.y+B<p.y||ball.y>p.y+PH) return false;
+      const off=((ball.y+B/2)-(p.y+PH/2))/(PH/2), sp2=Math.min(820,Math.hypot(ball.vx,ball.vy)*1.06), a=off*.9;
+      ball.vx=dir*sp2*Math.cos(a); ball.vy=sp2*Math.sin(a); ball.x=px; return true; };
+    if(ball.vx<0&&ball.x<=PX+PW&&ball.x+B>=PX) hit(you,PX+PW,1);
+    if(ball.vx>0&&ball.x+B>=W-PX-PW&&ball.x<=W-PX) hit(cpu,W-PX-PW-B,-1);
+    if(ball.x+B<0||ball.x>W){ const youScored=ball.x>W; score[youScored?0:1]++; label();
+      if(score[0]>=WIN||score[1]>=WIN){ state="over"; } else { serve(youScored?-1:1); state="point"; wait=.7; } }
+  };
+  const draw=()=>{ if(!ctx) return;
+    const paper=css("--paper")||"#fff", ink=css("--ink")||"#1D2752", line=css("--line")||"#E3DACB", faint=css("--faint")||"#9A9DAE", blue="#0B5470";
+    const dark=document.documentElement.getAttribute("data-theme")==="dark";
+    ctx.fillStyle=paper; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle=line; for(let y=10;y<H;y+=22) ctx.fillRect(W/2-.75,y,1.5,11);
+    ctx.fillStyle=faint; ctx.font=`400 64px ${css("--f-display")||"Georgia,serif"}`; ctx.textAlign="center"; ctx.textBaseline="top";
+    ctx.fillText(score[0],W/2-70,34); ctx.fillText(score[1],W/2+70,34);
+    ctx.fillStyle=ink; ctx.fillRect(PX,you.y,PW,PH); ctx.fillRect(W-PX-PW,cpu.y,PW,PH);
+    if(state==="play"||state==="point"){ ctx.fillStyle=dark?"#7CC3E0":blue; ctx.fillRect(ball.x,ball.y,B,B); }
+    if(state==="ready"||state==="over"){
+      ctx.fillStyle=ink; ctx.font=`400 ${cv.clientWidth<520?44:30}px ${css("--f-display")||"Georgia,serif"}`; ctx.textBaseline="middle";
+      ctx.fillText(state==="over"?(score[0]>score[1]?"You win!":"The computer wins."):"Ready?",W/2,H/2-18);
+      ctx.fillStyle=faint; ctx.font=`400 ${cv.clientWidth<520?28:16}px ${css("--f-sans")||"sans-serif"}`;
+      ctx.fillText(state==="over"?"Click or tap to play again":"Click or tap to start",W/2,H/2+22); } };
+  const loop=t=>{ cancelAnimationFrame(raf); if(!cv||!cv.isConnected||!visible||document.hidden){ raf=0; return; }
+    const now=t||performance.now(), dt=last?Math.min(.033,(now-last)/1000):0; last=now;
+    step(dt); draw(); raf=requestAnimationFrame(loop); };
+  const onKey=(e,on)=>{ if(!visible||!cv||!cv.isConnected) return;
+    /* the arrow keys only steer while a game is going or the court has focus, so they still scroll the page otherwise */
+    if(on&&!(state==="play"||state==="point"||document.activeElement===cv)) return;
+    const k=e.key; if(k==="ArrowUp"||k==="w"||k==="W"){ keys.up=on; e.preventDefault(); } else if(k==="ArrowDown"||k==="s"||k==="S"){ keys.down=on; e.preventDefault(); }
+    else if(on&&(k===" "||k==="Enter")&&document.activeElement===cv){ e.preventDefault(); start(); }
+    if(on&&(keys.up||keys.down)) start(); };
+  addEventListener("keydown",e=>onKey(e,true)); addEventListener("keyup",e=>onKey(e,false));
+  document.addEventListener("visibilitychange",()=>{ if(!document.hidden&&visible){ last=0; loop(); } });
+  return {
+    init(){ cv=document.getElementById("pgCanvas"); visible=false; cancelAnimationFrame(raf); raf=0; if(!cv) return; ctx=cv.getContext("2d"); reset(); cv.tabIndex=0;
+      cv.addEventListener("pointermove",e=>{ you.ty=toY(e)-PH/2; });
+      cv.addEventListener("pointerdown",e=>{ you.ty=toY(e)-PH/2; start(); });
+      document.getElementById("pgRestart").addEventListener("click",()=>{ reset(); draw(); cv.focus({preventScroll:true}); });
+      if(ro) ro.disconnect(); if(window.ResizeObserver){ ro=new ResizeObserver(size); ro.observe(cv); } },
+    show(){ visible=true; size(); last=0; loop(); },
+    hide(){ visible=false; keys={up:false,down:false}; if(state==="play"||state==="point"){ /* pause where it is */ } }
+  };
+})();
 
 /* ---------- Jigsaw: 3x3 pieces with real tabs, drawn on canvas; drag them onto the board, they snap when close ---------- */
 const jigsaw=(()=>{
@@ -886,8 +961,11 @@ function notesWall(){
       .then(r=>r.ok?r.json():[]).catch(()=>[]).then(rows=>{
         const live=rows.map(r=>({text:r.text,name:r.name,at:r.created_at}));
         const seen=new Set(live.map(n=>n.text+"|"+(n.name||"")));
-        const month=Date.now()-30*864e5;
-        const pend=readPend().filter(n=>!seen.has(n.text+"|"+(n.name||""))&&new Date(n.at)>month); writePend(pend);
+        /* a waiting note shows only on the sender's own device, and only for 24 hours (her ask, Nov 2026): if it isn't
+           approved by then it's treated as rejected, removed from their device here and deleted from Supabase by the
+           hourly cleanup in supabase/notes-cleanup.sql */
+        const day=Date.now()-864e5;
+        const pend=readPend().filter(n=>!seen.has(n.text+"|"+(n.name||""))&&new Date(n.at)>day); writePend(pend);
         return [...live,...pend.map(n=>({...n,pending:true}))]; }); };
   const save=n=>{ if(!NOTES_API){ writeLocal([n,...readLocal()]); return Promise.resolve(true); }
     const today=readPend().filter(x=>Date.now()-new Date(x.at)<864e5).length;
