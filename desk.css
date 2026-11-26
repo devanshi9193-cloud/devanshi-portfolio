@@ -1335,12 +1335,7 @@ html.intro .frame,html.intro .topbar,html.intro .dock,html.intro .explore,html.i
 .sp-caret{display:inline-block;width:.5em;height:.5em;margin-left:.1em;vertical-align:baseline;background:var(--royal);animation:spBlink 1s steps(1) infinite}
 .intro-splash.typing .sp-caret{animation:none}
 @keyframes spBlink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
-.sp-ctrls{position:absolute;top:max(16px,3vh);right:max(16px,3vw);display:flex;gap:8px}
-.sp-ctrls button{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:99px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:500 14px/1 var(--f-sans);cursor:pointer;box-shadow:0 8px 20px -14px rgba(16,24,32,.35)}
-.sp-ctrls button:focus-visible{outline:2px solid var(--royal);outline-offset:2px}
-.sp-sound svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.sp-sound .sp-w{display:none}.sp-sound.on .sp-w{display:inline}.sp-sound.on .sp-x{display:none}
-@media (max-width:600px){.sp-line{font-size:1.55rem;max-width:100%}.sp-ctrls{left:16px;right:16px;justify-content:flex-end}}
+@media (max-width:600px){.sp-line{font-size:1.55rem;max-width:100%}}
 @media (prefers-reduced-motion:reduce){.intro-splash{display:none}html.intro{overflow:auto}html.intro .frame,html.intro .topbar,html.intro .dock{visibility:visible}}
 .sp-line{display:grid;gap:0;max-width:min(32ch,100%);font-size:clamp(1.25rem,2.5vw,2.35rem);line-height:1.35;text-align:left}
 .sp-ghost,.sp-typed{grid-area:1/1}

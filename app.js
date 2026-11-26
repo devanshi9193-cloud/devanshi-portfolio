@@ -1213,17 +1213,16 @@ route();
 
 /* Opening splash (Nov 2026, her ask): on the site's paper, "{ Welcome to my little corner of the creative universe. }" types out in the middle
    with a blinking cursor and soft keyboard clicks (made with Web Audio, no file). Browsers block sound until the visitor clicks or presses a key,
-   so the clicks start the moment they do (or tap "Sound on"). Once per visit, skippable, off for reduced motion. */
+   so the clicks start the moment they do. Sound is always on, no buttons (her ask). Once per visit, Esc skips, off for reduced motion. */
 (function(){
   const root=document.documentElement;
   if(!root.classList.contains("intro")) return;
   const MSG="Welcome to my little corner of the creative universe.";
   const el=document.createElement("div");
   el.className="intro-splash"; el.setAttribute("role","dialog"); el.setAttribute("aria-label",MSG);
-  el.innerHTML=`<p class="sp-line" aria-hidden="true"><span class="sp-ghost">{ ${MSG} }</span><span class="sp-typed">{ <span class="sp-t"></span><i class="sp-caret"></i> }</span></p>
-    <div class="sp-ctrls"><button class="sp-sound" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="sp-w" d="M15.5 9.2a4 4 0 0 1 0 5.6M18 7a7 7 0 0 1 0 10"/><path class="sp-x" d="M16 10l4 4M20 10l-4 4"/></svg><span>Sound on</span></button><button class="sp-skip" type="button">Skip intro</button></div>`;
+  el.innerHTML=`<p class="sp-line" aria-hidden="true"><span class="sp-ghost">{ ${MSG} }</span><span class="sp-typed">{ <span class="sp-t"></span><i class="sp-caret"></i> }</span></p>`;
   document.body.appendChild(el);
-  const out=el.querySelector(".sp-t"), sbtn=el.querySelector(".sp-sound");
+  const out=el.querySelector(".sp-t");
   let done=false, ac=null, soundOn=false;
   const wait=ms=>new Promise(r=>setTimeout(r,ms));
   /* a soft mechanical key: a short filtered noise "tick" plus a low "thock"; space is deeper */
@@ -1238,18 +1237,15 @@ route();
     og.gain.setValueAtTime(ch===" "?.16:.09,t); og.gain.exponentialRampToValueAtTime(.0001,t+.07);
     o.connect(og).connect(ac.destination); o.start(t); o.stop(t+.08); };
   const enable=()=>{ if(soundOn) return; try{ ac=ac||new (window.AudioContext||window.webkitAudioContext)(); ac.resume(); }catch(e){ return; }
-    soundOn=true; sbtn.setAttribute("aria-pressed","true"); sbtn.classList.add("on"); sbtn.querySelector("span").textContent="Mute"; };
-  const disable=()=>{ soundOn=false; sbtn.setAttribute("aria-pressed","false"); sbtn.classList.remove("on"); sbtn.querySelector("span").textContent="Sound on"; };
+    soundOn=true; };
   /* try straight away (works where the browser already allows sound), otherwise wait for the first click or key */
-  try{ ac=new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==="running"){ soundOn=true; sbtn.classList.add("on"); sbtn.setAttribute("aria-pressed","true"); sbtn.querySelector("span").textContent="Mute"; } }catch(e){}
+  try{ ac=new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==="running") soundOn=true; }catch(e){}
   const remember=()=>{ try{sessionStorage.setItem("dv-intro","1")}catch(e){} };
   const cleanup=()=>{ removeEventListener("keydown",onKey); removeEventListener("pointerdown",onFirst,true); setTimeout(()=>{ try{ac&&ac.close()}catch(e){} },400); };
   const finish=()=>{ if(done) return; done=true; remember(); root.classList.remove("intro"); el.classList.add("sp-out"); setTimeout(()=>el.remove(),700); cleanup(); };
   const onKey=e=>{ if(e.key==="Escape") return finish(); enable(); };
-  const onFirst=e=>{ if(e.target.closest&&e.target.closest(".sp-sound,.sp-skip")) return; enable(); };
+  const onFirst=()=>enable();
   addEventListener("keydown",onKey); addEventListener("pointerdown",onFirst,true);
-  sbtn.addEventListener("click",()=>{ soundOn?disable():enable(); });
-  el.querySelector(".sp-skip").addEventListener("click",finish);
   (async()=>{
     await wait(650); if(done) return;
     el.classList.add("typing");
