@@ -1403,3 +1403,11 @@ html.on-case .dock{display:none!important}
 /* while the card square is on screen (including the moment the label slides back), hide the site cursor everywhere,
    so only one square ever shows; it comes back in the same spot when the card square goes */
 @media (hover:hover) and (pointer:fine){html.vp-hold,html.vp-hold *{cursor:none!important}}
+/* Journal post pages use the case study layout too (Nov 2026, her ask). The cover is the entry's drawn banner. */
+.cs2 .cs2-pfig{display:block;padding:0}
+.cs2 .cs2-pc{display:block;width:100%;padding:0;margin:0}
+.cs2 .cs2-pc .wc-art{aspect-ratio:16/9}
+.cs2.jp .jp-text{margin-top:14px;font-size:15px;line-height:1.65;max-width:none}
+.cs2.jp .fx-main>.jp-text:first-child{margin-top:0}
+.cs2.jp .jp-text .lead{font-size:18px;line-height:1.55}
+.cs2.jp .jp-text blockquote{font-size:20px}

@@ -929,24 +929,28 @@ function dock(){ themeToggle(); return; /* pill nav has no magnification */
 function renderPost(slug){
   const p=POSTMAP[slug], i=POSTS.indexOf(p), nx=POSTS[(i+1)%POSTS.length];
   const blk=b=>b[0]==="h"?`<h2>${b[1]}</h2>`:b[0]==="q"?`<blockquote>${b[1]}</blockquote>`:b[0]==="lead"?`<p class="lead">${b[1]}</p>`:b[0]==="ul"?`<ul>${b[1].map(x=>`<li>${x}</li>`).join("")}</ul>`:`<p>${b[1]}</p>`;
-  /* Same frame as the case study pages (fx-*), at her request (Nov 2026): rule + back link, big title, meta beside the intro,
-     full-width cover, then ruled rows (small label left, content right), then the next entry. */
+  /* Same layout as the case study pages (Nov 2026, her ask; like rachelchen.tech/projects/figma): contents list on the
+     left, the entry's drawn banner as a wide cover, then title, details and intro, then each part in the narrow column
+     (thin rule, serif heading, grey text), and the next entry as the same journal card as on the Journal page. */
   const rows=[]; let cur={h:"",b:[]};
   p.body.forEach(b=>{ if(b[0]==="h"){ if(cur.h||cur.b.length) rows.push(cur); cur={h:b[1],b:[]}; } else cur.b.push(b); });
   rows.push(cur);
   const meta=[["Type",p.cat.charAt(0)+p.cat.slice(1).toLowerCase()],["Reading time",readTime(p)+" min"],["Written by","Devanshi Sharma"],["Written","Over coffee"]];
-  return `<div class="page vt fx jp">
-<section class="fx-top"><div class="wrap">
-  <div class="fx-bar"><a class="fx-back" href="#journal">← Journal</a><span>${p.cat} · ${readTime(p)} min read</span></div>
-  <h1 class="fx-title">${p.t}</h1>
-  <div class="fx-head">
+  const plain=t=>String(t).replace(/<[^>]*>/g,"");
+  const secs=rows.map((r,k)=>({id:"cs-p"+k,label:r.h?plain(r.h):"Intro",r}));
+  const toc=[["cs-overview","Overview"],...secs.map(x=>[x.id,x.label])];
+  return `<div class="page vt fx cs2 jp">
+<nav class="cs-toc" aria-label="On this page">${toc.map(([id,l],k)=>`<button type="button" data-to="${id}"${k===0?' class="on"':""}>${l}</button>`).join("")}</nav>
+<section class="fx-top" id="cs-overview"><div class="wrap">
+  <figure class="cs-cover cs2-pfig"><div class="wk-grid cs2-pc"><div class="wc-art wc-v jt-v" style="--tint:${p.tint}"><span class="jt-tag">${p.cat}</span>${JART[p.slug]||`<span class="ja-fallback">${p.t}</span>`}</div></div></figure>
+  <div class="cs-head">
+    <h1 class="fx-title">${p.t}</h1>
     <dl class="fx-meta">${meta.map(m=>`<div><dt>${m[0]}</dt><dd>${m[1]}</dd></div>`).join("")}</dl>
     <p class="fx-intro">${p.d}</p>
   </div>
 </div></section>
-<div class="wrap"><figure class="vt-cover fx-cover jp-cover" style="--tint:${p.tint}"><span class="jt-cat">${p.cat}</span><span class="jp-cover-t">${p.t}</span></figure></div>
-${rows.map((r,k)=>`<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">${k===0&&!r.h?"Intro":""}</span><div class="fx-main">${r.h?`<h2 class="fx-h">${r.h}</h2>`:""}<div class="jp-text">${r.b.map(blk).join("")}</div></div></div></div></section>`).join("")}
-<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next entry</span><a class="fx-next" href="#${nx.slug}"><span>Up next →</span><b>${nx.t}</b><em>${nx.d}</em></a></div></div></section>
+${secs.map(({id,r},k)=>`<section class="fx-row reveal" id="${id}"><div class="wrap"><div class="fx-grid">${k===0&&!r.h?`<span class="fx-label">Intro</span>`:""}<div class="fx-main">${r.h?`<h2 class="fx-h">${r.h}</h2>`:""}<div class="jp-text">${r.b.map(blk).join("")}</div></div></div></div></section>`).join("")}
+<section class="fx-row reveal cs2-next"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next entry</span><div class="wk-grid cs2-nx">${jtile(nx)}</div></div></div></section>
 </div>`;
 }
 const app=document.getElementById("app");
@@ -963,7 +967,7 @@ function route(){
   document.querySelectorAll(".dock a[data-r]").forEach(a=>{const on=a.dataset.r===tab; a.classList.toggle("active",on); if(on) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");});
   if(view!==shown){
     app.innerHTML=view.startsWith("case:")?renderCase(h):view.startsWith("post:")?renderPost(h):PAGES[view]();
-    shown=view; window.scrollTo({top:0,behavior:"instant"}); wire(); crumb(view,h); csToc(); document.documentElement.classList.toggle("on-case",view.startsWith("case:"));
+    shown=view; window.scrollTo({top:0,behavior:"instant"}); wire(); crumb(view,h); csToc(); document.documentElement.classList.toggle("on-case",view.startsWith("case:")||view.startsWith("post:"));
   }
   if(h==="contact") setTimeout(()=>document.getElementById("sec-contact").scrollIntoView({behavior:"smooth"}),30);
 }
