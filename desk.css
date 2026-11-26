@@ -1346,3 +1346,42 @@ html.intro .frame,html.intro .topbar,html.intro .dock,html.intro .explore,html.i
 .sp-line{font:400 min(1rem,3.3vw)/1.4 var(--f-sans);letter-spacing:.005em;color:var(--faint);white-space:nowrap;max-width:none}
 @media (max-width:600px){.sp-line{font-size:min(1rem,3.3vw);max-width:none}}
 .sp-caret{width:.55em;height:.55em;background:currentColor;margin:0 .1em 0 .1em}
+
+/* Case study layout, take 2 (Nov 2026, her ask: like rachelchen.tech/projects/figma).
+   Cover first (up to 923px), then title, details and intro, then sections in one narrow column (688px):
+   a thin rule, a small grey label, a serif heading, grey body text. A contents list sits fixed on the left on wide screens. */
+#app .cs2 .fx-top{padding-top:240px;padding-bottom:0}
+.cs2 .cs-cover{max-width:923px;margin:0 auto}
+.cs2 .cs-head,.cs2 .fx-row .fx-grid,.cs2 .vt-shot-wrap .fx-grid{max-width:688px;margin-inline:auto}
+.cs2 .cs-head{margin-top:40px}
+#app .cs2 .fx-title{font:400 36px/1.15 var(--f-display);font-style:normal;letter-spacing:-.01em;margin:0}
+.cs2 .fx-meta{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px 20px}
+.cs2 .fx-meta dt{font:400 15px/1.5 var(--f-sans);letter-spacing:0;text-transform:none;color:var(--faint)}
+.cs2 .fx-meta dd{margin:4px 0 0;font:400 15px/1.5 var(--f-sans);color:var(--ink)}
+.cs2 .fx-intro{margin-top:28px;font-size:16px;line-height:1.6;letter-spacing:0;color:var(--muted)}
+.cs2 .fx-row{padding-top:64px}
+.cs2 .fx-grid{display:block;padding-top:16px;border-top:1px solid var(--line)}
+.cs2 .vt-shot-wrap{padding-top:32px}
+.cs2 .vt-shot-wrap .fx-grid{border-top:0;padding-top:0}
+.cs2 .vt-shot-wrap .fx-grid>span:first-child{display:none}
+.cs2 .fx-label{display:block;margin-bottom:6px;font:400 15px/1.5 var(--f-sans);letter-spacing:0;text-transform:none;color:var(--faint)}
+#app .cs2 .fx-h{font:400 28px/1.2 var(--f-display);font-style:normal;letter-spacing:-.01em;max-width:none}
+.cs2 .fx-p,.cs2 .fx-subp{margin-top:14px;font-size:15px;line-height:1.55;color:var(--muted);max-width:none}
+.cs2 .vt-body{margin-top:24px}
+.cs2 .fx-quote{font-size:24px}
+.cs2 .cs-next{padding-bottom:40px}
+.cs2 .cs-toc{position:fixed;left:24px;top:240px;z-index:5;display:flex;flex-direction:column;align-items:flex-start;gap:12px;max-width:190px;transition:opacity .35s var(--ease)}
+.cs2 .cs-toc.off{opacity:0;pointer-events:none}
+.cs2 .cs-toc button{position:relative;padding:0;border:0;background:none;text-align:left;font:400 15px/1.2 var(--f-sans);color:var(--faint);opacity:.75;cursor:pointer;transition:color .25s,opacity .25s}
+.cs2 .cs-toc button:hover{opacity:1;color:var(--ink)}
+.cs2 .cs-toc button.on{opacity:1;color:var(--royal)}
+.cs2 .cs-toc button.on::before{content:"";position:absolute;left:-12px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:currentColor}
+.cs2 .cs-toc button:focus-visible{outline:2px solid var(--royal);outline-offset:3px}
+@media (max-width:1279px){.cs2 .cs-toc{display:none}}
+@media (min-width:1280px) and (max-width:1440px){.cs2 .cs-cover{max-width:min(923px,calc(100vw - 2*230px))}}
+@media (max-width:760px){#app .cs2 .fx-top{padding-top:120px}.cs2 .cs-head{margin-top:28px}#app .cs2 .fx-title{font-size:30px}#app .cs2 .fx-h{font-size:24px}.cs2 .fx-row{padding-top:48px}}
+.cs2 .cs-toc{max-height:calc(100vh - 340px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-left:14px;margin-left:-14px}
+.cs2 .cs-toc::-webkit-scrollbar{display:none}
+.cs2 .cs-toc button.on::before{left:-11px}
+/* no bottom nav pill on project detail pages (Nov 2026, her ask); the top bar's "← Work" leads back */
+html.on-case .dock{display:none!important}

@@ -567,22 +567,41 @@ function renderCase(slug){
   parts.forEach((s,i)=>{ out+=s; slotsAt.forEach((at,k)=>{ if(at===i&&extra[k]) out+=between(extra[k]); }); });
   }
 
-  /* Page frame follows the Framer case study she picked (Nov 2026): rule + back link and kind/year, big title,
-     meta grid beside the intro line, full-width cover, then ruled rows with a small label on the left. No numbering. */
-  return `<div class="page vt fx" style="--acc:${p.ac};--tint:${p.bg}">
-<section class="fx-top"><div class="wrap">
-  <div class="fx-bar"><a class="fx-back" href="#work">← All work</a><span>${c.kicker} · ${c.year}</span></div>
-  <h1 class="fx-title">${p.name}</h1>
-  <div class="fx-head">
+  /* Page frame (Nov 2026, her ask: laid out like rachelchen.tech/projects/figma): a contents list fixed on the left,
+     the wide cover first, then the title, a row of details and the intro, then narrow sections, each a thin rule,
+     a small grey label and a serif heading. Every labelled section gets an id so the contents list can jump to it. */
+  const ids={};
+  const body=(out+vsec("In one line","",`<q class="fx-quote">${c.quote}</q>`)).replace(/<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">([^<]+)<\/span>/g,(m,l)=>{
+    let id="cs-"+l.toLowerCase().replace(/&amp;/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); while(ids[id]) id+="-x"; ids[id]=l;
+    return m.replace('<section class="fx-row reveal"',`<section class="fx-row reveal" id="${id}"`); });
+  const toc=[["cs-overview","Overview"],...Object.entries(ids)];
+  return `<div class="page vt fx cs2" style="--acc:${p.ac};--tint:${p.bg}">
+<nav class="cs-toc" aria-label="On this page">${toc.map(([id,l],i)=>`<button type="button" data-to="${id}"${i===0?' class="on"':""}>${l}</button>`).join("")}</nav>
+<section class="fx-top" id="cs-overview"><div class="wrap">
+  <figure class="vt-cover fx-cover cs-cover">${slot(p.img,p.name+" cover").replace('loading="lazy"','fetchpriority="high"')}</figure>
+  <div class="cs-head">
+    <h1 class="fx-title">${p.name}</h1>
     <dl class="fx-meta">${c.meta.map(m=>`<div><dt>${m[0]}</dt><dd>${m[1]}</dd></div>`).join("")}</dl>
     <p class="fx-intro">${c.intro}</p>
   </div>
 </div></section>
-<div class="wrap"><figure class="vt-cover fx-cover">${slot(p.img,p.name+" cover").replace('loading="lazy"','fetchpriority="high"')}</figure></div>
-${out}
-${vsec("In one line","",`<q class="fx-quote">${c.quote}</q>`)}
-<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next project</span><a class="fx-next" href="#${nx}"><span>Up next →</span><b>${np.name}</b><em>${np.line}</em></a></div></div></section>
+${body}
+<section class="fx-row reveal cs-next"><div class="wrap"><div class="fx-grid"><span class="fx-label">Next project</span><a class="fx-next" href="#${nx}"><span>Up next →</span><b>${np.name}</b><em>${np.line}</em></a></div></div></section>
 </div>`;
+}
+/* contents list on a case study: jumps to a section (buttons, since the site routes on the #hash), marks the section
+   being read, and fades out once the footer comes into view */
+function csToc(){
+  const nav=document.querySelector(".cs-toc"); if(!nav) return;
+  const btns=[...nav.querySelectorAll("button")], secs=btns.map(b=>document.getElementById(b.dataset.to)).filter(Boolean);
+  btns.forEach(b=>b.addEventListener("click",()=>{ const t=document.getElementById(b.dataset.to); if(t) window.scrollTo({top:t.getBoundingClientRect().top+scrollY-(b.dataset.to==="cs-overview"?0:96),behavior:reduce?"auto":"smooth"}); }));
+  const ft=document.querySelector("footer");
+  const tick=()=>{ if(!nav.isConnected){ removeEventListener("scroll",onS); return; }
+    let cur=secs[0]; secs.forEach(s=>{ if(s.getBoundingClientRect().top<innerHeight*.35) cur=s; });
+    btns.forEach(b=>{ const on=b.dataset.to===cur.id; if(on&&!b.classList.contains("on")&&nav.scrollHeight>nav.clientHeight) nav.scrollTo({top:b.offsetTop-nav.clientHeight/2}); b.classList.toggle("on",on); });
+    nav.classList.toggle("off",!!ft&&ft.getBoundingClientRect().top<innerHeight*.9); };
+  let q=false; const onS=()=>{ if(q) return; q=true; requestAnimationFrame(()=>{ q=false; tick(); }); };
+  addEventListener("scroll",onS,{passive:true}); tick();
 }
 
 /* ---------- Top-level pages (Nov 2026): Work (first page), About, Playground, Journal. Reached from the dock. ---------- */
@@ -944,7 +963,7 @@ function route(){
   document.querySelectorAll(".dock a[data-r]").forEach(a=>{const on=a.dataset.r===tab; a.classList.toggle("active",on); if(on) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");});
   if(view!==shown){
     app.innerHTML=view.startsWith("case:")?renderCase(h):view.startsWith("post:")?renderPost(h):PAGES[view]();
-    shown=view; window.scrollTo({top:0,behavior:"instant"}); wire(); crumb(view,h);
+    shown=view; window.scrollTo({top:0,behavior:"instant"}); wire(); crumb(view,h); csToc(); document.documentElement.classList.toggle("on-case",view.startsWith("case:"));
   }
   if(h==="contact") setTimeout(()=>document.getElementById("sec-contact").scrollIntoView({behavior:"smooth"}),30);
 }
