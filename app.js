@@ -961,17 +961,28 @@ function notesWall(){
       .then(r=>r.ok?r.json():[]).catch(()=>[]).then(rows=>{
         const live=rows.map(r=>({text:r.text,name:r.name,at:r.created_at}));
         const seen=new Set(live.map(n=>n.text+"|"+(n.name||"")));
-        /* a waiting note shows only on the sender's own device, and only for 24 hours (her ask, Nov 2026): if it isn't
-           approved by then it's treated as rejected, removed from their device here and deleted from Supabase by the
-           hourly cleanup in supabase/notes-cleanup.sql */
-        const day=Date.now()-864e5;
-        const pend=readPend().filter(n=>!seen.has(n.text+"|"+(n.name||""))&&new Date(n.at)>day); writePend(pend);
-        return [...live,...pend.map(n=>({...n,pending:true}))]; }); };
+        /* a waiting note shows only on the sender's own device until Devanshi approves or rejects it (her ask, Nov 2026).
+           Each note carries a private token; note_status (supabase/notes-cleanup.sql) says which of this device's
+           notes still exist. One that's gone was rejected, so it's dropped here too. If that check isn't set up or
+           fails, notes are kept for up to 30 days as before. Old notes without a token are dropped after 24 hours. */
+        const day=Date.now()-864e5, month=Date.now()-30*864e5;
+        const mine=readPend().filter(n=>!seen.has(n.text+"|"+(n.name||""))&&new Date(n.at)>month&&(n.token||new Date(n.at)>day));
+        const toks=mine.map(n=>n.token).filter(Boolean);
+        const check=toks.length?fetch(NOTES_DB.url.replace(/\/$/,"")+"/rest/v1/rpc/note_status",{method:"POST",headers:{...hdr,"Content-Type":"application/json"},body:JSON.stringify({tokens:toks})})
+          .then(r=>r.ok?r.json():null).catch(()=>null):Promise.resolve([]);
+        return check.then(st=>{ const alive=st?new Set(st.filter(x=>!x.approved).map(x=>x.token)):null;
+          const pend=mine.filter(n=>!n.token||!alive||alive.has(n.token)); writePend(pend);
+          return [...live,...pend.map(n=>({...n,pending:true}))]; }); }); };
   const save=n=>{ if(!NOTES_API){ writeLocal([n,...readLocal()]); return Promise.resolve(true); }
     const today=readPend().filter(x=>Date.now()-new Date(x.at)<864e5).length;
     if(today>=3) return Promise.resolve("limit");
-    return fetch(NOTES_DB.url.replace(/\/$/,"")+"/rest/v1/notes",{method:"POST",headers:{...hdr,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({text:n.text,name:n.name||null})})
-      .then(r=>{ if(!r.ok) return false; writePend([n,...readPend()]); return true; }).catch(()=>false); };
+    /* send a private token with the note so this device can later tell if it was rejected; if the database
+       doesn't have the token column yet, send the note without it */
+    const tok=(crypto.randomUUID?crypto.randomUUID():null), url=NOTES_DB.url.replace(/\/$/,"")+"/rest/v1/notes";
+    const post=body=>fetch(url,{method:"POST",headers:{...hdr,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(body)});
+    return post(tok?{text:n.text,name:n.name||null,token:tok}:{text:n.text,name:n.name||null})
+      .then(r=>r.ok||!tok?r:post({text:n.text,name:n.name||null}).then(r2=>(r2.ok&&(n._plain=true),r2)))
+      .then(r=>{ if(!r.ok) return false; const keep={text:n.text,name:n.name,at:n.at}; if(tok&&!n._plain) keep.token=tok; writePend([keep,...readPend()]); return true; }).catch(()=>false); };
   /* Masonry (Nov 2026, her ask): slimmer cards in 4 columns (3, 2, 1 on smaller screens), filled left to right.
      "New note" is a short bar at the top of the first column, so opening it only pushes that column down. */
   const newBox=document.getElementById("ntNew"); let cards=[], colK=0;
