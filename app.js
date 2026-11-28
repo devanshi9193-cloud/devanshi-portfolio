@@ -447,7 +447,12 @@ const CASES={
    {type:"cards",sh:"What we learned",items:[["Trust has to show before you commit","Ananya and Mark will only share if they can see who's in the car: verified ID and ratings before they confirm, not after."],["Luggage picks the car, not headcount","Four people off an international flight can mean seven bags. Bag count at booking should decide sedan vs SUV."],["Waiting is the hidden cost of sharing","Vikram's ₹900 saving shrinks with every minute at the belt. A clear wait limit and live co-rider status keep the deal fair."],["Fair means paying for your own distance","Equal splits feel unfair when drop-offs differ. Distance-based fares with a clear breakdown build confidence."]]}]},
   {type:"group",side:["The idea","How might we…"],p:"…help passengers from the same flight find co-riders they trust, and split one cab fairly, before they even land?",parts:[
    {type:"steps",items:[["Add your flight","Enter your flight number and drop-off. Flightmate finds passengers landing with you."],["Get matched","See verified co-riders heading your way, ratings and bags included, before you confirm."],["Split the fare","Ride together, then pay only for your share of the distance."]]},
-   {type:"img",sh:"User flow",wide:true,items:["assets/images/flightmate/fm-flow.jpg"],alt:"Flightmate user flow from landing at T3 to rating co-riders, with the alternate paths when a flight isn't found, no group is found or someone is late"}]},
+   {type:"uflow",wide:true,rows:[4,4,5],sh:"User flow",p:"The happy path from landing to rating your flightmates, and what happens when things don't go to plan.",steps:[
+    ["end","Lands at T3"],["step","01","Add flight"],["q","Flight found?","Flight not found","Check the flight number or add arrival details manually.","Back to Add flight"],
+    ["step","02","Drop-off &amp; bags"],["step","03","Preferences"],["q","Group found?","No match yet","Wait for more riders from the flight, or book a solo cab."],
+    ["step","04","Review group"],["step","05","Meet at pickup"],["q","Everyone in time?","Someone's late","Group leaves at the max wait. Fare is re-split among riders present.","Then on to On the ride"],
+    ["step","06","On the ride"],["step","07","Fare split"],["step","08","Rate co-riders"],["end","Trip done"]],
+    notes:[["Flight delayed?","Matches and the wait timer update automatically."],["Safety, always on","SOS and live trip sharing from pickup to drop-off."]]}]},
   {type:"phone",wide:true,side:["Feature 01","Start with your flight."],imgs:["assets/images/flightmate/fm-home.jpg","assets/images/flightmate/fm-flight.jpg"],p:"One flight number is all it takes. Flightmate pulls in the arrival time and terminal, and asks for drop-off and bags up front.",pts:["A flight number replaces a pickup address","Delays update matches and timers automatically","Bag count picks a car that fits everyone"]},
   {type:"phone",wide:true,side:["Feature 02","See who you'll ride with."],imgs:["assets/images/flightmate/fm-prefs.jpg","assets/images/flightmate/fm-group.jpg"],p:"Riders choose who they're comfortable with, then see every co-rider before they commit.",pts:["Verified profiles and ratings on every co-rider","Women-only rides for late-night arrivals","Your share and drop order shown before you join"]},
   {type:"phone",wide:true,side:["Feature 03","Meet up, ride safe."],imgs:["assets/images/flightmate/fm-meet.jpg","assets/images/flightmate/fm-ride.jpg"],p:"A shared timer keeps the group on track, and safety tools stay on from pickup to drop-off.",pts:["Max-wait timer with live co-rider status","Directions to the exact pickup zone","SOS and live trip sharing, one tap away"]},
@@ -456,7 +461,7 @@ const CASES={
   {type:"group",side:["Style guide","Design system."],p:"Inter throughout: Bold 700 for headings, Semibold 600 for labels and buttons, Regular 400 for body text, on a type scale of 32 · 24 · 17 · 15 · 13 · 11 px.",parts:[
    {type:"swatches",sh:"Base",colors:[["Ink","#111111"],["Grey","#6B6B6B"],["Soft","#F4F4F4"],["White","#FFFFFF"]]},
    {type:"swatches",sh:"Icons &amp; status",colors:[["Flight","#2F80ED"],["Bags","#F2994A"],["Place · SOS","#E5484D"],["Safety","#12A150"],["People","#8E4EC6"],["Share","#0EA5A4"],["Time","#F59E0B"],["Rating","#F5A800"]]},
-   {type:"img",sh:"Components",wide:true,items:["assets/images/flightmate/fm-components.jpg"],alt:"Flightmate component library: buttons, chips, inputs, rider rows, cards and status badges"}]}],
+   {type:"comps",sh:"Components",p:"The building blocks used across the eight screens. Each one is a Figma component with variants.",groups:[["Buttons","Primary for the main action on a screen, secondary for the alternative, destructive for safety actions."],["Selection controls","Toggles for on/off preferences, radio buttons for picking one option, the segmented control for short choices, and the stepper for counts."],["Tags &amp; chips","Chips let riders pick feedback; status tags show live state at a glance; the badge marks verified profiles."]]}]}],
  process:[],
  decisions:{h:"Ideas I left behind.",items:[["Split by distance","Instead of splitting the fare equally, every rider's share and kilometres are shown before paying."],["Match while still in the air","Instead of matching at the kerb after landing, Flightmate matches by flight number and confirms the group before landing."],["Live status, not a group chat","Instead of an open chat between riders, live updates like “At belt 6”, with no personal details shared."]]},
  learnings:[],
@@ -467,6 +472,63 @@ const projBySlug=slug=>PROJECTS.find(p=>slugOf(p.name)===slug);
 const vsec=(eyebrow,h,body,lead="")=>`<section class="fx-row reveal"><div class="wrap"><div class="fx-grid"><span class="fx-label">${eyebrow||""}</span><div class="fx-main">${h?`<h2 class="fx-h">${h}</h2>`:""}${lead?`<p class="fx-p">${lead}</p>`:""}${body?`<div class="vt-body">${body}</div>`:""}</div></div></div></section>`;
 const vcards=(items,cols)=>`<div class="vt-cards" style="--cols:${cols||(items.length%3===0?3:2)}">${items.map(it=>`<div class="vt-card"><h3>${it[0]}</h3><p>${it[1]}</p>${it[2]?`<p class="vt-why"><b>${it[3]||"Measure"}</b>${it[2]}</p>`:""}</div>`).join("")}</div>`;
 /* research & thinking blocks, drawn as diagrams (media blocks are handled in renderCase) */
+/* Flightmate user flow as a connected diagram (Nov 2026, her ask: laid out like an app-flow map she sent).
+   Row one runs left to right, turns down at the end, row two runs back right to left. Screens are solid pills,
+   decisions outlined pills with a diamond, start/end rounded outlines, and each "No" branch a faded dashed pill
+   under its decision with a dashed line back into the flow. Drawn as SVG; scrolls sideways on narrow screens. */
+/* Flightmate components (Nov 2026, her ask): live HTML samples in the app's own colours, framed in the site's UI, instead of the Figma frame image */
+function fmComps(b){
+  const I={back:'<svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg>',minus:'<svg viewBox="0 0 16 16"><path d="M3 8h10"/></svg>',plus:'<svg viewBox="0 0 16 16"><path d="M3 8h10M8 3v10"/></svg>',
+    call:'<svg viewBox="0 0 16 16"><path d="M5.2 2.5 3 3.2c-.6 4.6 5.2 10.4 9.8 9.8l.7-2.2-2.7-1.6-1.4 1.2C7.6 9.7 6.3 8.4 5.6 6.6l1.2-1.4z"/></svg>',nav:'<svg viewBox="0 0 16 16"><path d="M13.5 2.5 2.5 7l4.8 1.7 1.7 4.8z"/></svg>',check:'<svg viewBox="0 0 16 16"><path d="m5 8.2 2 2 4-4.2"/></svg>'};
+  const it=(l,h,c)=>`<div class="fm-ci${c?" "+c:""}"><span class="fm-cl">${l}</span><div class="fm-cx">${h}</div></div>`;
+  const btn=(t,v)=>`<span class="fmc-btn ${v}">Button</span>`;
+  const g=[
+    it("Button",`<div class="fmc-bgrid"><em>Primary</em><em>Secondary</em><em>Destructive</em>${btn(0,"pri")}${btn(0,"sec")}${btn(0,"dst")}${btn(0,"pri off")}${btn(0,"sec off")}${btn(0,"dst off")}</div>`,"wide")
+    +it("Button, small",`<span class="fmc-sm pri">${I.nav}Directions</span><span class="fmc-sm dst">SOS</span>`)
+    +it("Icon button",`<span class="fmc-ib back" aria-label="Back">${I.back}</span><span class="fmc-ib minus" aria-label="Minus">${I.minus}</span><span class="fmc-ib plus" aria-label="Plus">${I.plus}</span><span class="fmc-ib call" aria-label="Call">${I.call}</span>`)
+    +it("Link button",`<span class="fmc-link">See other options</span>`),
+    it("Toggle",`<span class="fmc-tg on" aria-label="On"></span><span class="fmc-tg" aria-label="Off"></span>`)
+    +it("Radio button",`<span class="fmc-rd on" aria-label="Selected"></span><span class="fmc-rd" aria-label="Unselected"></span>`)
+    +it("Segmented control",`<span class="fmc-seg"><b>30 min</b><span>45 min</span></span>`)
+    +it("Stepper",`<span class="fmc-step"><span class="fmc-ib minus">${I.minus}</span><b>2</b><span class="fmc-ib plus">${I.plus}</span></span>`),
+    it("Chip",`<span class="fmc-chip on">On time</span><span class="fmc-chip">On time</span>`)
+    +it("Status tag",`<span class="fmc-tag ok">Ready</span><span class="fmc-tag">On the way</span>`)
+    +it("Verified badge",`<span class="fmc-vb" aria-label="Verified">${I.check}</span>`)];
+  return `<div class="fm-comps">${b.groups.map((x,i)=>`<article class="fm-cg"><h4>${x[0]}</h4><p>${x[1]}</p><div class="fm-ctray">${g[i]}</div></article>`).join("")}</div>`;
+}
+function ufDiagram(b){
+  const esc=t=>t.replace(/&amp;/g,"&").replace(/&/g,"&amp;"), tw=t=>Math.round(esc(t).replace(/&amp;/g,"&").length*6.9+30);
+  const items=b.steps.map(x=>x[0]==="end"?{k:"end",t:x[1]}:x[0]==="step"?{k:"step",n:x[1],t:x[2]}:{k:"q",t:x[1],alt:x[2],altp:x[3],back:x[4]});
+  items.forEach(it=>it.w=tw(it.t)+(it.k==="q"?16:it.k==="step"?22:0));
+  const rows=b.rows||[items.length], H=38, gap=34, P=24, RS=206;
+  let at=0, prev=null; const rowOf=[];
+  rows.forEach((n,r)=>{ const dir=r%2?-1:1, list=items.slice(at,at+n); list.forEach(it=>{ it.r=r; it.dir=dir; it.y=P+r*RS; });
+    let edge;
+    list.forEach((it,k)=>{ if(k===0){ it.x=prev?prev.x+prev.w/2-it.w/2:P; edge=dir>0?it.x+it.w:it.x; }
+      else if(dir>0){ it.x=edge+gap; edge=it.x+it.w; } else { it.x=edge-gap-it.w; edge=it.x; } });
+    prev=list[list.length-1]; rowOf.push(list); at+=n; });
+  const minX=Math.min(...items.map(i=>i.x)); items.forEach(i=>i.x+=P-minX);
+  const W=Math.max(...items.map(i=>i.x+i.w))+P;
+  const cx=it=>it.x+it.w/2, find=t=>items.find(i=>i.t===t);
+  let lines="", alts="", nodes="";
+  const arrow=(d,cls="")=>`<path d="${d}" class="uf-ln${cls}" marker-end="url(#ufArr)"/>`;
+  const lab=(x,y,t)=>`<text x="${x}" y="${y}" class="uf-yn">${t}</text>`;
+  items.forEach((it,i)=>{ const nx=items[i+1]; if(!nx) return;
+    if(nx.r!==it.r){ lines+=arrow(`M${cx(it)} ${it.y+H}V${nx.y-3}`); if(it.k==="q") lines+=lab(cx(it)+16,it.y+H+30,"Yes"); return; }
+    const a=it.dir>0?it.x+it.w:it.x, z=it.dir>0?nx.x-3:nx.x+nx.w+3; lines+=arrow(`M${a} ${it.y+H/2}H${z}`); if(it.k==="q") lines+=lab((a+z)/2,it.y+H/2-7,"Yes"); });
+  const wrap=(t,n)=>{ const out=[]; let l=""; t.split(" ").forEach(w=>{ if((l+" "+w).trim().length>n){ out.push(l.trim()); l=w; } else l+=" "+w; }); if(l.trim()) out.push(l.trim()); return out; };
+  items.filter(it=>it.k==="q"&&it.alt).forEach(it=>{
+    const aw=tw(it.alt), ax=cx(it)-aw/2, ay=it.y+H+62;
+    lines+=arrow(`M${cx(it)} ${it.y+H}V${ay-3}`," uf-no")+`<text x="${cx(it)+8}" y="${it.y+H+34}" class="uf-yn" text-anchor="start">No</text>`;
+    alts+=`<g class="uf-alt"><rect x="${ax}" y="${ay}" width="${aw}" height="${H}" rx="8"/><text x="${cx(it)}" y="${ay+H/2+4.5}">${it.alt}</text>${wrap(it.altp,30).map((l,k)=>`<text x="${cx(it)}" y="${ay+H+18+k*15}" class="uf-sub">${l}</text>`).join("")}</g>`;
+    const tgt=it.back&&find(it.back.replace(/^(Back to|Then on to) /,""));
+    if(tgt){ const ty=tgt.y+H, rt=cx(tgt)>cx(it), sx=rt?ax+aw:ax, sy=ay+H/2, c=cx(tgt), d=rt?-8:8; lines+=arrow(`M${sx} ${sy}H${c+d}Q${c} ${sy} ${c} ${sy-8}V${ty+3}`," uf-back"); }
+  });
+  items.forEach(it=>{ const t=it.k==="step"?`<tspan class="uf-n">${it.n}</tspan>  ${it.t}`:it.t;
+    nodes+=`<g class="uf-${it.k}"><rect x="${it.x}" y="${it.y}" width="${it.w}" height="${H}" rx="${it.k==="end"?H/2:8}"/>${it.k==="q"?`<rect class="uf-dia" x="${it.x+14}" y="${it.y+H/2-4}" width="8" height="8" transform="rotate(45 ${it.x+18} ${it.y+H/2})"/>`:""}<text x="${cx(it)+(it.k==="q"?8:0)}" y="${it.y+H/2+4.5}">${t}</text></g>`; });
+  const Hh=Math.max(...items.map(i=>i.y))+H+(items.slice(-6).some(i=>i.k==="q"&&i.alt&&i.r===rows.length-1)?166:P);
+  return `<div class="uf-wrap cs-wide"><svg class="uf-svg" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="User flow: ${items.map(i=>esc(i.t)).join(", then ")}"><defs><marker id="ufArr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0.8 7 4 0 7.2" class="uf-ah"/></marker></defs>${lines}${alts}${nodes}</svg></div><div class="fm-uf-notes">${b.notes.map(n=>`<div><b>${n[0]}</b><span>${n[1]}</span></div>`).join("")}</div><p class="pain-key fm-key fm-uf-key"><span><i class="fm-k-step" aria-hidden="true"></i>Screen</span><span><i class="fm-k-q" aria-hidden="true"></i>Decision</span><span><i class="fm-k-alt" aria-hidden="true"></i>Alternate path</span></p>`;
+}
 function blockBody(b){
   let body="";
   if(b.type==="cards"||b.type==="steps") body=vcards(b.items,b.type==="steps"?3:0);
@@ -497,6 +559,8 @@ function blockBody(b){
     const cell=(v,col)=>`<td data-tool="${col}"><i class="fm-mk ${M[v][1]}" role="img" aria-label="${M[v][0]}">${v==="-"?"—":v==="?"?"?":""}</i></td>`;
     body=`<div class="pain-wrap fm-matrix"><table class="pain"><thead><tr><th scope="col">Feature</th>${b.cols.map((c,i)=>`<th scope="col"${i===0?' class="fm-us"':""}>${c}</th>`).join("")}</tr></thead><tbody>${b.rows.map(r=>`<tr><th scope="row">${r[0]}</th>${[...r[1]].map((v,i)=>cell(v,b.cols[i])).join("")}</tr>`).join("")}</tbody></table></div><p class="pain-key fm-key">${["y","p","n","-","?"].map(k=>`<span><i class="fm-mk ${M[k][1]}" aria-hidden="true">${k==="-"?"—":k==="?"?"?":""}</i>${M[k][0]}</span>`).join("")}</p>${b.note?`<p class="comp-note">${b.note}</p>`:""}`; }
   if(b.type==="opp") body=`<div class="comp-quote fm-opp"><p>${b.h}</p><span>${b.p}</span><div class="fm-opp-g">${b.items.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div></div>`;
+  if(b.type==="uflow") body=ufDiagram(b);
+  if(b.type==="comps") body=fmComps(b);
   if(b.type==="trip") body=`<div class="fm-trip"><div class="fm-trip-r"><b>${b.route}</b><span>${b.meta}</span></div><ul>${b.riders.map(r=>`<li><i class="fm-av">${r[0]}</i><span><b>${r[1]}</b>${r[2]}</span></li>`).join("")}</ul></div>`;
   if(b.type==="personas") body=`<div class="fm-ps">${b.items.map(x=>`<article class="fm-pc"><header><i class="fm-av">${x.av}</i><div><h4>${x.name}</h4><span>${x.who}</span></div></header><span class="fm-tag">${x.tag}</span><q>${x.q}</q><dl class="fm-facts">${x.facts.map(f=>`<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join("")}</dl><p class="fm-desc">${x.bio}</p><h5>Goals</h5>${li(x.goals)}<h5>Frustrations</h5>${li(x.frus)}<h5>Needs from Flightmate</h5>${li(x.needs)}<h5>What matters most</h5><dl class="fm-meter">${["Price","Safety","Speed","Comfort"].map((k,i)=>`<div><dt>${k}</dt><dd role="img" aria-label="${x.m[i]} out of 5">${[1,2,3,4,5].map(n=>`<i${n<=x.m[i]?' class="on"':""}></i>`).join("")}</dd></div>`).join("")}</dl></article>`).join("")}</div>`;
   if(b.type==="empathy") body=b.items.map(x=>`<article class="fm-em"><header><i class="fm-av">${x.av}</i><div><h4>${x.name}</h4><span>${x.ctx}</span></div></header><div class="fm-em-g">${[["Says",x.says],["Thinks",x.thinks],["Does",x.does],["Feels",x.feels]].map(q=>`<div><h5>${q[0]}</h5>${li(q[1])}</div>`).join("")}</div><div class="fm-em-pg"><div class="weak"><h5>Pains</h5>${li(x.pains)}</div><div class="strong"><h5>Gains</h5>${li(x.gains)}</div></div></article>`).join("");
